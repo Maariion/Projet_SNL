@@ -1,3 +1,11 @@
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+
+softnlabs:
+    path:    /softnlabs
+    defaults: {_controller: AppBundle:Softnlabs:index}
+
+client:
+    path:    /client
+    defaults: {_controller: AppBundle:Client:index}
