@@ -1,23 +1,35 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>The Materialize Example</title>
-        <meta name = "viewport" content = "width = device-width, initial-scale = 1">
-        <link rel = "stylesheet"
-              href = "https://fonts.googleapis.com/icon?family = Material+Icons">
-        <link rel = "stylesheet"
-              href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
-        <script type = "text/javascript" src = "https://code.jquery.com/jquery-2.1.1.min.js">
-        </script>
-        <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
-        </script>
-    </head>
+<head>
+    <title>SoftNLabs</title>
+    <meta name = "viewport" content = "width = device-width, initial-scale = 1">
+    <link rel = "stylesheet"
+          href = "https://fonts.googleapis.com/icon?family = Material+Icons">
+    <link rel = "stylesheet"
+          href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+    <script type = "text/javascript" src = "https://code.jquery.com/jquery-2.1.1.min.js">
+    </script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
+    </script>
+</head>
 
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}
-            <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-            <script type="text/javascript" src="js/materialize.js"></script>
-        {% endblock %}
-    </body>
+<body class="#eeeeee grey lighten-3">
+<nav class="#01579b light-blue darken-4">
+    <div class="nav-wrapper">
+        <img src="images/logoSoftNLabs.png" alt="Logo" width="40px" height="10px"/>
+        <ul class="right hide-on-med-and-down">
+            <li><a>12/12/2017</a></li>
+            <li><a>Utilisateur SNL</a></li>
+            <li><a href="#">Se déconnecter</a></li>
+        </ul>
+    </div>
+</nav>
+{% block body %}
+
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.js"></script>
+{% endblock %}
+</body>
 </html>
