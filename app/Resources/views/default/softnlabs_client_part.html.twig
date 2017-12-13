@@ -1,17 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="row">
-                <nav class="center-align" style="background-color: #039be5">
-                    <a class="center">
-                        <ul class="waves-effect">
-<li class="Clients" style="padding-right:100px; padding-left: 100px; background-color: #2ab7a9"><a style="font-size: x-large" href="{{ path('softnlabs_client_part')}}">Clients</a></li>
-<li class="Tickets" style="padding-right:100px; padding-left: 100px"><a style="font-size: x-large" href="{{ path('softnlabs_ticket_part')}}">Tickets</a></li>
-<li class="Statistiques" style="padding-right:100px; padding-left: 100px"><a style="font-size: x-large" href="{{ path('softnlabs_statistique_part')}}">Statistiques</a></li>
-</ul>
-</a>
-</nav>
-</div>
+    <div class="row" style="padding: 2%">
+        <nav class="center-align" style="background-color: #039be5">
+            <a class="center">
+                <ul class="waves-effect">
+                    <li class="Clients" style="padding-right:100px; padding-left: 100px; background-color: #2ab7a9"><a style="font-size: x-large" href="{{ path('softnlabs_client_part')}}">Clients</a></li>
+                    <li class="Tickets" style="padding-right:100px; padding-left: 100px"><a style="font-size: x-large" href="{{ path('softnlabs_ticket_part')}}" >Tickets</a></li>
+                    <li class="Statistiques" style="padding-right:100px; padding-left: 100px"><a style="font-size: x-large" href="{{ path('softnlabs_statistique_part')}}">Statistiques</a></li>
+                </ul>
+            </a>
+        </nav>
+    </div>
+    <div class="row; center" style="padding: 30px">
+        <a class="waves-effect waves-light btn-large" style="padding-right:100px; padding-left: 100px; font-size: x-large" href="{{ path('softnlabs_client_part')}}">
+            <i class="material-icons left">add_circle_outline</i>Nouveau Client</a>
+        <a class="waves-effect waves-light btn-large" style="padding-right:100px; padding-left: 100px; font-size: x-large" href="{{ path('softnlabs_client_part')}}"><i class="material-icons left">add_circle_outline</i>Nouvelle société</a>
+        <a class="waves-effect waves-light btn-large" style="padding-right:100px; padding-left: 100px; font-size: x-large" href="{{ path('softnlabs_client_part')}}"><i class="material-icons left">adjust</i>Modifier une société</a>
+    </div>
+
 {% endblock %}
 
 
