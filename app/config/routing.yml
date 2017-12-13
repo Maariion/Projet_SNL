@@ -9,3 +9,7 @@ softnlabs:
 client:
     path:    /client
     defaults: {_controller: AppBundle:Client:index}
+
+nouveauTicket:
+    path:    /nouveauTicket
+    defaults: {_controller: AppBundle:NouveauTicket:Client}
