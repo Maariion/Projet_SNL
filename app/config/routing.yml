@@ -15,13 +15,13 @@ nouveauTicket:
     defaults: {_controller: AppBundle:NouveauTicket:index}
 
 softnlabs_client_part:
-    path:    /softnlabs_client_part
-    defaults: {_controller: AppBundle:softnlabs_client_part:index}
+    path:    /softnlabsClientPartController
+    defaults: {_controller: AppBundle:SoftnlabsClientPart:index}
 
 softnlabs_ticket_part:
-    path:    /softnlabs_ticket_part
-    defaults: {_controller: AppBundle:softnlabs_ticket_part:index}
+    path:    /softnlabsTicketPartController
+    defaults: {_controller: AppBundle:SoftnlabsTicketPart:index}
 
 softnlabs_statistique_part:
-    path:    /softnlabs_statistique_part
-    defaults: {_controller: AppBundle:softnlabs_statistique_part:index}
+    path:    /softnlabsStatistiquePartController
+    defaults: {_controller: AppBundle:SoftnlabsStatistiquePart:index}

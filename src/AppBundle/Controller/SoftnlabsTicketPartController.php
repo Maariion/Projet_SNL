@@ -11,10 +11,10 @@ namespace AppBundle\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-class softnlabs_ticket_part extends Controller
+class SoftnlabsTicketPartController extends Controller
 {
     /**
-     * @Route("/", name="softnlabs_ticket_part")
+     * @Route("/", name="softnlabsTicketPartController")
      */
     public function indexAction(Request $request)
     {
