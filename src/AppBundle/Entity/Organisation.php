@@ -25,7 +25,7 @@ class Organisation
     /**
      * @var integer
      */
-    private $oid;
+    private $id;
 
 
     /**
@@ -101,13 +101,13 @@ class Organisation
     }
 
     /**
-     * Get oid
+     * Get id
      *
      * @return integer
      */
-    public function getOid()
+    public function getId()
     {
-        return $this->oid;
+        return $this->id;
     }
 }
 

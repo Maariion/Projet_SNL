@@ -35,7 +35,7 @@ class Utilisateur
     /**
      * @var integer
      */
-    private $organisationOid;
+    private $organisationId;
 
     /**
      * @var string
@@ -164,27 +164,27 @@ class Utilisateur
     }
 
     /**
-     * Set organisationOid
+     * Set organisationId
      *
-     * @param integer $organisationOid
+     * @param integer $organisationId
      *
      * @return Utilisateur
      */
-    public function setOrganisationOid($organisationOid)
+    public function setOrganisationId($organisationId)
     {
-        $this->organisationOid = $organisationOid;
+        $this->organisationId = $organisationId;
 
         return $this;
     }
 
     /**
-     * Get organisationOid
+     * Get organisationId
      *
      * @return integer
      */
-    public function getOrganisationOid()
+    public function getOrganisationId()
     {
-        return $this->organisationOid;
+        return $this->organisationId;
     }
 
     /**
