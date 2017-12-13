@@ -12,4 +12,4 @@ client:
 
 nouveauTicket:
     path:    /nouveauTicket
-    defaults: {_controller: AppBundle:NouveauTicket:Client}
+    defaults: {_controller: AppBundle:NouveauTicket:index}
