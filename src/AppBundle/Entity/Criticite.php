@@ -81,4 +81,3 @@ class Criticite
         return $this->idc;
     }
 }
-

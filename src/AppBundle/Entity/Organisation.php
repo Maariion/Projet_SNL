@@ -110,4 +110,3 @@ class Organisation
         return $this->id;
     }
 }
-

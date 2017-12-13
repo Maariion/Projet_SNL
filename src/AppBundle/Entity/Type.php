@@ -81,4 +81,3 @@ class Type
         return $this->idt;
     }
 }
-

@@ -52,4 +52,3 @@ class Typesysteme
         return $this->idts;
     }
 }
-

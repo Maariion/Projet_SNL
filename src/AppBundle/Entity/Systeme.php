@@ -153,4 +153,3 @@ class Systeme
         return $this->version;
     }
 }
-

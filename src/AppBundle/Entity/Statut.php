@@ -81,4 +81,3 @@ class Statut
         return $this->ids;
     }
 }
-

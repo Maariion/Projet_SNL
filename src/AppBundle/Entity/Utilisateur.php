@@ -197,4 +197,3 @@ class Utilisateur
         return $this->mail;
     }
 }
-

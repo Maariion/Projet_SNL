@@ -313,4 +313,3 @@ class Ticket
         return $this->idt;
     }
 }
-
