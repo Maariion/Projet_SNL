@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="row">
+    <div class="row" style="padding: 30px">
                 <nav class="center-align" style="background-color: #039be5">
                     <a class="center">
                         <ul class="waves-effect">
@@ -12,6 +12,15 @@
                     </a>
                 </nav>
     </div>
+    <div class="row; center" style="padding: 30px">
+        <a class="waves-effect waves-light btn"><i class="material-icons left">cloud</i>button</a>
+        <a class="waves-effect waves-light btn-large" style="padding-right:100px; padding-left: 100px; font-size: x-large" href="{{ path('softnlabs_client_part')}}">
+            <i class="material-icons left">add_circle_outline</i>
+            Nouveau Client</a>
+        <a class="waves-effect waves-light btn-large" style="padding-right:100px; padding-left: 100px; font-size: x-large" href="{{ path('softnlabs_client_part')}}"><i class="material-icons left">add_circle_outline</i>Nouvelle société</a>
+        <a class="waves-effect waves-light btn-large" style="padding-right:100px; padding-left: 100px; font-size: x-large" href="{{ path('softnlabs_client_part')}}"><i class="material-icons left">adjust</i>Modifier une société</a>
+    </div>
+
 {% endblock %}
 
 
