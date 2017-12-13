@@ -14,6 +14,7 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
+        /*
         $em = $this->getDoctrine()->getManager();
 
         $user = new Utilisateur();
@@ -29,7 +30,7 @@ class DefaultController extends Controller
         $em->persist($user);
 
         $em->flush();
-
+        */
 
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [
