@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="row">
+    <div class="row"  style="padding: 2%">
         <nav class="left-align-align" style="background-color: #039be5">
             <a class="center">
                 <ul class="waves-effect">
@@ -11,6 +11,38 @@
                 </ul>
             </a>
         </nav>
+    </div>
+    <div>
+        <header style="font-size: x-large" class="centered">
+            Tableau de vos tickets
+        </header>
+        <br/>
+        <table>
+            <thead>
+            <tr style="font-size: larger" class="centered">
+                <th>Numéro du ticket</th>
+                <th>Titre du ticket</th>
+                <th>Nom du demandeur</th>
+                <th>Société</th>
+            </tr>
+            </thead>
+
+            <tbody class="centered">
+            <tr>
+                <td>1</td>
+                <td>Bienvenue</td>
+                <td>Marion</td>
+                <td>Polaris</td>
+            </tr>
+
+            <tr>
+                <td>2</td>
+                <td>Bonjour</td>
+                <td>Clément</td>
+                <td>Polaris</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 {% endblock %}
 
