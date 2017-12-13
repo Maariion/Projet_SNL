@@ -51,4 +51,19 @@ class Typesysteme
     {
         return $this->idts;
     }
+    /**
+     * @var integer
+     */
+    private $idtsys;
+
+
+    /**
+     * Get idtsys
+     *
+     * @return integer
+     */
+    public function getIdtsys()
+    {
+        return $this->idtsys;
+    }
 }

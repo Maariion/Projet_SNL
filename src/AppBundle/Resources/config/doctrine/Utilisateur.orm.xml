@@ -2,9 +2,9 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="AppBundle\Entity\Utilisateur" table="utilisateur">
     <indexes>
-      <index name="Utilisateur_Organisation" columns="Organisation_ID"/>
+      <index name="Utilisateur_Organisation" columns="Organisation_OID"/>
     </indexes>
-    <id name="mail" type="string" column="Mail" length="50">
+    <id name="idutil" type="integer" column="IDUtil">
       <generator strategy="IDENTITY"/>
     </id>
     <field name="nom" type="string" column="Nom" length="30" nullable="false">
@@ -13,6 +13,11 @@
       </options>
     </field>
     <field name="prenom" type="string" column="Prenom" length="30" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="mail" type="string" column="Mail" length="50" nullable="false">
       <options>
         <option name="fixed"/>
       </options>
@@ -28,7 +33,7 @@
         <option name="fixed"/>
       </options>
     </field>
-    <field name="organisationId" type="integer" column="Organisation_ID" nullable="false">
+    <field name="organisationOid" type="integer" column="Organisation_OID" nullable="false">
       <options>
         <option name="unsigned"/>
       </options>

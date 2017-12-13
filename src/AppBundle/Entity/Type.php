@@ -80,4 +80,19 @@ class Type
     {
         return $this->idt;
     }
+    /**
+     * @var integer
+     */
+    private $idtyp;
+
+
+    /**
+     * Get idtyp
+     *
+     * @return integer
+     */
+    public function getIdtyp()
+    {
+        return $this->idtyp;
+    }
 }

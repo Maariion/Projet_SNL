@@ -196,4 +196,62 @@ class Utilisateur
     {
         return $this->mail;
     }
+
+    /**
+     * Set mail
+     *
+     * @param string $mail
+     *
+     * @return Utilisateur
+     */
+    public function setMail($mail)
+    {
+        $this->mail = $mail;
+
+        return $this;
+    }
+    /**
+     * @var integer
+     */
+    private $organisationOid;
+
+    /**
+     * @var integer
+     */
+    private $idutil;
+
+
+    /**
+     * Set organisationOid
+     *
+     * @param integer $organisationOid
+     *
+     * @return Utilisateur
+     */
+    public function setOrganisationOid($organisationOid)
+    {
+        $this->organisationOid = $organisationOid;
+
+        return $this;
+    }
+
+    /**
+     * Get organisationOid
+     *
+     * @return integer
+     */
+    public function getOrganisationOid()
+    {
+        return $this->organisationOid;
+    }
+
+    /**
+     * Get idutil
+     *
+     * @return integer
+     */
+    public function getIdutil()
+    {
+        return $this->idutil;
+    }
 }

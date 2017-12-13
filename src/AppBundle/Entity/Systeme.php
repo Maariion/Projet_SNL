@@ -152,4 +152,33 @@ class Systeme
     {
         return $this->version;
     }
+    /**
+     * @var integer
+     */
+    private $idsys;
+
+
+    /**
+     * Set idsys
+     *
+     * @param integer $idsys
+     *
+     * @return Systeme
+     */
+    public function setIdsys($idsys)
+    {
+        $this->idsys = $idsys;
+
+        return $this;
+    }
+
+    /**
+     * Get idsys
+     *
+     * @return integer
+     */
+    public function getIdsys()
+    {
+        return $this->idsys;
+    }
 }

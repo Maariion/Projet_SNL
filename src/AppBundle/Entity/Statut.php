@@ -80,4 +80,19 @@ class Statut
     {
         return $this->ids;
     }
+    /**
+     * @var integer
+     */
+    private $idsta;
+
+
+    /**
+     * Get idsta
+     *
+     * @return integer
+     */
+    public function getIdsta()
+    {
+        return $this->idsta;
+    }
 }

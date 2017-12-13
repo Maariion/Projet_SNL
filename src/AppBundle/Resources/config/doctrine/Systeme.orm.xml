@@ -4,7 +4,7 @@
     <indexes>
       <index name="Systeme_TypeSysteme" columns="TypeSysteme_IdTS"/>
     </indexes>
-    <id name="ids" type="integer" column="IdS"/>
+    <id name="idsys" type="integer" column="IdSys"/>
     <id name="version" type="integer" column="Version"/>
     <field name="nom" type="string" column="Nom" length="50" nullable="false">
       <options>

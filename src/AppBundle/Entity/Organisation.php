@@ -109,4 +109,19 @@ class Organisation
     {
         return $this->id;
     }
+    /**
+     * @var integer
+     */
+    private $idorg;
+
+
+    /**
+     * Get idorg
+     *
+     * @return integer
+     */
+    public function getIdorg()
+    {
+        return $this->idorg;
+    }
 }

@@ -80,4 +80,19 @@ class Criticite
     {
         return $this->idc;
     }
+    /**
+     * @var integer
+     */
+    private $idcrit;
+
+
+    /**
+     * Get idcrit
+     *
+     * @return integer
+     */
+    public function getIdcrit()
+    {
+        return $this->idcrit;
+    }
 }

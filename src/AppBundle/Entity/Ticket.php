@@ -312,4 +312,77 @@ class Ticket
     {
         return $this->idt;
     }
+    /**
+     * @var integer
+     */
+    private $utilisateurClient;
+
+    /**
+     * @var integer
+     */
+    private $utilisateurConsultant;
+
+    /**
+     * @var integer
+     */
+    private $idtick;
+
+
+    /**
+     * Set utilisateurClient
+     *
+     * @param integer $utilisateurClient
+     *
+     * @return Ticket
+     */
+    public function setUtilisateurClient($utilisateurClient)
+    {
+        $this->utilisateurClient = $utilisateurClient;
+
+        return $this;
+    }
+
+    /**
+     * Get utilisateurClient
+     *
+     * @return integer
+     */
+    public function getUtilisateurClient()
+    {
+        return $this->utilisateurClient;
+    }
+
+    /**
+     * Set utilisateurConsultant
+     *
+     * @param integer $utilisateurConsultant
+     *
+     * @return Ticket
+     */
+    public function setUtilisateurConsultant($utilisateurConsultant)
+    {
+        $this->utilisateurConsultant = $utilisateurConsultant;
+
+        return $this;
+    }
+
+    /**
+     * Get utilisateurConsultant
+     *
+     * @return integer
+     */
+    public function getUtilisateurConsultant()
+    {
+        return $this->utilisateurConsultant;
+    }
+
+    /**
+     * Get idtick
+     *
+     * @return integer
+     */
+    public function getIdtick()
+    {
+        return $this->idtick;
+    }
 }
