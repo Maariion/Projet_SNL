@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Ticket" table="ticket">
+    <indexes>
+      <index name="Ticket_Criticite" columns="Criticite_IDC"/>
+      <index name="Ticket_Statut" columns="Statut_IDS"/>
+      <index name="Ticket_Systeme" columns="Systeme_IdS,Systeme_Version"/>
+      <index name="Ticket_Type" columns="Type_IdT"/>
+      <index name="Ticket_Utilisateur_Assigne" columns="Utilisateur_Mail_Client"/>
+      <index name="Ticket_Utilisateur_Client" columns="Utilisateur_Mail_Assigne"/>
+    </indexes>
+    <id name="idt" type="integer" column="IdT">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="description" type="integer" column="Description" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="tpsprisecompte" type="datetime" column="TpsPriseCompte" nullable="false"/>
+    <field name="tpsresolution" type="datetime" column="TpsResolution" nullable="false"/>
+    <field name="utilisateurMailClient" type="string" column="Utilisateur_Mail_Client" length="50" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="utilisateurMailAssigne" type="string" column="Utilisateur_Mail_Assigne" length="50" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="typeIdt" type="integer" column="Type_IdT" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="statutIds" type="integer" column="Statut_IDS" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="criticiteIdc" type="integer" column="Criticite_IDC" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="systemeIds" type="integer" column="Systeme_IdS" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="systemeVersion" type="integer" column="Systeme_Version" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

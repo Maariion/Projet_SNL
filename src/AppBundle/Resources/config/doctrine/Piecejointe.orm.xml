@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Piecejointe" table="piecejointe">
+    <indexes>
+      <index name="PieceJointe_Ticket" columns="Ticket_IdT"/>
+    </indexes>
+    <id name="idpj" type="integer" column="IdPJ">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="description" type="text" column="Description" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="ticketIdt" type="integer" column="Ticket_IdT" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>
