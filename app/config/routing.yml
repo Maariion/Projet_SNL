@@ -13,3 +13,15 @@ client:
 nouveauTicket:
     path:    /nouveauTicket
     defaults: {_controller: AppBundle:NouveauTicket:index}
+
+softnlabs_client_part:
+    path:    /softnlabs_client_part
+    defaults: {_controller: AppBundle:softnlabs_client_part:index}
+
+softnlabs_ticket_part:
+    path:    /softnlabs_ticket_part
+    defaults: {_controller: AppBundle:softnlabs_ticket_part:index}
+
+softnlabs_statistique_part:
+    path:    /softnlabs_statistique_part
+    defaults: {_controller: AppBundle:softnlabs_statistique_part:index}
