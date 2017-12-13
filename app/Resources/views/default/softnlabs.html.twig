@@ -1,29 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
     <div class="row">
-        <div class="col s12 m6">
-            <div class="card blue-grey darken-1">
-                <nav class="nav-extended">
-                    <div class="nav-content">
-                        <ul class="tabs tabs-transparent">
-                            <li class="Clients"><a class="active" href="#Clients">Clients</a></li>
-                            <li class="Tickets"><a class="active" href="#Tickets">Tickets</a></li>
-                            <li class="Statistiques"><a class="active" href="#Statistiques">Statistiques</a></li>
+                <nav class="center-align" style="background-color: #039be5">
+                    <a class="center">
+                        <ul class="waves-effect">
+                            <li class="Clients" style="padding-right:100px; padding-left: 100px"><a style="font-size: x-large" href="#Clients">Clients</a></li>
+                            <li class="Tickets" style="padding-right:100px; padding-left: 100px"><a style="font-size: x-large" href="#Tickets">Tickets</a></li>
+                            <li class="Statistiques" style="padding-right:100px; padding-left: 100px"><a style="font-size: x-large" href="#Statistiques">Statistiques</a></li>
                         </ul>
-                    </div>
+                    </a>
                 </nav>
-                <div id="Clients" class="col s12">Clients</div>
-                <div id="Tickets" class="col s12">Tickets</div>
-                <div id="Statistiques" class="col s12">Statistiques</div>
-
-
-                <div class="card-action">
-                    <a href="#">test 1 marion</a>
-                </div>
-            </div>
-        </div>
     </div>
 {% endblock %}
 
