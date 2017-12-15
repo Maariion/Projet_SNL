@@ -26,7 +26,10 @@ softnlabs_statistique_part:
     path:    /softnlabsStatistiquePartController
     defaults: {_controller: AppBundle:SoftnlabsStatistiquePart:index}
 
-
 login_check:
     path:    /logincheck
     defaults: {_controller: AppBundle:Accueil:EssaiConnexion}
+
+index:
+    path:    /connexion
+    defaults: {_controller: AppBundle:Connexion:index}
