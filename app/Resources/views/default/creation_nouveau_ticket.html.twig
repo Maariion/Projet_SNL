@@ -58,6 +58,22 @@
             </div>
         </form>
     </div>
+    <form action="#">
+        <div class="file-field input-field">
+            <div class="btn">
+                <span>Fichiers</span>
+                <input type="file" multiple>
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" placeholder="Mettre ici une ou plusieurs pièce jointe">
+            </div>
+        </div>
+    </form>
+    <div class="center-align">
+    <button class="btn waves-effect waves-light" type="submit" name="enregistrer" >Envoyer
+        <i class="material-icons right">send</i>
+    </button>
+    </div>
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
