@@ -14,6 +14,18 @@ nouveauTicket:
     path:    /nouveauTicket
     defaults: {_controller: AppBundle:NouveauTicket:index}
 
+nouveauClient:
+    path:    /nouveauClient
+    defaults: {_controller: AppBundle:NouveauClient:index}
+
+nouvelleSociete:
+    path:    /nouvelleSociete
+    defaults: {_controller: AppBundle:NouvelleSociete:index}
+
+modificationSociete:
+    path:    /modificationSociete
+    defaults: {_controller: AppBundle:ModificationSociete:index}
+
 softnlabs_client_part:
     path:    /softnlabsClient
     defaults: {_controller: AppBundle:SoftnlabsClientPart:index}

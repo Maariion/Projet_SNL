@@ -8,7 +8,7 @@
             <a class="center">
                 <ul class="waves-effect">
                     <li class="Clients" style="padding-right:100px; padding-left: 100px">
-                        <a style="font-size: x-large" href="{{ path('client')}}">Retour</a>
+                        <a style="font-size: x-large" href="{{ path('softnlabs_client_part')}}">Retour</a>
                     </li>
                 </ul>
             </a>
@@ -16,56 +16,11 @@
     </div>
 
     <header style="font-size: x-large" class="centered">
-        Créer un nouveau client
+        Créationd'un nouveau client
     </header>
     <br/>
 
-    <div class="row">
-        <div class="input-field col s12">
-            <select>
-                <option value="" disabled selected>Choisir une option</option>
-                <option value="1">LIMS</option>
-                <option value="2">ELN</option>
-                <option value="3">Autres</option>
-            </select>
-            <label>Solution</label>
-        </div>
-        <div class="input-field col s12">
-            <select>
-                <option value="" disabled selected>Choisir une option</option>
-                <option value="1">Bloquante</option>
-                <option value="2">Haute</option>
-                <option value="3">Moyenne</option>
-                <option value="4">Basse</option>
-            </select>
-            <label>Criticité</label>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="input-field col s12">
-            <input id="last_name" type="text" class="validate">
-            <label for="Titre">Titre</label>
-        </div>
-    </div>
-    <div class="row">
-        <form class="col s12">
-            <div class="row">
-                <div class="input-field col s12">
-                    <textarea id="Description" class="materialize-textarea"></textarea>
-                    <label for="Description">Description</label>
-                </div>
-            </div>
-        </form>
-    </div>
-    {% block javascripts %}
-        {{ parent() }}
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $('select').material_select();
-            });
-        </script>
-    {% endblock %}
 {% endblock %}
 
 
