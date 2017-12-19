@@ -12,11 +12,33 @@
             </a>
         </nav>
     </div>
-    <div class="row; center" style="padding: 0.4%">
-        <a class="waves-effect waves-light btn-large" style="padding-right:100px; padding-left: 100px; font-size: x-large" href="{{ path('softnlabs_statistique_part')}}"><i class="material-icons left">add_circle_outline</i>Nouveau Client</a>
-        <a class="waves-effect waves-light btn-large" style="padding-right:100px; padding-left: 100px; font-size: x-large" href="{{ path('softnlabs_statistique_part')}}"><i class="material-icons left">add_circle_outline</i>Nouvelle société</a>
-        <a class="waves-effect waves-light btn-large" style="padding-right:100px; padding-left: 100px; font-size: x-large" href="{{ path('softnlabs_statistique_part')}}"><i class="material-icons left">adjust</i>Modifier une société</a>
+    <!-- Dropdown Structure -->
+    <ul id="dropdown1" class="dropdown-content">
+        <li><a href="{{ path('softnlabs_statistique_part')}}">Bloquante</a></li>
+        <li class="divider"></li>
+        <li><a href="{{ path('softnlabs_statistique_part')}}">Haute</a></li>
+        <li class="divider"></li>
+        <li><a href="{{ path('softnlabs_statistique_part')}}">Moyenne</a></li>
+        <li class="divider"></li>
+        <li><a href="{{ path('softnlabs_statistique_part')}}">Basse</a></li>
+    </ul>
+    <div style="padding-left: 4%;padding-right: 4%">
+        <div class="navbar-fixed">
+            <ul class="left hide-on-med-and-down">
+                <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Priorité<i class="material-icons right">arrow_drop_down</i></a></li>
+            </ul>
+        </div>
     </div>
+
+    {% block javascripts %}
+        {{ parent() }}
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('select').material_select();
+                $(".dropdown-button").dropdown();
+            });
+        </script>
+    {% endblock %}
 {% endblock %}
 
 
