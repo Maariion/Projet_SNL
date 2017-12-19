@@ -254,4 +254,33 @@ class Utilisateur
     {
         return $this->idutil;
     }
+    /**
+     * @var integer
+     */
+    private $idorg;
+
+
+    /**
+     * Set idorg
+     *
+     * @param integer $idorg
+     *
+     * @return Utilisateur
+     */
+    public function setIdorg($idorg)
+    {
+        $this->idorg = $idorg;
+
+        return $this;
+    }
+
+    /**
+     * Get idorg
+     *
+     * @return integer
+     */
+    public function getIdorg()
+    {
+        return $this->idorg;
+    }
 }

@@ -80,4 +80,62 @@ class Piecejointe
     {
         return $this->idpj;
     }
+    /**
+     * @var integer
+     */
+    private $idtick;
+
+    /**
+     * @var string
+     */
+    private $objet;
+
+
+    /**
+     * Set idtick
+     *
+     * @param integer $idtick
+     *
+     * @return Piecejointe
+     */
+    public function setIdtick($idtick)
+    {
+        $this->idtick = $idtick;
+
+        return $this;
+    }
+
+    /**
+     * Get idtick
+     *
+     * @return integer
+     */
+    public function getIdtick()
+    {
+        return $this->idtick;
+    }
+
+    /**
+     * Set objet
+     *
+     * @param string $objet
+     *
+     * @return Piecejointe
+     */
+    public function setObjet($objet)
+    {
+        $this->objet = $objet;
+
+        return $this;
+    }
+
+    /**
+     * Get objet
+     *
+     * @return string
+     */
+    public function getObjet()
+    {
+        return $this->objet;
+    }
 }

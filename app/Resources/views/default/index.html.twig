@@ -86,6 +86,20 @@
     </div>
 </div>
 
+<div class = "card-panel">
+    <div class="row">
+        <div class="center-align">
+            <img src="{{asset('images/logo_snl.png')}}" alt="Logo SoftNLabs" width="150">
+        </div>
+    </div>
+    <div class="row">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit">Ajouter</button>
+        {{ form_end(form) }}
+    </div>
+</div>
+
 
 {% block javascripts %}
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>

@@ -95,4 +95,33 @@ class Criticite
     {
         return $this->idcrit;
     }
+    /**
+     * @var string
+     */
+    private $chaine;
+
+
+    /**
+     * Set chaine
+     *
+     * @param string $chaine
+     *
+     * @return Criticite
+     */
+    public function setChaine($chaine)
+    {
+        $this->chaine = $chaine;
+
+        return $this;
+    }
+
+    /**
+     * Get chaine
+     *
+     * @return string
+     */
+    public function getChaine()
+    {
+        return $this->chaine;
+    }
 }

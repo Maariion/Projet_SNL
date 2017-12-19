@@ -385,4 +385,207 @@ class Ticket
     {
         return $this->idtick;
     }
+    /**
+     * @var string
+     */
+    private $titre;
+
+    /**
+     * @var integer
+     */
+    private $idtyp;
+
+    /**
+     * @var integer
+     */
+    private $idsta;
+
+    /**
+     * @var integer
+     */
+    private $idcrit;
+
+    /**
+     * @var integer
+     */
+    private $idutilClient;
+
+    /**
+     * @var integer
+     */
+    private $idutilConsultant;
+
+    /**
+     * @var integer
+     */
+    private $idsys;
+
+
+    /**
+     * Set titre
+     *
+     * @param string $titre
+     *
+     * @return Ticket
+     */
+    public function setTitre($titre)
+    {
+        $this->titre = $titre;
+
+        return $this;
+    }
+
+    /**
+     * Get titre
+     *
+     * @return string
+     */
+    public function getTitre()
+    {
+        return $this->titre;
+    }
+
+    /**
+     * Set idtyp
+     *
+     * @param integer $idtyp
+     *
+     * @return Ticket
+     */
+    public function setIdtyp($idtyp)
+    {
+        $this->idtyp = $idtyp;
+
+        return $this;
+    }
+
+    /**
+     * Get idtyp
+     *
+     * @return integer
+     */
+    public function getIdtyp()
+    {
+        return $this->idtyp;
+    }
+
+    /**
+     * Set idsta
+     *
+     * @param integer $idsta
+     *
+     * @return Ticket
+     */
+    public function setIdsta($idsta)
+    {
+        $this->idsta = $idsta;
+
+        return $this;
+    }
+
+    /**
+     * Get idsta
+     *
+     * @return integer
+     */
+    public function getIdsta()
+    {
+        return $this->idsta;
+    }
+
+    /**
+     * Set idcrit
+     *
+     * @param integer $idcrit
+     *
+     * @return Ticket
+     */
+    public function setIdcrit($idcrit)
+    {
+        $this->idcrit = $idcrit;
+
+        return $this;
+    }
+
+    /**
+     * Get idcrit
+     *
+     * @return integer
+     */
+    public function getIdcrit()
+    {
+        return $this->idcrit;
+    }
+
+    /**
+     * Set idutilClient
+     *
+     * @param integer $idutilClient
+     *
+     * @return Ticket
+     */
+    public function setIdutilClient($idutilClient)
+    {
+        $this->idutilClient = $idutilClient;
+
+        return $this;
+    }
+
+    /**
+     * Get idutilClient
+     *
+     * @return integer
+     */
+    public function getIdutilClient()
+    {
+        return $this->idutilClient;
+    }
+
+    /**
+     * Set idutilConsultant
+     *
+     * @param integer $idutilConsultant
+     *
+     * @return Ticket
+     */
+    public function setIdutilConsultant($idutilConsultant)
+    {
+        $this->idutilConsultant = $idutilConsultant;
+
+        return $this;
+    }
+
+    /**
+     * Get idutilConsultant
+     *
+     * @return integer
+     */
+    public function getIdutilConsultant()
+    {
+        return $this->idutilConsultant;
+    }
+
+    /**
+     * Set idsys
+     *
+     * @param integer $idsys
+     *
+     * @return Ticket
+     */
+    public function setIdsys($idsys)
+    {
+        $this->idsys = $idsys;
+
+        return $this;
+    }
+
+    /**
+     * Get idsys
+     *
+     * @return integer
+     */
+    public function getIdsys()
+    {
+        return $this->idsys;
+    }
 }
