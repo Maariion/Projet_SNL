@@ -222,30 +222,6 @@ class Utilisateur
 
 
     /**
-     * Set organisationOid
-     *
-     * @param integer $organisationOid
-     *
-     * @return Utilisateur
-     */
-    public function setOrganisationOid($organisationOid)
-    {
-        $this->organisationOid = $organisationOid;
-
-        return $this;
-    }
-
-    /**
-     * Get organisationOid
-     *
-     * @return integer
-     */
-    public function getOrganisationOid()
-    {
-        return $this->organisationOid;
-    }
-
-    /**
      * Get idutil
      *
      * @return integer

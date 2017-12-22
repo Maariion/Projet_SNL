@@ -15,11 +15,66 @@
         </nav>
     </div>
 
-    <header style="font-size: x-large" class="centered">
-        Création d'un nouveau client
-    </header>
-    <br/>
 
+    <div class = "card-panel">
+
+        <div class="row">
+            <div class="left-align">
+                <h2>Création d'un nouveau client</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            {{ form_start(form, {'attr': {'novalidate':'novalidate'}}) }}
+            <div class="input-field col s6">
+                <label for="appbundle_utilisateur_nom">Nom de famille</label>
+                {{ form_widget(form.nom,{'attr':{'class':'validate'}}) }}
+            </div>
+            <div class="input-field col s6">
+                <label for="appbundle_utilisateur_prenom">Prénom</label>
+                {{ form_widget(form.prenom,{'attr':{'class':'validate'}}) }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s6">
+                <label for="appbundle_utilisateur_mail">Adresse e-mail</label>
+                {{ form_widget(form.mail,{'attr':{'class':'validate'}, }) }}
+            </div>
+            <div class="input-field col s6">
+                <label for="appbundle_utilisateur_motpasse">Mot de passe</label>
+                {{ form_widget(form.motpasse,{'attr':{'class':'validate'}}) }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s6">
+                <label for="appbundle_utilisateur_role">Rôle</label>
+                {{ form_widget(form.role,{'attr':{'class':'browser-default'}}) }}
+            </div>
+            <div class="input-field col s6">
+                <label for="appbundle_utilisateur_idorg">Organisation</label>
+                {{ form_widget(form.idorg,{'attr':{'class':'validate'}}) }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="center-align">
+                <button class="btn waves-effect waves-light" type="submit" name="action">Nouveau client
+                    <i class="material-icons right">account_circle</i>
+                </button>
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+
+    </div>
+
+<script>
+    $(document).ready(function() {
+        $('select').material_select();
+    });
+</script>
 
 {% endblock %}
 

@@ -38,7 +38,6 @@
 <div class="row">
 </div>
 
-
 <div class = "card-panel">
     <div class="row">
         <div class="center-align">
@@ -46,58 +45,47 @@
         </div>
     </div>
     <div class="row">
-        <form class="col s12" action="{{ path('login_check') }}">
-            <div class="row">
-                <div class="input-field col s3">
-                </div>
-                <div class="input-field col s6">
-                    <i class="material-icons prefix">account_circle</i>
-                    <input id="icon_prefix" type="text" class="validate">
-                    <label for="icon_prefix"><font size="4">Adresse e-mail</font></label>
-                </div>
-                <div class="input-field col s3">
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s3">
-                </div>
-                <div class="input-field col s6">
-                    <i class="material-icons prefix">vpn_key</i>
-                    <input id="vpn_key" type="password" class="validate">
-                    <label for="vpn_key"><font size="4">Mot de passe</font></label>
-                </div>
-                <div class="input-field col s3">
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s3">
-                </div>
-                <div class="input-field col s6">
-                    <div class="center-align">
-                        <button class="btn waves-effect waves-light" type="submit" name="action">Se connecter
-                            <i class="material-icons right">arrow_forward</i>
-                        </button>
-                    </div>
-                </div>
-                <div class="input-field col s3">
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-
-<div class = "card-panel">
-    <div class="row">
-        <div class="center-align">
-            <img src="{{asset('images/logo_snl.png')}}" alt="Logo SoftNLabs" width="150">
+        {{ form_start(form, {'attr': {'novalidate':'novalidate'}}) }}
+        <div class="input-field col s3">
+        </div>
+        <div class="input-field col s6">
+            <i class="material-icons prefix">account_circle</i>
+            {{ form_widget(form.mail,{'attr':{'class':'validate'},
+                'label':'<i class="material-icons prefix">account_circle</i>'} ) }}
+            <label for="appbundle_utilisateur_mail"><font size="4">Adresse e-mail</font></label>
+        </div>
+        <div class="input-field col s3">
         </div>
     </div>
     <div class="row">
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button type="submit">Ajouter</button>
-        {{ form_end(form) }}
+
+        <div class="input-field col s3">
+        </div>
+        <div class="input-field col s6">
+            <i class="material-icons prefix">vpn_key</i>
+            {{ form_widget(form.motpasse,{'attr':{'class':'validate'},
+                'label':'<i class="material-icons prefix">vpn_key</i>'} ) }}
+            <label for="appbundle_utilisateur_motpasse"><font size="4">Mot de passe</font></label>
+        </div>
+        <div class="input-field col s3">
+        </div>
     </div>
+
+    <div class="row">
+    <div class="input-field col s3">
+    </div>
+    <div class="input-field col s6">
+        <div class="center-align">
+            <button class="btn waves-effect waves-light" type="submit" name="action">Se connecter
+                <i class="material-icons right">arrow_forward</i>
+            </button>
+        </div>
+    </div>
+    <div class="input-field col s3">
+    </div>
+    </div>
+
+    {{ form_end(form) }}
 </div>
 
 
