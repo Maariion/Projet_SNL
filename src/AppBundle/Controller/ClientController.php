@@ -8,6 +8,7 @@
 
 namespace AppBundle\Controller;
 
+
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,9 +20,17 @@ class ClientController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $clients = $this->getDoctrine()
+            ->getRepository('AppBundle:Utilisateur')
+            ->findAll();
+
+        if(!$clients){
+            throw $this->createNotFoundException(
+                "Aucun client n'a été trouvé"
+            );
+        }
+
         // replace this example code with whatever you need
-        return $this->render('default/client.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-        ]);
+        return $this->render('default/client.html.twig', array('clients'=>$clients));
     }
 }
