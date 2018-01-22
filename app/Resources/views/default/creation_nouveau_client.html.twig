@@ -50,11 +50,13 @@
         <div class="row">
             <div class="input-field col s6">
                 <label for="appbundle_utilisateur_role">Rôle</label>
+                <br/>
                 {{ form_widget(form.role,{'attr':{'class':'browser-default'}}) }}
             </div>
             <div class="input-field col s6">
                 <label for="appbundle_utilisateur_idorg">Organisation</label>
-                {{ form_widget(form.idorg,{'attr':{'class':'validate'}}) }}
+                <br/>
+                {{ form_widget(form.idorg,{'attr':{'class':'browser-default'}}) }}
             </div>
         </div>
 
@@ -70,11 +72,15 @@
 
     </div>
 
-<script>
-    $(document).ready(function() {
-        $('select').material_select();
-    });
-</script>
+    {% block javascripts %}
+        {{ parent() }}
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('select').material_select();
+                $(".dropdown-button").dropdown();
+            });
+        </script>
+    {% endblock %}
 
 {% endblock %}
 

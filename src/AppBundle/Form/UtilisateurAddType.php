@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -26,10 +27,16 @@ class UtilisateurAddType extends AbstractType
                 'choices' => array(
                     'Consultant SNL'=> 'stock_consultant',
                     'Administrateur SNL'=>'stock_admin',
+                    'Client'=>'stock_client'
                     )
                 )
             )
-            ->add('idorg');
+            ->add('idorg', EntityType::class, array(
+                'class'=>'AppBundle\Entity\Organisation',
+                'choice_label'=>'getNom',
+                'expanded'=> false,
+                'multiple'=> false
+            ));
     }
     
     /**

@@ -42,8 +42,10 @@ class NouveauClientController extends Controller
             $user->setNom($form->getData()->getNom());
             $user->setPrenom($form->getData()->getPrenom());
             $user->setActif(1);
-            $user->setMotpasse($form->getData()->getMail());
-            $user->setIdorg($form->getData()->getIDOrg());
+            $user->setMotpasse($form->getData()->getMotpasse());
+            //le premier getIDOrg permet de récupérer l'entité Organisation depuis le formulaire, le second permet de
+            // récupérer l'identifiant de l'organisation
+            $user->setIdorg($form->getData()->getIDOrg()->getIDOrg());
             $user->setRole($form->getData()->getRole());
             $user->setMail($form->getData()->getMail());
 
