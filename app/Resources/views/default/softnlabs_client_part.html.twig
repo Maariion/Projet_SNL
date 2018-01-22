@@ -30,6 +30,10 @@
                 <th>Statut</th>
             </tr>
             </thead>
+            {% for clients in client %}
+                    {{ client.nom }}
+                <br/>
+            {% endfor %}
         </table>
     </div>
 
