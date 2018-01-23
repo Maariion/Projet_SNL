@@ -52,6 +52,7 @@ class NouveauTicketController extends Controller
             $ticket->setIdsta(1);
             $ticket->setIdutilClient(1);
             $ticket->setIdutilConsultant(1);
+
             //$ticket->setTpsprisecompte();
             //$ticket->setTpsresolution();
 

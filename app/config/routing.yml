@@ -7,7 +7,7 @@ softnlabs:
     defaults: {_controller: AppBundle:Softnlabs:index}
 
 client:
-    path:    /client
+    path:    /client/
     defaults: {_controller: AppBundle:Client:index}
 
 nouveauTicket:

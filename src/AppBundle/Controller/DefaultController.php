@@ -60,12 +60,14 @@ class DefaultController extends Controller
             if(is_null($user)){
                 return $this->render('default/index.html.twig', array('form'=>$formView));
             }
-
-            if(strpos($userMail,'softnlabs')!=true){
-                return $this->render('default/client.html.twig');
-            }
-            else{
-                return $this->render('default/softnlabs_client_part.html.twig');
+            {
+                session_start();
+                $_SESSION['usedID'] = $user->getIdutil();
+                if (strpos($userMail, 'softnlabs') != true) {
+                    return $this->render('default/client.html.twig');
+                } else {
+                    return $this->render('default/softnlabs_client_part.html.twig');
+                }
             }
         }
 
