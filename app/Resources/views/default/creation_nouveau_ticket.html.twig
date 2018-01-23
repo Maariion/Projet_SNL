@@ -3,6 +3,8 @@
 
 {% block body %}
 
+<div class="card-panel">
+
     <div class="row"  style="padding: 2%">
         <nav class="left-align-align" style="background-color: #039be5">
             <a class="center">
@@ -15,31 +17,36 @@
         </nav>
     </div>
 
-    <header style="font-size: x-large" class="centered">
+    <h2>
         Créer un ticket
-    </header>
+    </h2>
+
     <br/>
 
     <div class="row">
+
         <div class="input-field col s12">
-            <select>
+            <select name="solution">
                 <option value="" disabled selected>Choisir une option</option>
-                <option value="1">LIMS</option>
-                <option value="2">ELN</option>
-                <option value="3">Autres</option>
+                <option value="LIMS - LabWare">LIMS - LabWare</option>
+                <option value="LIMS - SampleManager">LIMS - SampleManager</option>
+                <option value="ELN">ELN</option>
+                <option value="Autres">Autres</option>
             </select>
             <label>Solution</label>
         </div>
+
         <div class="input-field col s12">
-            <select>
+            <select name="criticite">
                 <option value="" disabled selected>Choisir une option</option>
-                <option value="1">Bloquante</option>
-                <option value="2">Haute</option>
-                <option value="3">Moyenne</option>
-                <option value="4">Basse</option>
+                <option value="Bloquante">Bloquante</option>
+                <option value="Haute">Haute</option>
+                <option value="Moyenne">Moyenne</option>
+                <option value="Basse">Basse</option>
             </select>
             <label>Criticité</label>
         </div>
+
     </div>
 
     <div class="row">
@@ -48,6 +55,7 @@
             <label for="Titre">Titre</label>
         </div>
     </div>
+
     <div class="row">
         <form class="col s12">
             <div class="row">
@@ -58,6 +66,7 @@
             </div>
         </form>
     </div>
+
     <form action="#">
         <div class="file-field input-field">
             <div class="btn">
@@ -74,6 +83,9 @@
         <i class="material-icons right">send</i>
     </button>
     </div>
+
+</div>
+
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
