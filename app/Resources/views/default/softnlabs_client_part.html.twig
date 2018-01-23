@@ -36,6 +36,10 @@
                 <tr><td>{{ client.nom }}</td></tr>
                 <br/>
             {% endfor %}
+            {% for client in clients %}
+                <tr><td>{{ client.role }}</td></tr>
+                <br/>
+            {% endfor %}
             </tbody>
         </table>
     </div>
