@@ -181,4 +181,8 @@ class Systeme
     {
         return $this->idsys;
     }
+
+    public function getNomAndVersion(){
+        return $this->getNom().' v'.$this->getVersion();
+    }
 }

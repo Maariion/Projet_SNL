@@ -21,70 +21,85 @@
         Créer un ticket
     </h2>
 
-    <br/>
+    {{ form_start(form, {'attr': {'novalidate':'novalidate'}}) }}
 
     <div class="row">
-
-        <div class="input-field col s12">
-            <select name="solution">
-                <option value="" disabled selected>Choisir une option</option>
-                <option value="LIMS - LabWare">LIMS - LabWare</option>
-                <option value="LIMS - SampleManager">LIMS - SampleManager</option>
-                <option value="ELN">ELN</option>
-                <option value="Autres">Autres</option>
-            </select>
-            <label>Solution</label>
+        <div class="input-field col s2">
         </div>
-
-        <div class="input-field col s12">
-            <select name="criticite">
-                <option value="" disabled selected>Choisir une option</option>
-                <option value="Bloquante">Bloquante</option>
-                <option value="Haute">Haute</option>
-                <option value="Moyenne">Moyenne</option>
-                <option value="Basse">Basse</option>
-            </select>
-            <label>Criticité</label>
+        <div class="input-field col s8">
+            <label for="appbundle_utilisateur_nom">Titre du ticket</label>
+            {{ form_widget(form.titre,{'attr':{'class':'validate'}}) }}
         </div>
-
-    </div>
-
-    <div class="row">
-        <div class="input-field col s12">
-            <input id="last_name" type="text" class="validate">
-            <label for="Titre">Titre</label>
+        <div class="input-field col s2">
         </div>
     </div>
 
     <div class="row">
-        <form class="col s12">
-            <div class="row">
-                <div class="input-field col s12">
-                    <textarea id="Description" class="materialize-textarea"></textarea>
-                    <label for="Description">Description</label>
+        <div class="input-field col s2">
+        </div>
+        <div class="input-field col s8">
+            <label for="appbundle_utilisateur_nom">Description</label>
+            {{ form_widget(form.description,{'attr':{'class':'validate'}}) }}
+        </div>
+        <div class="input-field col s2">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="input-field col s3">
+        </div>
+        <div class="input-field col s2">
+            <label for="appbundle_utilisateur_nom">Type de ticket</label><br/><br/>
+            {{ form_widget(form.idtyp,{'attr':{'class':'browser-default'}}) }}
+        </div>
+        <div class="input-field col s2">
+            <label for="appbundle_utilisateur_nom">Solution concernée</label><br/><br/>
+            {{ form_widget(form.idsys,{'attr':{'class':'browser-default'}}) }}
+        </div>
+        <div class="input-field col s2">
+            <label for="appbundle_utilisateur_nom">Criticité</label><br/><br/>
+            {{ form_widget(form.idcrit,{'attr':{'class':'browser-default'}}) }}
+        </div>
+        <div class="input-field col s3">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="input-field col s3">
+        </div>
+        <div class="input-field col s6">
+            <div class="file-field input-field">
+                <div class="btn">
+                    <span>Fichiers</span>
+                    <input type="file" multiple>
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text" placeholder="Mettre ici une ou plusieurs pièce jointe">
                 </div>
             </div>
-        </form>
+        </div>
+        <div class="input-field col s3">
+        </div>
     </div>
 
-    <form action="#">
-        <div class="file-field input-field">
-            <div class="btn">
-                <span>Fichiers</span>
-                <input type="file" multiple>
-            </div>
-            <div class="file-path-wrapper">
-                <input class="file-path validate" type="text" placeholder="Mettre ici une ou plusieurs pièce jointe">
-            </div>
+    <div class="row">
+        <div class="center-align">
+            <button class="btn waves-effect waves-light" type="submit" name="enregistrer" >Envoyer
+                <i class="material-icons right">send</i>
+            </button>
         </div>
-    </form>
-    <div class="center-align">
-    <button class="btn waves-effect waves-light" type="submit" name="enregistrer" >Envoyer
-        <i class="material-icons right">send</i>
-    </button>
     </div>
+
+    {{ form_end(form) }}
 
 </div>
+
+
+
+
+
+
+
 
 {% block javascripts %}
     {{ parent() }}
