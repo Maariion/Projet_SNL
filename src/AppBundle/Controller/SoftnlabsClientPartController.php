@@ -23,12 +23,6 @@ class SoftnlabsClientPartController extends Controller
             ->getRepository('AppBundle:Utilisateur')
             ->findAll();
 
-        if(!$clients){
-            throw $this->createNotFoundException(
-                "Aucun client n'a été trouvé"
-            );
-        }
-
         // replace this example code with whatever you need
         return $this->render('default/softnlabs_client_part.html.twig', array('clients'=>$clients));
 
