@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+
 class SoftnlabsClientPartController extends Controller
 {
     /**
@@ -20,7 +21,12 @@ class SoftnlabsClientPartController extends Controller
     public function indexAction(Request $request)
     {
 
+        $em = $this->getDoctrine()->getManager();
+
+
         $session = $request->getSession();
+
+
 
         if(!$session->get('userID')){
             $session->set('userID',1);
