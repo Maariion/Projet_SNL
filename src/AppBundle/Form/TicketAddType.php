@@ -2,7 +2,9 @@
 
 namespace AppBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,15 +18,29 @@ class TicketAddType extends AbstractType
     {
         $builder
             ->add('titre',TextType::class)
-            ->add('description')
-            ->add('tpsprisecompte')
-            ->add('tpsresolution')
-            ->add('idtyp')
-            ->add('idsta')
-            ->add('idcrit')
-            ->add('idutilClient')
-            ->add('idutilConsultant')
-            ->add('idsys');
+            ->add('description',TextType::class)
+            //->add('tpsprisecompte')
+            //->add('tpsresolution')
+            ->add('idtyp',  EntityType::class, array(
+                'class'=>'AppBundle\Entity\Type',
+                'choice_label'=> 'getNom',
+                'expanded'=> false,
+                'multiple'=> false
+            ))
+            ->add('idcrit', EntityType::class, array(
+                'class'=>'AppBundle\Entity\Criticite',
+                'choice_label'=> 'getChaine',
+                'expanded'=> false,
+                'multiple'=> false
+            ))
+            //->add('idutilClient')
+            //->add('idutilConsultant')
+            ->add('idsys', EntityType::class, array(
+                'class'=>'AppBundle\Entity\Systeme',
+                'choice_label'=> 'getNomAndVersion',
+                'expanded'=> false,
+                'multiple'=> false
+            ));
     }
     
     /**

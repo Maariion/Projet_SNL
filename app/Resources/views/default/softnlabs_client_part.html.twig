@@ -33,7 +33,11 @@
             </thead>
             <tbody>
             {% for client in clients %}
-                <tr><td>{{ client.nom }}</td></tr>
+                <tr>
+                    <td>{{ client.nom }}</td>
+                    <td>{{ client.nom }}</td>
+                    <td>{{ client.role }}</td>
+                </tr>
                 <br/>
             {% endfor %}
             </tbody>

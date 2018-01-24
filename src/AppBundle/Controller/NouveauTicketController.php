@@ -40,9 +40,21 @@ class NouveauTicketController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             $ticket = new Ticket();
+
+            //Récupération des informations transmises par le formulaire
             $ticket->setTitre($form->getData()->getTitre());
             $ticket->setDescription($form->getData()->getDescription());
+            $ticket->setIdsys($form->getData()->getIDSys()->getIDSys());
+            $ticket->setIdcrit($form->getData()->getIDCrit()->getIDCrit());
+            $ticket->setIdtyp($form->getData()->getIDTyp()->getIDTyp());
 
+
+            $ticket->setIdsta(1);
+            $ticket->setIdutilClient(1);
+            $ticket->setIdutilConsultant(1);
+
+            //$ticket->setTpsprisecompte();
+            //$ticket->setTpsresolution();
 
             $em->persist($ticket);
 
@@ -53,6 +65,6 @@ class NouveauTicketController extends Controller
         }
 
         // replace this example code with whatever you need
-        return $this->render('default/client.html.twig', array('form'=>$formView));
+        return $this->render('default/creation_nouveau_ticket.html.twig', array('form'=>$formView));
     }
 }
