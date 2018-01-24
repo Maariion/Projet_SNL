@@ -22,7 +22,8 @@ class ConnexionController extends Controller
     public function indexAction(Request $request)
     {
 
-        session_destroy();
+        $session = $request->getSession();
+        $session->invalidate();
 
         /*
         $em = $this->getDoctrine()->getManager();
@@ -68,8 +69,9 @@ class ConnexionController extends Controller
                 return $this->render('default/index.html.twig', array('form'=>$formView));
             }
             {
-                session_start();
-                $_SESSION['usedID'] = $user->getIdutil();
+                $session = $request->getSession();
+                $session->set('userID', $user->getIdutil());
+
                 if (strpos($userMail, 'softnlabs') != true) {
                     return $this->render('default/client.html.twig');
                 } else {
