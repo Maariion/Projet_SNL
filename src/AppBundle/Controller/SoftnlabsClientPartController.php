@@ -19,6 +19,16 @@ class SoftnlabsClientPartController extends Controller
      */
     public function indexAction(Request $request)
     {
+
+        $session = $request->getSession();
+
+        if(!$session->get('userID')){
+            $session->set('userID',1);
+        }
+
+        $user_id = $session->get('userID');
+
+
         $clients = $this->getDoctrine()
             ->getRepository('AppBundle:Utilisateur')
             ->findAll();
