@@ -22,6 +22,8 @@ class NouveauTicketController extends Controller
     public function indexAction(Request $request)
     {
 
+        $session = $request->getSession();
+
         //On crée un nouvel utilisateur
         $ticket = new Ticket();
 
@@ -47,10 +49,10 @@ class NouveauTicketController extends Controller
             $ticket->setIdsys($form->getData()->getIDSys()->getIDSys());
             $ticket->setIdcrit($form->getData()->getIDCrit()->getIDCrit());
             $ticket->setIdtyp($form->getData()->getIDTyp()->getIDTyp());
-
+            $ticket->setIdutilClient($session->get('userID'));
 
             $ticket->setIdsta(1);
-            $ticket->setIdutilClient(1);
+            //$ticket->setIdutilClient(1);
             $ticket->setIdutilConsultant(1);
 
             //$ticket->setTpsprisecompte();

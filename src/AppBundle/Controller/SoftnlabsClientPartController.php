@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+
 class SoftnlabsClientPartController extends Controller
 {
     /**
@@ -19,12 +20,36 @@ class SoftnlabsClientPartController extends Controller
      */
     public function indexAction(Request $request)
     {
+
+        $em = $this->getDoctrine()->getManager();
+
+
+        $session = $request->getSession();
+
+
+
+        if(!$session->get('userID')){
+            $session->set('userID',1);
+        }
+
+        $user_id = $session->get('userID');
+
+
         $clients = $this->getDoctrine()
             ->getRepository('AppBundle:Utilisateur')
             ->findAll();
 
         // replace this example code with whatever you need
         return $this->render('default/softnlabs_client_part.html.twig', array('clients'=>$clients));
+    }
 
+    public function myFindDQL($nomU, $nomO, $role)
+    {
+        $query =$this->_em->createQuery('select u.nom, o.nom, u.role from organisation o join utilisateur u on o.IDOrg=u.IDOrg');
+        $query->setParameter('o.nom', $nomO);
+        return $query
+            ->getQuery()
+            ->getResult()
+            ;
     }
 }

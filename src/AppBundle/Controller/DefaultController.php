@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class DefaultController extends Controller
 {
@@ -34,6 +35,9 @@ class DefaultController extends Controller
 
         $em->flush();
         */
+
+        $session=$request->getSession();
+        $session->invalidate();
 
         //On crée un nouvel utilisateur
         $user = new Utilisateur();
@@ -61,8 +65,14 @@ class DefaultController extends Controller
                 return $this->render('default/index.html.twig', array('form'=>$formView));
             }
             {
-                session_start();
-                $_SESSION['usedID'] = $user->getIdutil();
+
+                $session = $request->getSession();
+                $session->set('userID', $user->getIdutil());
+
+                //$this->get('session')->set('id',$user->getIdutil());
+
+                //$session->set('userID', $user->getIdutil());
+
                 if (strpos($userMail, 'softnlabs') != true) {
                     return $this->render('default/client.html.twig');
                 } else {
@@ -77,4 +87,6 @@ class DefaultController extends Controller
         return $this->render('default/index.html.twig', array('form'=>$formView));
 
     }
+
+
 }
