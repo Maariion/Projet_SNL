@@ -16,31 +16,294 @@
 
 <div class = "card-panel">
 
-   <!-- Dropdown Structure -->
-    <ul id="dropdown1" class="dropdown-content">
-        <li><a href="{{ path('softnlabs_statistique_part')}}">Bloquante</a></li>
-        <li class="divider"></li>
-        <li><a href="{{ path('softnlabs_statistique_part')}}">Haute</a></li>
-        <li class="divider"></li>
-        <li><a href="{{ path('softnlabs_statistique_part')}}">Moyenne</a></li>
-        <li class="divider"></li>
-        <li><a href="{{ path('softnlabs_statistique_part')}}">Basse</a></li>
-    </ul>
-    <div style="padding-left: 4%;padding-right: 4%">
-        <div class="navbar-fixed">
-            <ul class="left hide-on-med-and-down">
-                <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Priorité<i class="material-icons right">arrow_drop_down</i></a></li>
-            </ul>
+    <div class="row">
+         <!-- début de l'entête permettant de sélectionner  les champs des statistiques-->
+        <div class="col s1">
+            <div class="col s12"><font color="white">test</font></div>
+        </div>
+        <div class="col s2">
+            <div class="input-field col s12">
+                <select multiple>
+                    <option value="" disabled selected>Cliquez pour étendre</option>
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                </select>
+                <label>Société</label>
+            </div>
+        </div>
+        <div class="col s2">
+            <div class="input-field col s12">
+                <select multiple>
+                    <option value="" disabled selected>Cliquez pour étendre</option>
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                </select>
+                <label>Année</label>
+            </div>
+        </div>
+        <div class="col s2">
+            <div class="input-field col s12">
+                <select multiple>
+                    <option value="" disabled selected>Cliquez pour étendre</option>
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                </select>
+                <label>Statut</label>
+            </div>
+        </div>
+        <div class="col s2">
+            <div class="input-field col s12">
+                <select multiple>
+                    <option value="" disabled selected>Cliquez pour étendre</option>
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                </select>
+                <label>Criticité</label>
+            </div>
+        </div>
+        <div class="col s2">
+            <div class="input-field col s12">
+                <select multiple>
+                    <option value="" disabled selected>Cliquez pour étendre</option>
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                </select>
+                <label>Type</label>
+            </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col s12 ; center-align">
+            <a class="waves-effect waves-light btn"><i class="material-icons right">check</i>Lancer les statistiques</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s1">
+            <div class="col s12"><font color="white">test</font></div>
+        </div>
+        <div id="container1"  class="col s2"></div>
+        <div id="container2"  class="col s2"></div>
+        <div id="container3"  class="col s2"></div>
+        <div id="container4"  class="col s2"></div>
+        <div id="container5"  class="col s2"></div>
+    </div>
 </div>
+
 
     {% block javascripts %}
         {{ parent() }}
         <script type="text/javascript">
             $(document).ready(function() {
                 $('select').material_select();
-                $(".dropdown-button").dropdown();
+            });
+
+
+            Highcharts.chart('container1', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Société'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>',
+                            style: {
+                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Pourcentage',
+                    colorByPoint: true,
+                    data: [{
+                        name: 'Limseo',
+                        y: 2
+                    },{
+                        name: 'Marie',
+                        y: 4
+                    }, {
+                        name: 'Jumelat',
+                        y: 2
+                    },
+                        {
+                        name: 'Datagid',
+                        y: 12
+                    }]
+                }]
+            });
+
+            Highcharts.chart('container2', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Année'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>',
+                            style: {
+                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Pourcentage',
+                    colorByPoint: true,
+                    data: [{
+                        name: '2017',
+                        y: 25
+                    }, {
+                        name: '2018',
+                        y: 75
+                    }]
+                }]
+            });
+
+            Highcharts.chart('container3', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Statut'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>',
+                            style: {
+                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Pourcentage',
+                    colorByPoint: true,
+                    data: [{
+                        name: 'En cours',
+                        y: 33
+                    }, {
+                        name: 'Fini',
+                        y: 67
+                    }]
+                }]
+            });
+
+            Highcharts.chart('container4', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Criticité'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>',
+                            style: {
+                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Pourcentage',
+                    colorByPoint: true,
+                    data: [{
+                        name: 'Urgent',
+                        y: 50
+                    }, {
+                        name: 'Bloquant',
+                        y: 50
+                    }]
+                }]
+            });
+
+            Highcharts.chart('container5', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Type'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>',
+                            style: {
+                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Pourcentage',
+                    colorByPoint: true,
+                    data: [{
+                        name: 'Incident',
+                        y: 25
+                    }, {
+                        name: 'Développement',
+                        y: 75
+                    }]
+                }]
             });
         </script>
     {% endblock %}
