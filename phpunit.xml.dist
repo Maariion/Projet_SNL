@@ -6,6 +6,7 @@
          backupGlobals="false"
          colors="true"
          bootstrap="vendor/autoload.php"
+
 >
     <php>
         <ini name="error_reporting" value="-1" />
@@ -17,6 +18,8 @@
             <directory>tests</directory>
         </testsuite>
     </testsuites>
+
+
 
     <filter>
         <whitelist>
