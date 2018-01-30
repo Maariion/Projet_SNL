@@ -18,23 +18,6 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        /*
-        $em = $this->getDoctrine()->getManager();
-
-        $user = new Utilisateur();
-        $user->setNom("Claude");
-        $user->setPrenom("LeCoq");
-        $user->setActif(1);
-        $user->setMotpasse("mdp");
-        $user->setOrganisationOid(2);
-        $user->setRole("Consultant");
-        $user->setMail("lol@gmail.com");
-
-
-        $em->persist($user);
-
-        $em->flush();
-        */
 
         $session=$request->getSession();
         $session->invalidate();
@@ -65,13 +48,9 @@ class DefaultController extends Controller
                 return $this->render('default/index.html.twig', array('form'=>$formView));
             }
             {
-
                 $session = $request->getSession();
                 $session->set('userID', $user->getIdutil());
-
-                //$this->get('session')->set('id',$user->getIdutil());
-
-                //$session->set('userID', $user->getIdutil());
+                $session->set('user', $user);
 
                 if (strpos($userMail, 'softnlabs') != true) {
                     return $this->render('default/client.html.twig');
@@ -80,8 +59,6 @@ class DefaultController extends Controller
                 }
             }
         }
-
-
 
         //On rend la vue, on passe en paramètre le html généré au dessus. Le mot 'form' est utilisé dans le html pour retrouver les bonnes data dans le tableau
         return $this->render('default/index.html.twig', array('form'=>$formView));

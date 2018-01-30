@@ -32,7 +32,7 @@ class UtilisateurAddType extends AbstractType
                     )
                 )
             )
-            ->add('idorg', EntityType::class, array(
+            ->add('organisation', EntityType::class, array(
                 'class'=>'AppBundle\Entity\Organisation',
                 'choice_label'=>'getNom',
                 'expanded'=> false,

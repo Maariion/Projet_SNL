@@ -21,13 +21,13 @@ class TicketAddType extends AbstractType
             ->add('description',TextType::class)
             //->add('tpsprisecompte')
             //->add('tpsresolution')
-            ->add('idtyp',  EntityType::class, array(
-                'class'=>'AppBundle\Entity\Type',
+            ->add('idcategorie',  EntityType::class, array(
+                'class'=>'AppBundle\Entity\Categorie',
                 'choice_label'=> 'getNom',
                 'expanded'=> false,
                 'multiple'=> false
             ))
-            ->add('idcrit', EntityType::class, array(
+            ->add('idcriticite', EntityType::class, array(
                 'class'=>'AppBundle\Entity\Criticite',
                 'choice_label'=> 'getChaine',
                 'expanded'=> false,
@@ -35,7 +35,7 @@ class TicketAddType extends AbstractType
             ))
             //->add('idutilClient')
             //->add('idutilConsultant')
-            ->add('idsys', EntityType::class, array(
+            ->add('idsysteme', EntityType::class, array(
                 'class'=>'AppBundle\Entity\Systeme',
                 'choice_label'=> 'getNomAndVersion',
                 'expanded'=> false,

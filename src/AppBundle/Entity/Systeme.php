@@ -2,54 +2,63 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Systeme
+ *
+ * @ORM\Table(name="systeme")
+ * @ORM\Entity
  */
 class Systeme
 {
     /**
      * @var string
+     *
+     * @ORM\Column(name="Version", type="string", length=10, nullable=false)
+     */
+    private $version;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Nom", type="string", length=50, nullable=false)
      */
     private $nom;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="Editeur", type="string", length=30, nullable=false)
      */
     private $editeur;
 
     /**
      * @var integer
-     */
-    private $typesystemeIdts;
-
-    /**
-     * @var integer
-     */
-    private $ids;
-
-    /**
-     * @var integer
-     */
-    private $version;
-
-
-    /**
-     * Set nom
      *
-     * @param string $nom
-     *
-     * @return Systeme
+     * @ORM\Column(name="Id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    public function setNom($nom)
+    private $id;
+
+    /**
+     * @return string
+     */
+    public function getVersion()
     {
-        $this->nom = $nom;
-
-        return $this;
+        return $this->version;
     }
 
     /**
-     * Get nom
-     *
+     * @param string $version
+     */
+    public function setVersion($version)
+    {
+        $this->version = $version;
+    }
+
+    /**
      * @return string
      */
     public function getNom()
@@ -58,22 +67,14 @@ class Systeme
     }
 
     /**
-     * Set editeur
-     *
-     * @param string $editeur
-     *
-     * @return Systeme
+     * @param string $nom
      */
-    public function setEditeur($editeur)
+    public function setNom($nom)
     {
-        $this->editeur = $editeur;
-
-        return $this;
+        $this->nom = $nom;
     }
 
     /**
-     * Get editeur
-     *
      * @return string
      */
     public function getEditeur()
@@ -82,107 +83,34 @@ class Systeme
     }
 
     /**
-     * Set typesystemeIdts
-     *
-     * @param integer $typesystemeIdts
-     *
-     * @return Systeme
+     * @param string $editeur
      */
-    public function setTypesystemeIdts($typesystemeIdts)
+    public function setEditeur($editeur)
     {
-        $this->typesystemeIdts = $typesystemeIdts;
-
-        return $this;
+        $this->editeur = $editeur;
     }
 
     /**
-     * Get typesystemeIdts
-     *
-     * @return integer
+     * @return int
      */
-    public function getTypesystemeIdts()
+    public function getId()
     {
-        return $this->typesystemeIdts;
+        return $this->id;
     }
 
     /**
-     * Set ids
-     *
-     * @param integer $ids
-     *
-     * @return Systeme
+     * @param int $id
      */
-    public function setIds($ids)
+    public function setId($id)
     {
-        $this->ids = $ids;
-
-        return $this;
+        $this->id = $id;
     }
 
-    /**
-     * Get ids
-     *
-     * @return integer
+    /*
+     * Fonction retournant le nom et la fonction du système concerné
      */
-    public function getIds()
-    {
-        return $this->ids;
-    }
-
-    /**
-     * Set version
-     *
-     * @param integer $version
-     *
-     * @return Systeme
-     */
-    public function setVersion($version)
-    {
-        $this->version = $version;
-
-        return $this;
-    }
-
-    /**
-     * Get version
-     *
-     * @return integer
-     */
-    public function getVersion()
-    {
-        return $this->version;
-    }
-    /**
-     * @var integer
-     */
-    private $idsys;
-
-
-    /**
-     * Set idsys
-     *
-     * @param integer $idsys
-     *
-     * @return Systeme
-     */
-    public function setIdsys($idsys)
-    {
-        $this->idsys = $idsys;
-
-        return $this;
-    }
-
-    /**
-     * Get idsys
-     *
-     * @return integer
-     */
-    public function getIdsys()
-    {
-        return $this->idsys;
-    }
-
-    public function getNomAndVersion(){
-        return $this->getNom().' v'.$this->getVersion();
+    public function getNomandVersion(){
+        return $this->getNom()." v".$this->getVersion();
     }
 }
+

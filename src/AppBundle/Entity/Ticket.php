@@ -2,442 +2,113 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Ticket
+ *
+ * @ORM\Table(name="ticket")
+ * @ORM\Entity
  */
 class Ticket
 {
     /**
-     * @var integer
+     * @var string
+     *
+     * @ORM\Column(name="Titre", type="string", length=150, nullable=false)
+     */
+    private $titre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Description", type="text", length=65535, nullable=false)
      */
     private $description;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="TpsPriseCompte", type="datetime", nullable=true)
      */
     private $tpsprisecompte;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="TpsResolution", type="datetime", nullable=true)
      */
     private $tpsresolution;
 
     /**
-     * @var string
-     */
-    private $utilisateurMailClient;
-
-    /**
-     * @var string
-     */
-    private $utilisateurMailAssigne;
-
-    /**
-     * @var integer
-     */
-    private $typeIdt;
-
-    /**
-     * @var integer
-     */
-    private $statutIds;
-
-    /**
-     * @var integer
-     */
-    private $criticiteIdc;
-
-    /**
-     * @var integer
-     */
-    private $systemeIds;
-
-    /**
-     * @var integer
-     */
-    private $systemeVersion;
-
-    /**
-     * @var integer
-     */
-    private $idt;
-
-
-    /**
-     * Set description
+     * @var Integer
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Categorie")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="categorie", referencedColumnName="Id")
+     * })
      *
-     * @param integer $description
-     *
-     * @return Ticket
      */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
+    private $idcategorie;
 
     /**
-     * Get description
+     * @var Integer
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Statut")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="statut", referencedColumnName="Id")
+     * })
      *
-     * @return integer
      */
-    public function getDescription()
-    {
-        return $this->description;
-    }
+    private $idstatut;
 
     /**
-     * Set tpsprisecompte
-     *
-     * @param \DateTime $tpsprisecompte
-     *
-     * @return Ticket
+     * @var Integer
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Criticite")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="criticite", referencedColumnName="Id")
+     * })
      */
-    public function setTpsprisecompte($tpsprisecompte)
-    {
-        $this->tpsprisecompte = $tpsprisecompte;
-
-        return $this;
-    }
+    private $idcriticite;
 
     /**
-     * Get tpsprisecompte
+     * @var Integer
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Utilisateur",cascade={"persist"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="client", referencedColumnName="Id")
+     * })
      *
-     * @return \DateTime
-     */
-    public function getTpsprisecompte()
-    {
-        return $this->tpsprisecompte;
-    }
-
-    /**
-     * Set tpsresolution
-     *
-     * @param \DateTime $tpsresolution
-     *
-     * @return Ticket
-     */
-    public function setTpsresolution($tpsresolution)
-    {
-        $this->tpsresolution = $tpsresolution;
-
-        return $this;
-    }
-
-    /**
-     * Get tpsresolution
-     *
-     * @return \DateTime
-     */
-    public function getTpsresolution()
-    {
-        return $this->tpsresolution;
-    }
-
-    /**
-     * Set utilisateurMailClient
-     *
-     * @param string $utilisateurMailClient
-     *
-     * @return Ticket
-     */
-    public function setUtilisateurMailClient($utilisateurMailClient)
-    {
-        $this->utilisateurMailClient = $utilisateurMailClient;
-
-        return $this;
-    }
-
-    /**
-     * Get utilisateurMailClient
-     *
-     * @return string
-     */
-    public function getUtilisateurMailClient()
-    {
-        return $this->utilisateurMailClient;
-    }
-
-    /**
-     * Set utilisateurMailAssigne
-     *
-     * @param string $utilisateurMailAssigne
-     *
-     * @return Ticket
-     */
-    public function setUtilisateurMailAssigne($utilisateurMailAssigne)
-    {
-        $this->utilisateurMailAssigne = $utilisateurMailAssigne;
-
-        return $this;
-    }
-
-    /**
-     * Get utilisateurMailAssigne
-     *
-     * @return string
-     */
-    public function getUtilisateurMailAssigne()
-    {
-        return $this->utilisateurMailAssigne;
-    }
-
-    /**
-     * Set typeIdt
-     *
-     * @param integer $typeIdt
-     *
-     * @return Ticket
-     */
-    public function setTypeIdt($typeIdt)
-    {
-        $this->typeIdt = $typeIdt;
-
-        return $this;
-    }
-
-    /**
-     * Get typeIdt
-     *
-     * @return integer
-     */
-    public function getTypeIdt()
-    {
-        return $this->typeIdt;
-    }
-
-    /**
-     * Set statutIds
-     *
-     * @param integer $statutIds
-     *
-     * @return Ticket
-     */
-    public function setStatutIds($statutIds)
-    {
-        $this->statutIds = $statutIds;
-
-        return $this;
-    }
-
-    /**
-     * Get statutIds
-     *
-     * @return integer
-     */
-    public function getStatutIds()
-    {
-        return $this->statutIds;
-    }
-
-    /**
-     * Set criticiteIdc
-     *
-     * @param integer $criticiteIdc
-     *
-     * @return Ticket
-     */
-    public function setCriticiteIdc($criticiteIdc)
-    {
-        $this->criticiteIdc = $criticiteIdc;
-
-        return $this;
-    }
-
-    /**
-     * Get criticiteIdc
-     *
-     * @return integer
-     */
-    public function getCriticiteIdc()
-    {
-        return $this->criticiteIdc;
-    }
-
-    /**
-     * Set systemeIds
-     *
-     * @param integer $systemeIds
-     *
-     * @return Ticket
-     */
-    public function setSystemeIds($systemeIds)
-    {
-        $this->systemeIds = $systemeIds;
-
-        return $this;
-    }
-
-    /**
-     * Get systemeIds
-     *
-     * @return integer
-     */
-    public function getSystemeIds()
-    {
-        return $this->systemeIds;
-    }
-
-    /**
-     * Set systemeVersion
-     *
-     * @param integer $systemeVersion
-     *
-     * @return Ticket
-     */
-    public function setSystemeVersion($systemeVersion)
-    {
-        $this->systemeVersion = $systemeVersion;
-
-        return $this;
-    }
-
-    /**
-     * Get systemeVersion
-     *
-     * @return integer
-     */
-    public function getSystemeVersion()
-    {
-        return $this->systemeVersion;
-    }
-
-    /**
-     * Get idt
-     *
-     * @return integer
-     */
-    public function getIdt()
-    {
-        return $this->idt;
-    }
-    /**
-     * @var integer
-     */
-    private $utilisateurClient;
-
-    /**
-     * @var integer
-     */
-    private $utilisateurConsultant;
-
-    /**
-     * @var integer
-     */
-    private $idtick;
-
-
-    /**
-     * Set utilisateurClient
-     *
-     * @param integer $utilisateurClient
-     *
-     * @return Ticket
-     */
-    public function setUtilisateurClient($utilisateurClient)
-    {
-        $this->utilisateurClient = $utilisateurClient;
-
-        return $this;
-    }
-
-    /**
-     * Get utilisateurClient
-     *
-     * @return integer
-     */
-    public function getUtilisateurClient()
-    {
-        return $this->utilisateurClient;
-    }
-
-    /**
-     * Set utilisateurConsultant
-     *
-     * @param integer $utilisateurConsultant
-     *
-     * @return Ticket
-     */
-    public function setUtilisateurConsultant($utilisateurConsultant)
-    {
-        $this->utilisateurConsultant = $utilisateurConsultant;
-
-        return $this;
-    }
-
-    /**
-     * Get utilisateurConsultant
-     *
-     * @return integer
-     */
-    public function getUtilisateurConsultant()
-    {
-        return $this->utilisateurConsultant;
-    }
-
-    /**
-     * Get idtick
-     *
-     * @return integer
-     */
-    public function getIdtick()
-    {
-        return $this->idtick;
-    }
-    /**
-     * @var string
-     */
-    private $titre;
-
-    /**
-     * @var integer
-     */
-    private $idtyp;
-
-    /**
-     * @var integer
-     */
-    private $idsta;
-
-    /**
-     * @var integer
-     */
-    private $idcrit;
-
-    /**
-     * @var integer
      */
     private $idutilClient;
 
     /**
-     * @var integer
+     * @var Integer
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Utilisateur", cascade={"persist"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="consultant", referencedColumnName="Id")
+     * })
+     *
      */
     private $idutilConsultant;
 
     /**
+     * @var Integer
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Systeme")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="systeme", referencedColumnName="Id")
+     * })
+     *
+     */
+    private $idsysteme;
+
+    /**
      * @var integer
+     *
+     * @ORM\Column(name="Id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idsys;
-
+    private $id;
 
     /**
-     * Set titre
-     *
-     * @param string $titre
-     *
-     * @return Ticket
-     */
-    public function setTitre($titre)
-    {
-        $this->titre = $titre;
-
-        return $this;
-    }
-
-    /**
-     * Get titre
-     *
      * @return string
      */
     public function getTitre()
@@ -446,95 +117,111 @@ class Ticket
     }
 
     /**
-     * Set idtyp
-     *
-     * @param integer $idtyp
-     *
-     * @return Ticket
+     * @param string $titre
      */
-    public function setIdtyp($idtyp)
+    public function setTitre($titre)
     {
-        $this->idtyp = $idtyp;
-
-        return $this;
+        $this->titre = $titre;
     }
 
     /**
-     * Get idtyp
-     *
-     * @return integer
+     * @return string
      */
-    public function getIdtyp()
+    public function getDescription()
     {
-        return $this->idtyp;
+        return $this->description;
     }
 
     /**
-     * Set idsta
-     *
-     * @param integer $idsta
-     *
-     * @return Ticket
+     * @param string $description
      */
-    public function setIdsta($idsta)
+    public function setDescription($description)
     {
-        $this->idsta = $idsta;
-
-        return $this;
+        $this->description = $description;
     }
 
     /**
-     * Get idsta
-     *
-     * @return integer
+     * @return \DateTime
      */
-    public function getIdsta()
+    public function getTpsprisecompte()
     {
-        return $this->idsta;
+        return $this->tpsprisecompte;
     }
 
     /**
-     * Set idcrit
-     *
-     * @param integer $idcrit
-     *
-     * @return Ticket
+     * @param \DateTime $tpsprisecompte
      */
-    public function setIdcrit($idcrit)
+    public function setTpsprisecompte($tpsprisecompte)
     {
-        $this->idcrit = $idcrit;
-
-        return $this;
+        $this->tpsprisecompte = $tpsprisecompte;
     }
 
     /**
-     * Get idcrit
-     *
-     * @return integer
+     * @return \DateTime
      */
-    public function getIdcrit()
+    public function getTpsresolution()
     {
-        return $this->idcrit;
+        return $this->tpsresolution;
     }
 
     /**
-     * Set idutilClient
-     *
-     * @param integer $idutilClient
-     *
-     * @return Ticket
+     * @param \DateTime $tpsresolution
      */
-    public function setIdutilClient($idutilClient)
+    public function setTpsresolution($tpsresolution)
     {
-        $this->idutilClient = $idutilClient;
-
-        return $this;
+        $this->tpsresolution = $tpsresolution;
     }
 
     /**
-     * Get idutilClient
-     *
-     * @return integer
+     * @return int
+     */
+    public function getIdcategorie()
+    {
+        return $this->idcategorie;
+    }
+
+    /**
+     * @param int $idcategorie
+     */
+    public function setIdcategorie($idcategorie)
+    {
+        $this->idcategorie = $idcategorie;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdstatut()
+    {
+        return $this->idstatut;
+    }
+
+    /**
+     * @param int $idstatut
+     */
+    public function setIdstatut($idstatut)
+    {
+        $this->idstatut = $idstatut;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdcriticite()
+    {
+        return $this->idcriticite;
+    }
+
+    /**
+     * @param int $idcriticite
+     */
+    public function setIdcriticite($idcriticite)
+    {
+        $this->idcriticite = $idcriticite;
+    }
+
+    /**
+     * @return int
      */
     public function getIdutilClient()
     {
@@ -542,23 +229,15 @@ class Ticket
     }
 
     /**
-     * Set idutilConsultant
-     *
-     * @param integer $idutilConsultant
-     *
-     * @return Ticket
+     * @param int $idutilClient
      */
-    public function setIdutilConsultant($idutilConsultant)
+    public function setIdutilClient($idutilClient)
     {
-        $this->idutilConsultant = $idutilConsultant;
-
-        return $this;
+        $this->idutilClient = $idutilClient;
     }
 
     /**
-     * Get idutilConsultant
-     *
-     * @return integer
+     * @return int
      */
     public function getIdutilConsultant()
     {
@@ -566,26 +245,45 @@ class Ticket
     }
 
     /**
-     * Set idsys
-     *
-     * @param integer $idsys
-     *
-     * @return Ticket
+     * @param int $idutilConsultant
      */
-    public function setIdsys($idsys)
+    public function setIdutilConsultant($idutilConsultant)
     {
-        $this->idsys = $idsys;
-
-        return $this;
+        $this->idutilConsultant = $idutilConsultant;
     }
 
     /**
-     * Get idsys
-     *
-     * @return integer
+     * @return int
      */
-    public function getIdsys()
+    public function getIdsysteme()
     {
-        return $this->idsys;
+        return $this->idsysteme;
     }
+
+    /**
+     * @param int $idsysteme
+     */
+    public function setIdsysteme($idsysteme)
+    {
+        $this->idsysteme = $idsysteme;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+
 }
+

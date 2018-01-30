@@ -2,44 +2,40 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Statut
+ *
+ * @ORM\Table(name="statut")
+ * @ORM\Entity
  */
 class Statut
 {
     /**
      * @var string
+     *
+     * @ORM\Column(name="Definition", type="string", length=250, nullable=false)
      */
     private $definition;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="Version", type="integer", nullable=false)
      */
     private $version;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="Id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $ids;
-
+    private $id;
 
     /**
-     * Set definition
-     *
-     * @param string $definition
-     *
-     * @return Statut
-     */
-    public function setDefinition($definition)
-    {
-        $this->definition = $definition;
-
-        return $this;
-    }
-
-    /**
-     * Get definition
-     *
      * @return string
      */
     public function getDefinition()
@@ -48,51 +44,13 @@ class Statut
     }
 
     /**
-     * Set version
-     *
-     * @param integer $version
-     *
-     * @return Statut
+     * @param string $definition
      */
-    public function setVersion($version)
+    public function setDefinition($definition)
     {
-        $this->version = $version;
-
-        return $this;
+        $this->definition = $definition;
     }
 
-    /**
-     * Get version
-     *
-     * @return integer
-     */
-    public function getVersion()
-    {
-        return $this->version;
-    }
 
-    /**
-     * Get ids
-     *
-     * @return integer
-     */
-    public function getIds()
-    {
-        return $this->ids;
-    }
-    /**
-     * @var integer
-     */
-    private $idsta;
-
-
-    /**
-     * Get idsta
-     *
-     * @return integer
-     */
-    public function getIdsta()
-    {
-        return $this->idsta;
-    }
 }
+

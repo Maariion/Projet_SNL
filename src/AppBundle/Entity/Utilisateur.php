@@ -2,64 +2,94 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Utilisateur
+ *
+ * @ORM\Table(name="utilisateur")
+ * @ORM\Entity
  */
 class Utilisateur
 {
     /**
      * @var string
+     *
+     * @ORM\Column(name="Nom", type="string", length=30, nullable=false)
      */
     private $nom;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="Prenom", type="string", length=30, nullable=false)
      */
     private $prenom;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="Mail", type="string", length=50, nullable=false)
+     */
+    private $mail;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Role", type="string", length=50, nullable=false)
      */
     private $role;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="Actif", type="boolean", nullable=false)
      */
     private $actif;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="MotPasse", type="string", length=60, nullable=false)
      */
     private $motpasse;
 
     /**
-     * @var integer
+     * @var Integer
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="organisation", referencedColumnName="Id")
+     * })
+     *
      */
-    private $organisationId;
+    private $organisation;
 
     /**
-     * @var string
+     * @var Integer
+     *
+     * @ORM\Column(name="Id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $mail;
-
+    private $id;
 
     /**
-     * Set nom
-     *
-     * @param string $nom
-     *
-     * @return Utilisateur
+     * @return int
      */
-    public function setNom($nom)
+    public function getOrganisation()
     {
-        $this->nom = $nom;
-
-        return $this;
+        return $this->organisation;
     }
 
     /**
-     * Get nom
-     *
+     * @param int $organisation
+     */
+    public function setOrganisation($organisation)
+    {
+        $this->organisation = $organisation;
+    }
+
+    /**
      * @return string
      */
     public function getNom()
@@ -68,22 +98,14 @@ class Utilisateur
     }
 
     /**
-     * Set prenom
-     *
-     * @param string $prenom
-     *
-     * @return Utilisateur
+     * @param string $nom
      */
-    public function setPrenom($prenom)
+    public function setNom($nom)
     {
-        $this->prenom = $prenom;
-
-        return $this;
+        $this->nom = $nom;
     }
 
     /**
-     * Get prenom
-     *
      * @return string
      */
     public function getPrenom()
@@ -92,104 +114,14 @@ class Utilisateur
     }
 
     /**
-     * Set role
-     *
-     * @param string $role
-     *
-     * @return Utilisateur
+     * @param string $prenom
      */
-    public function setRole($role)
+    public function setPrenom($prenom)
     {
-        $this->role = $role;
-
-        return $this;
+        $this->prenom = $prenom;
     }
 
     /**
-     * Get role
-     *
-     * @return string
-     */
-    public function getRole()
-    {
-        return $this->role;
-    }
-
-    /**
-     * Set actif
-     *
-     * @param boolean $actif
-     *
-     * @return Utilisateur
-     */
-    public function setActif($actif)
-    {
-        $this->actif = $actif;
-
-        return $this;
-    }
-
-    /**
-     * Get actif
-     *
-     * @return boolean
-     */
-    public function getActif()
-    {
-        return $this->actif;
-    }
-
-    /**
-     * Set motpasse
-     *
-     * @param string $motpasse
-     *
-     * @return Utilisateur
-     */
-    public function setMotpasse($motpasse)
-    {
-        $this->motpasse = $motpasse;
-
-        return $this;
-    }
-
-    /**
-     * Get motpasse
-     *
-     * @return string
-     */
-    public function getMotpasse()
-    {
-        return $this->motpasse;
-    }
-
-    /**
-     * Set organisationId
-     *
-     * @param integer $organisationId
-     *
-     * @return Utilisateur
-     */
-    public function setOrganisationId($organisationId)
-    {
-        $this->organisationId = $organisationId;
-
-        return $this;
-    }
-
-    /**
-     * Get organisationId
-     *
-     * @return integer
-     */
-    public function getOrganisationId()
-    {
-        return $this->organisationId;
-    }
-
-    /**
-     * Get mail
-     *
      * @return string
      */
     public function getMail()
@@ -198,65 +130,70 @@ class Utilisateur
     }
 
     /**
-     * Set mail
-     *
      * @param string $mail
-     *
-     * @return Utilisateur
      */
     public function setMail($mail)
     {
         $this->mail = $mail;
-
-        return $this;
     }
-    /**
-     * @var integer
-     */
-    private $organisationOid;
 
     /**
-     * @var integer
+     * @return string
      */
-    private $idutil;
-
-
-    /**
-     * Get idutil
-     *
-     * @return integer
-     */
-    public function getIdutil()
+    public function getRole()
     {
-        return $this->idutil;
+        return $this->role;
     }
-    /**
-     * @var integer
-     */
-    private $idorg;
-
 
     /**
-     * Set idorg
-     *
-     * @param integer $idorg
-     *
-     * @return Utilisateur
+     * @param string $role
      */
-    public function setIdorg($idorg)
+    public function setRole($role)
     {
-        $this->idorg = $idorg;
-
-        return $this;
+        $this->role = $role;
     }
 
     /**
-     * Get idorg
-     *
-     * @return integer
+     * @return bool
      */
-    public function getIdorg()
+    public function isActif()
     {
-        return $this->idorg;
+        return $this->actif;
     }
+
+    /**
+     * @param bool $actif
+     */
+    public function setActif($actif)
+    {
+        $this->actif = $actif;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getMotpasse()
+    {
+        return $this->motpasse;
+    }
+
+    /**
+     * @param string $motpasse
+     */
+    public function setMotpasse($motpasse)
+    {
+        $this->motpasse = $motpasse;
+    }
+
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
 }
+

@@ -38,22 +38,29 @@ class NouveauClientController extends Controller
 
             $em = $this->getDoctrine()->getManager();
 
-            $user = new Utilisateur();
+
+            $user->setActif(1);
+
+            /*
             $user->setNom($form->getData()->getNom());
             $user->setPrenom($form->getData()->getPrenom());
-            $user->setActif(1);
+
             $user->setMotpasse($form->getData()->getMotpasse());
             //le premier getIDOrg permet de récupérer l'entité Organisation depuis le formulaire, le second permet de
             // récupérer l'identifiant de l'organisation
             $user->setIdorg($form->getData()->getIDOrg()->getIDOrg());
             $user->setRole($form->getData()->getRole());
             $user->setMail($form->getData()->getMail());
-
+            */
             $em->persist($user);
 
             $em->flush();
 
-            return $this->render('default/softnlabs_client_part.html.twig');
+            $clients = $this->getDoctrine()
+                ->getRepository('AppBundle:Utilisateur')
+                ->findAll();
+
+            return $this->render('default/softnlabs_client_part.html.twig', array('clients'=>$clients));
 
         }
 

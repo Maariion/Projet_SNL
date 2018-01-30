@@ -2,140 +2,91 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Piecejointe
+ *
+ * @ORM\Table(name="piecejointe")
+ * @ORM\Entity
  */
 class Piecejointe
 {
     /**
-     * @var string
-     */
-    private $description;
-
-    /**
-     * @var integer
-     */
-    private $ticketIdt;
-
-    /**
-     * @var integer
-     */
-    private $idpj;
-
-
-    /**
-     * Set description
+     * @var Integer
+     * @ORM\Column(nullable=true)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Ticket")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="ticket", referencedColumnName="Id")
+     * })
      *
-     * @param string $description
-     *
-     * @return Piecejointe
      */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Set ticketIdt
-     *
-     * @param integer $ticketIdt
-     *
-     * @return Piecejointe
-     */
-    public function setTicketIdt($ticketIdt)
-    {
-        $this->ticketIdt = $ticketIdt;
-
-        return $this;
-    }
-
-    /**
-     * Get ticketIdt
-     *
-     * @return integer
-     */
-    public function getTicketIdt()
-    {
-        return $this->ticketIdt;
-    }
-
-    /**
-     * Get idpj
-     *
-     * @return integer
-     */
-    public function getIdpj()
-    {
-        return $this->idpj;
-    }
-    /**
-     * @var integer
-     */
-    private $idtick;
+    private $idticket;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="Objet", type="blob", length=65535, nullable=false)
      */
     private $objet;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="Id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
 
     /**
-     * Set idtick
-     *
-     * @param integer $idtick
-     *
-     * @return Piecejointe
+     * @return int
      */
-    public function setIdtick($idtick)
+    public function getIdticket()
     {
-        $this->idtick = $idtick;
-
-        return $this;
+        return $this->idticket;
     }
 
     /**
-     * Get idtick
-     *
-     * @return integer
+     * @param int $idticket
      */
-    public function getIdtick()
+    public function setIdticket($idticket)
     {
-        return $this->idtick;
+        $this->idticket = $idticket;
     }
 
     /**
-     * Set objet
-     *
-     * @param string $objet
-     *
-     * @return Piecejointe
-     */
-    public function setObjet($objet)
-    {
-        $this->objet = $objet;
-
-        return $this;
-    }
-
-    /**
-     * Get objet
-     *
      * @return string
      */
     public function getObjet()
     {
         return $this->objet;
     }
+
+    /**
+     * @param string $objet
+     */
+    public function setObjet($objet)
+    {
+        $this->objet = $objet;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+
 }
+

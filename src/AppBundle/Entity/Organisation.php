@@ -2,49 +2,47 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Organisation
+ *
+ * @ORM\Table(name="organisation")
+ * @ORM\Entity
  */
 class Organisation
 {
     /**
      * @var string
+     *
+     * @ORM\Column(name="Nom", type="string", length=25, nullable=false)
      */
     private $nom;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="Description", type="text", length=65535, nullable=false)
      */
     private $description;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="Actif", type="boolean", nullable=false)
      */
     private $actif;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="Id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
-
     /**
-     * Set nom
-     *
-     * @param string $nom
-     *
-     * @return Organisation
-     */
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    /**
-     * Get nom
-     *
      * @return string
      */
     public function getNom()
@@ -53,22 +51,14 @@ class Organisation
     }
 
     /**
-     * Set description
-     *
-     * @param string $description
-     *
-     * @return Organisation
+     * @param string $nom
      */
-    public function setDescription($description)
+    public function setNom($nom)
     {
-        $this->description = $description;
-
-        return $this;
+        $this->nom = $nom;
     }
 
     /**
-     * Get description
-     *
      * @return string
      */
     public function getDescription()
@@ -77,51 +67,45 @@ class Organisation
     }
 
     /**
-     * Set actif
-     *
-     * @param boolean $actif
-     *
-     * @return Organisation
+     * @param string $description
      */
-    public function setActif($actif)
+    public function setDescription($description)
     {
-        $this->actif = $actif;
-
-        return $this;
+        $this->description = $description;
     }
 
     /**
-     * Get actif
-     *
-     * @return boolean
+     * @return bool
      */
-    public function getActif()
+    public function isActif()
     {
         return $this->actif;
     }
 
     /**
-     * Get id
-     *
-     * @return integer
+     * @param bool $actif
+     */
+    public function setActif($actif)
+    {
+        $this->actif = $actif;
+    }
+
+    /**
+     * @return int
      */
     public function getId()
     {
         return $this->id;
     }
-    /**
-     * @var integer
-     */
-    private $idorg;
-
 
     /**
-     * Get idorg
-     *
-     * @return integer
+     * @param int $id
      */
-    public function getIdorg()
+    public function setId($id)
     {
-        return $this->idorg;
+        $this->id = $id;
     }
+
+
 }
+

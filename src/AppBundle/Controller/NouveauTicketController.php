@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Ticket;
+use AppBundle\Entity\Utilisateur;
 use AppBundle\Form\TicketAddType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -22,8 +23,6 @@ class NouveauTicketController extends Controller
     public function indexAction(Request $request)
     {
 
-        $session = $request->getSession();
-
         //On crée un nouvel utilisateur
         $ticket = new Ticket();
 
@@ -33,6 +32,9 @@ class NouveauTicketController extends Controller
         //Prise en charge de l'élément request, envoyé par le formulaire lors de sa soumission
         $form->handleRequest($request);
 
+        $session = $request->getSession();
+        $ticket->setIdutilClient($session->get('user'));
+
         //On génère le html du formulaire créé, il faudra ensuite injecter ce formulaire dans une vue
         $formView = $form->createView();
 
@@ -41,9 +43,9 @@ class NouveauTicketController extends Controller
 
             $em = $this->getDoctrine()->getManager();
 
-            $ticket = new Ticket();
 
             //Récupération des informations transmises par le formulaire
+            /*
             $ticket->setTitre($form->getData()->getTitre());
             $ticket->setDescription($form->getData()->getDescription());
             $ticket->setIdsys($form->getData()->getIDSys()->getIDSys());
@@ -57,6 +59,7 @@ class NouveauTicketController extends Controller
 
             //$ticket->setTpsprisecompte();
             //$ticket->setTpsresolution();
+            */
 
             $em->persist($ticket);
 

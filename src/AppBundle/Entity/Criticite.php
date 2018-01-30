@@ -2,44 +2,40 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Criticite
+ *
+ * @ORM\Table(name="criticite")
+ * @ORM\Entity
  */
 class Criticite
 {
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="TpsReponse", type="datetime", nullable=true)
      */
     private $tpsreponse;
 
     /**
-     * @var integer
+     * @var string
+     *
+     * @ORM\Column(name="Chaine", type="string", length=50, nullable=false)
      */
-    private $version;
+    private $chaine;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="Id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idc;
-
+    private $id;
 
     /**
-     * Set tpsreponse
-     *
-     * @param \DateTime $tpsreponse
-     *
-     * @return Criticite
-     */
-    public function setTpsreponse($tpsreponse)
-    {
-        $this->tpsreponse = $tpsreponse;
-
-        return $this;
-    }
-
-    /**
-     * Get tpsreponse
-     *
      * @return \DateTime
      */
     public function getTpsreponse()
@@ -48,80 +44,45 @@ class Criticite
     }
 
     /**
-     * Set version
-     *
-     * @param integer $version
-     *
-     * @return Criticite
+     * @param \DateTime $tpsreponse
      */
-    public function setVersion($version)
+    public function setTpsreponse($tpsreponse)
     {
-        $this->version = $version;
-
-        return $this;
+        $this->tpsreponse = $tpsreponse;
     }
 
     /**
-     * Get version
-     *
-     * @return integer
-     */
-    public function getVersion()
-    {
-        return $this->version;
-    }
-
-    /**
-     * Get idc
-     *
-     * @return integer
-     */
-    public function getIdc()
-    {
-        return $this->idc;
-    }
-    /**
-     * @var integer
-     */
-    private $idcrit;
-
-
-    /**
-     * Get idcrit
-     *
-     * @return integer
-     */
-    public function getIdcrit()
-    {
-        return $this->idcrit;
-    }
-    /**
-     * @var string
-     */
-    private $chaine;
-
-
-    /**
-     * Set chaine
-     *
-     * @param string $chaine
-     *
-     * @return Criticite
-     */
-    public function setChaine($chaine)
-    {
-        $this->chaine = $chaine;
-
-        return $this;
-    }
-
-    /**
-     * Get chaine
-     *
      * @return string
      */
     public function getChaine()
     {
         return $this->chaine;
     }
+
+    /**
+     * @param string $chaine
+     */
+    public function setChaine($chaine)
+    {
+        $this->chaine = $chaine;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+
 }
+

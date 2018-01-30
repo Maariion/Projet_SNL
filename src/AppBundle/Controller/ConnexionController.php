@@ -25,24 +25,6 @@ class ConnexionController extends Controller
         $session = $request->getSession();
         $session->invalidate();
 
-        /*
-        $em = $this->getDoctrine()->getManager();
-
-        $user = new Utilisateur();
-        $user->setNom("Claude");
-        $user->setPrenom("LeCoq");
-        $user->setActif(1);
-        $user->setMotpasse("mdp");
-        $user->setOrganisationOid(2);
-        $user->setRole("Consultant");
-        $user->setMail("lol@gmail.com");
-
-
-        $em->persist($user);
-
-        $em->flush();
-        */
-
         //On crée un nouvel utilisateur
         $user = new Utilisateur();
 
@@ -71,6 +53,7 @@ class ConnexionController extends Controller
             {
                 $session = $request->getSession();
                 $session->set('userID', $user->getIdutil());
+                $session->set('user', $user);
 
                 if (strpos($userMail, 'softnlabs') != true) {
                     return $this->render('default/client.html.twig');
