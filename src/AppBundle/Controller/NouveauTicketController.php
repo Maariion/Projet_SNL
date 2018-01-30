@@ -8,6 +8,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Statut;
 use AppBundle\Entity\Ticket;
 use AppBundle\Entity\Utilisateur;
 use AppBundle\Form\TicketAddType;
@@ -32,8 +33,7 @@ class NouveauTicketController extends Controller
         //Prise en charge de l'élément request, envoyé par le formulaire lors de sa soumission
         $form->handleRequest($request);
 
-        $session = $request->getSession();
-        $ticket->setIdutilClient($session->get('user'));
+
 
         //On génère le html du formulaire créé, il faudra ensuite injecter ce formulaire dans une vue
         $formView = $form->createView();
@@ -41,8 +41,11 @@ class NouveauTicketController extends Controller
         //Si le formulaire a été soumis
         if($form->isSubmitted() && $form->isValid()){
 
-            $em = $this->getDoctrine()->getManager();
+            $session = $request->getSession();
+            $ticket->setIdutilClient($session->get('user'));
 
+
+            $em = $this->getDoctrine()->getManager();
 
             //Récupération des informations transmises par le formulaire
             /*
@@ -53,7 +56,7 @@ class NouveauTicketController extends Controller
             $ticket->setIdtyp($form->getData()->getIDTyp()->getIDTyp());
             $ticket->setIdutilClient($session->get('userID'));
 
-            $ticket->setIdsta(1);
+
             //$ticket->setIdutilClient(1);
             $ticket->setIdutilConsultant(1);
 
@@ -61,6 +64,10 @@ class NouveauTicketController extends Controller
             //$ticket->setTpsresolution();
             */
 
+            $statut = $em->getRepository(Statut::class)->find(1);
+            $user = $em->getRepository(Utilisateur::class)->find($session->get('userID'));
+            $ticket->setIdstatut($statut);
+            $ticket->setIdutilClient($user);
             $em->persist($ticket);
 
             $em->flush();

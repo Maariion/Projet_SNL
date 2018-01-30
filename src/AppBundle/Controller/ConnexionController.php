@@ -53,7 +53,6 @@ class ConnexionController extends Controller
             {
                 $session = $request->getSession();
                 $session->set('userID', $user->getIdutil());
-                $session->set('user', $user);
 
                 if (strpos($userMail, 'softnlabs') != true) {
                     return $this->render('default/client.html.twig');

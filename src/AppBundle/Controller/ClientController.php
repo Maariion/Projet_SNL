@@ -33,7 +33,6 @@ class ClientController extends Controller
         $session = $request->getSession();
         if(!$session->get('userID')){
             $session->set('userID',2);
-            $session->set('user',$user);
         }
 
         //On récupère le numéro d'identifiant de l'utilisateur en cours d'utilisation

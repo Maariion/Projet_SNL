@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\AppBundle;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -55,7 +56,7 @@ class Utilisateur
     private $motpasse;
 
     /**
-     * @var Integer
+     * @var Organisation
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="organisation", referencedColumnName="Id")
