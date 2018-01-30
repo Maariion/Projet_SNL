@@ -21,6 +21,9 @@ class NouveauClientController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $session = $request->getSession();
+
+
         //On crée un nouvel utilisateur
         $user = new Utilisateur();
 
@@ -38,20 +41,12 @@ class NouveauClientController extends Controller
 
             $em = $this->getDoctrine()->getManager();
 
-
             $user->setActif(1);
+            $this->addFlash("error","Impossible de rajouter un client chez SoftNLabs.");
+            if($user->getOrganisation()->getNom()=="SoftNLabs" && $user->getRole()=="Client"){
+                return $this->render('default/creation_nouveau_client.html.twig', array('form'=>$formView));
+            }
 
-            /*
-            $user->setNom($form->getData()->getNom());
-            $user->setPrenom($form->getData()->getPrenom());
-
-            $user->setMotpasse($form->getData()->getMotpasse());
-            //le premier getIDOrg permet de récupérer l'entité Organisation depuis le formulaire, le second permet de
-            // récupérer l'identifiant de l'organisation
-            $user->setIdorg($form->getData()->getIDOrg()->getIDOrg());
-            $user->setRole($form->getData()->getRole());
-            $user->setMail($form->getData()->getMail());
-            */
             $em->persist($user);
 
             $em->flush();
@@ -60,7 +55,11 @@ class NouveauClientController extends Controller
                 ->getRepository('AppBundle:Utilisateur')
                 ->findAll();
 
+
+
             return $this->render('default/softnlabs_client_part.html.twig', array('clients'=>$clients));
+
+        }else{
 
         }
 

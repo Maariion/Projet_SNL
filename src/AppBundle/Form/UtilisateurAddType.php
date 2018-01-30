@@ -26,9 +26,9 @@ class UtilisateurAddType extends AbstractType
             ->add('prenom', TextType::class)
             ->add('role', ChoiceType::class, array(
                 'choices' => array(
-                    'Consultant SNL'=> 'stock_consultant',
-                    'Administrateur SNL'=>'stock_admin',
-                    'Client'=>'stock_client'
+                    'Consultant SNL'=> 'Consultant',
+                    'Administrateur SNL'=>'Admin',
+                    'Client'=>'Client'
                     )
                 )
             )

@@ -196,5 +196,12 @@ class Utilisateur
         return $this->id;
     }
 
+    /**
+     * Retourne le nom et le prénom de l'utilisateur
+     */
+    public function getNomAndPrenom(){
+        return $this->getNom()." ".$this->getPrenom();
+    }
+
 }
 

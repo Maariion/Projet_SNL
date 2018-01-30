@@ -32,21 +32,16 @@
                 <th>Société</th>
             </tr>
             </thead>
-
-            <tbody class="centered">
-            <tr>
-                <td>1</td>
-                <td>Bienvenue</td>
-                <td>Marionsss</td>
-                <td>Polaris</td>
-            </tr>
-
-            <tr>
-                <td>2</td>
-                <td>Bonjour</td>
-                <td>Clément</td>
-                <td>Polaris</td>
-            </tr>
+            <tbody>
+            {% for ticket in tickets %}
+                <tr>
+                    <td>{{ ticket.id }}</td>
+                    <td>{{ ticket.titre}}</td>
+                    <td>{{ ticket.idutilClient.nom }}</td>
+                    <td>{{ ticket.idutilClient.organisation.nom }}</td>
+                </tr>
+                <br/>
+            {% endfor %}
             </tbody>
         </table>
     </div>

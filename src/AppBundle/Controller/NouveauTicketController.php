@@ -47,32 +47,25 @@ class NouveauTicketController extends Controller
 
             $em = $this->getDoctrine()->getManager();
 
-            //Récupération des informations transmises par le formulaire
-            /*
-            $ticket->setTitre($form->getData()->getTitre());
-            $ticket->setDescription($form->getData()->getDescription());
-            $ticket->setIdsys($form->getData()->getIDSys()->getIDSys());
-            $ticket->setIdcrit($form->getData()->getIDCrit()->getIDCrit());
-            $ticket->setIdtyp($form->getData()->getIDTyp()->getIDTyp());
-            $ticket->setIdutilClient($session->get('userID'));
-
-
-            //$ticket->setIdutilClient(1);
-            $ticket->setIdutilConsultant(1);
-
-            //$ticket->setTpsprisecompte();
-            //$ticket->setTpsresolution();
-            */
-
             $statut = $em->getRepository(Statut::class)->find(1);
             $user = $em->getRepository(Utilisateur::class)->find($session->get('userID'));
             $ticket->setIdstatut($statut);
             $ticket->setIdutilClient($user);
+            
             $em->persist($ticket);
 
             $em->flush();
 
-            return $this->render('default/client.html.twig');
+            //On récupère le numéro d'identifiant de l'utilisateur en cours d'utilisation
+            $user_id = $session->get('userID');
+            $user = $em->getRepository(Utilisateur::class)->find($session->get('userID'));
+
+            //On récupère les tickets du client qui se connecte afin de les afficher dans le tableau de tickets
+            $tickets = $this
+                ->getDoctrine()
+                ->getRepository('AppBundle:Ticket')->findBy(array("idutilClient"=>$user));
+
+            return $this->render('default/client.html.twig', array('tickets'=>$tickets));
 
         }
 

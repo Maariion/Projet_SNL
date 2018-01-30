@@ -37,16 +37,19 @@ class ClientController extends Controller
 
         //On récupère le numéro d'identifiant de l'utilisateur en cours d'utilisation
         $user_id = $session->get('userID');
+        $user = $em->getRepository(Utilisateur::class)->find($session->get('userID'));
 
         //On récupère les tickets du client qui se connecte afin de les afficher dans le tableau de tickets
         $tickets = $this
             ->getDoctrine()
-            ->getRepository('AppBundle:Ticket')->findBy(array("idutilClient"=>$user_id));
+            ->getRepository('AppBundle:Ticket')->findBy(array("idutilClient"=>$user));
 
+        /*
         // erreur si aucun ticket n'a été retrouvé
         if(!$tickets){
             return $this->render('default/client.html.twig');
         }
+        */
         //On renvoie la page avec le tableau de tickets du client
         return $this->render('default/client.html.twig', array('tickets'=>$tickets));
 
