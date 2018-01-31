@@ -18,7 +18,9 @@
     <div class="nav-wrapper">
         <img src="{{asset('images/logoSoftNLabs.jpg')}}" alt="Logo"/>
         <ul class="right hide-on-med-and-down">
-            <li style="padding-right:50px; padding-left: 50px"><a style="font-size: x-large">12/12/2017</a></li>
+            <li style="padding-right:50px; padding-left: 50px"><a style="font-size: x-large">
+                    {{ "now"|date("d/m/Y") }}
+                </a></li>
             <li style="padding-right:50px; padding-left: 50px"><a style="font-size: x-large">Utilisateur SNL</a></li>
             <li style="padding-right:50px; padding-left: 50px"><a href="{{ path('index')}}" style="font-size: x-large">Se déconnecter</a></li>
         </ul>
