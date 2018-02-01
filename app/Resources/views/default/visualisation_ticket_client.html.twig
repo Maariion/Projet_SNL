@@ -1,21 +1,89 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 
-    <div class="row">
-        <div class="col s12 m6">
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title">Card Title</span>
-                    <p>I am a very simple card. I am good at containing small bits of information.
-                        I am convenient because I require little markup to use effectively.</p>
-                </div>
-                <div class="card-action">
-                    <a href="#">This is a link</a>
-                    <a href="#">This is another link</a>
-                </div>
+    <div class="card-panel">
+        <h2>
+            Ticket
+        </h2>
+        {{ form_start(form, {'attr': {'novalidate':'novalidate'}}) }}
+        <div class="row">
+            <div class="input-field col s2">
+            </div>
+            <div class="input-field col s8">
+                <label for="appbundle_utilisateur_nom">Titre du ticket</label>
+                {{ form_widget(form.titre,{'attr':{'class':'validate'}}) }}
+            </div>
+            <div class="input-field col s2">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s2">
+            </div>
+            <div class="input-field col s8">
+                <label for="appbundle_utilisateur_nom">Description</label>
+                {{ form_widget(form.description,{'attr':{'class':'validate'}}) }}
+            </div>
+            <div class="input-field col s2">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s3">
+            </div>
+            <div class="input-field col s2">
+                <label for="appbundle_utilisateur_nom">Type de ticket</label><br/><br/>
+                {{ form_widget(form.idcategorie,{'attr':{'class':'validate'}}) }}
+            </div>
+            <div class="input-field col s2">
+                <label for="appbundle_utilisateur_nom">Solution concernée</label><br/><br/>
+                {{ form_widget(form.idsysteme,{'attr':{'class':'validate'}}) }}
+            </div>
+            <div class="input-field col s2">
+                <label for="appbundle_utilisateur_nom">Criticité</label><br/><br/>
+                {{ form_widget(form.idcriticite,{'attr':{'class':'validate'}}) }}
+            </div>
+            <div class="input-field col s3">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s3">
+            </div>
+            <div class="input-field col s3">
+                <label for="appbundle_utilisateur_nom">Statut actuel</label><br/><br/>
+                {{ form_widget(form.idstatut,{'attr':{'class':'validate'}}) }}
+            </div>
+            <div class="input-field col s3">
+                <label for="appbundle_utilisateur_nom">Statut actuel</label><br/><br/>
+                {% if ticket.idutilConsultant != ""%}
+                    {{ form_widget(form.idutilConsultant,{value: "Personne"})}}
+                {% else %}
+                    <select disabled><option>Aucun consultant pout le moment</option></select>
+                {% endif %}
+
+            </div>
+            <div class="input-field col s3">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="center-align">
+
             </div>
         </div>
     </div>
+
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('select').material_select();
+        });
+    </script>
 {% endblock %}
 
 

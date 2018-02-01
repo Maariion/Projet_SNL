@@ -45,3 +45,12 @@ login_check:
 index:
     path:    /connexion
     defaults: {_controller: AppBundle:Connexion:index}
+
+ticketConsultClient:
+    path:    /ticketviewclient/{id}
+    defaults: {_controller: AppBundle:TicketViewClient:index}
+
+ticketConsultSNL:
+    path:    /ticketviewsnl/{id}
+    defaults: {_controller: AppBundle:TicketViewClient:index}
+

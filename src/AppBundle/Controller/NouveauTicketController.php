@@ -33,8 +33,6 @@ class NouveauTicketController extends Controller
         //Prise en charge de l'élément request, envoyé par le formulaire lors de sa soumission
         $form->handleRequest($request);
 
-
-
         //On génère le html du formulaire créé, il faudra ensuite injecter ce formulaire dans une vue
         $formView = $form->createView();
 
@@ -51,7 +49,7 @@ class NouveauTicketController extends Controller
             $user = $em->getRepository(Utilisateur::class)->find($session->get('userID'));
             $ticket->setIdstatut($statut);
             $ticket->setIdutilClient($user);
-            
+
             $em->persist($ticket);
 
             $em->flush();
