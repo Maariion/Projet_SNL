@@ -10,6 +10,8 @@ namespace AppBundle\Controller;
 
 use AppBundle\AppBundle;
 use AppBundle\Entity\Organisation;
+use AppBundle\Entity\Utilisateur;
+use AppBundle\Repository\UtilisateurRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,6 +38,8 @@ class SoftnlabsClientPartController extends Controller
         $clients = $this->getDoctrine()
             ->getRepository('AppBundle:Utilisateur')
             ->findAll();
+
+        $clients= $this->getDoctrine()->getRepository(Utilisateur::class)->findAllButSoftnlabs();
 
         // replace this example code with whatever you need
         return $this->render('default/softnlabs_client_part.html.twig', array('clients'=>$clients));

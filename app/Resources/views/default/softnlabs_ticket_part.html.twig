@@ -17,10 +17,10 @@
     <table id="example" class="display dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="example_info" style="width: 100%">
         <thead>
         <tr role="row">
-            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Nom du ticket: activate to sort colum ascending" style="width: 76px" aria-sort="descending">Nom du ticket</th>
-            <th>Société</th>
+            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Nom du ticket: activate to sort colum ascending" style="width: 76px" aria-sort="descending">Société</th>
             <th>Client</th>
             <th>Titre</th>
+            <th>Description</th>
             <th>Statut</th>
             <th>Date de création</th>
             <th>Consultant</th>
@@ -28,16 +28,16 @@
         </thead>
         {% for ticket in tickets %}
             <tr>
-                <td>{{ ticket.id }}</td>
                 <td>{{ ticket.idutilClient.organisation.nom}}</td>
-                <td>{{ ticket.idutilClient.nom }}</td>
-                <td>{{ ticket.idutilClient.organisation.nom }}</td>
+                <td>{{ ticket.idutilClient.nomAndPrenom }}</td>
+                <td>{{ ticket.titre }}</td>
+                <td>{{ ticket.description }}</td>
                 <td>{{ ticket.idstatut.definition}}</td>
                 <td>{{ ticket.tpsprisecompte | default("Ce ticket n'a pas encore été pris en compte") }}</td>
                 <td>{{ ticket.idutilConsultant.nomandprenom| default("Aucun consultant défini pour le moment")}}</td>
                 <td>
 
-                    <a href="{{ path('ticketConsultSNL', {'id': ticket.id }) }}">Ceci est un lien</a>
+                    <a href="{{ path('ticketConsultSNL', {'id': ticket.id }) }}">Visualiser ticket</a>
                 </td>
             </tr>
             <br/>
