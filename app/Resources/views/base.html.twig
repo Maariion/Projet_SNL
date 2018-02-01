@@ -21,7 +21,7 @@
             <li style="padding-right:50px; padding-left: 50px"><a style="font-size: x-large">
                     {{ "now"|date("d/m/Y") }}
                 </a></li>
-            <li style="padding-right:50px; padding-left: 50px"><a style="font-size: x-large">Utilisateur SNL</a></li>
+            <li style="padding-right:50px; padding-left: 50px"><a style="font-size: x-large"> {{ app.session.get('NomAndPrenom') }}</a></li>
             <li style="padding-right:50px; padding-left: 50px"><a href="{{ path('index')}}" style="font-size: x-large">Se déconnecter</a></li>
         </ul>
     </div>

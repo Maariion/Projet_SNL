@@ -28,6 +28,7 @@ class SoftnlabsClientPartController extends Controller
 
         if(!$session->get('userID')){
             $session->set('userID',1);
+            $session->set('NomAndPrenom', 'Morisset Clément');
         }
 
         $user_id = $session->get('userID');
