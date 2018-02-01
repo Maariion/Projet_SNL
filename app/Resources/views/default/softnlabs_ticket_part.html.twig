@@ -35,6 +35,10 @@
                 <td>{{ ticket.idstatut.definition}}</td>
                 <td>{{ ticket.tpsprisecompte | default("Ce ticket n'a pas encore été pris en compte") }}</td>
                 <td>{{ ticket.idutilConsultant.nomandprenom| default("Aucun consultant défini pour le moment")}}</td>
+                <td>
+
+                    <a href="{{ path('ticketConsultSNL', {'id': ticket.id }) }}">Ceci est un lien</a>
+                </td>
             </tr>
             <br/>
         {% endfor %}

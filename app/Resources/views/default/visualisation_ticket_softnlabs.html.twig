@@ -9,18 +9,23 @@
 
         {{ form_start(form, {'attr': {'novalidate':'novalidate'}}) }}
         <div class="row">
+
             <div class="input-field col s2">
             </div>
+
             <div class="input-field col s4">
                 <label for="appbundle_utilisateur_nom">Client</label><br/><br/>
                 {{ form_widget(form.idutilClient,{'attr':{'class':'validate'}}) }}
             </div>
+
             <div class="input-field col s4">
                 <label for="appbundle_utilisateur_nom">Société</label><br/><br/>
                 <select disabled><option>{{ ticket.idutilClient.organisation.nom }}</option></select>
             </div>
+
             <div class="input-field col s2">
             </div>
+
         </div>
 
         <div class="row">
