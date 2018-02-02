@@ -6,101 +6,160 @@
         <nav class="center-align" style="background-color: #039be5">
             <a class="center">
                 <ul class="waves-effect">
-                    <li class="Clients" style="padding-right:100px; padding-left:100px"><a style="font-size: x-large" href="{{ path('softnlabs_client_part')}}">Clients</a></li>
-                    <li class="Tickets" style="padding-right:100px; padding-left:100px"><a style="font-size: x-large" href="{{ path('softnlabs_ticket_part')}}" >Tickets</a></li>
-                    <li class="Statistiques" style="padding-right:100px; padding-left:100px; background-color: #2ab7a9"><a style="font-size: x-large" href="{{ path('softnlabs_statistique_part')}}">Statistiques</a></li>
+                    <li class="Clients" style="padding-right:100px; padding-left:100px"><a style="font-size: x-large"
+                                                                                           href="{{ path('softnlabs_client_part') }}">Clients</a>
+                    </li>
+                    <li class="Tickets" style="padding-right:100px; padding-left:100px"><a style="font-size: x-large"
+                                                                                           href="{{ path('softnlabs_ticket_part') }}">Tickets</a>
+                    </li>
+                    <li class="Statistiques" style="padding-right:100px; padding-left:100px; background-color: #2ab7a9">
+                        <a style="font-size: x-large" href="{{ path('softnlabs_statistique_part') }}">Statistiques</a>
+                    </li>
                 </ul>
             </a>
         </nav>
     </div>
 
-<div class = "card-panel">
+    <div class="card-panel">
+        <div class="row">
+            <!-- début de l'entête permettant de sélectionner  les champs des statistiques-->
+            <div class="col s1">
+                <div class="col s12"><font color="white">test</font></div>
+            </div>
+            <div class="col s2">
+                <div class="input-field col s12">
+                    <select multiple>
+                        <option value="" disabled selected>Cliquez pour étendre</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                    </select>
+                    <label>Société</label>
+                </div>
+            </div>
+            <div class="col s2">
+                <div class="input-field col s12">
+                    <select multiple>
+                        <option value="" disabled selected>Cliquez pour étendre</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                    </select>
+                    <label>Année</label>
+                </div>
+            </div>
+            <div class="col s2">
+                <div class="input-field col s12">
+                    <select multiple>
+                        <option value="" disabled selected>Cliquez pour étendre</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                    </select>
+                    <label>Statut</label>
+                </div>
+            </div>
+            <div class="col s2">
 
-    <div class="row">
-         <!-- début de l'entête permettant de sélectionner  les champs des statistiques-->
-        <div class="col s1">
-            <div class="col s12"><font color="white">test</font></div>
-        </div>
-        <div class="col s2">
-            <div class="input-field col s12">
-                <select multiple>
-                    <option value="" disabled selected>Cliquez pour étendre</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
-                </select>
-                <label>Société</label>
-            </div>
-        </div>
-        <div class="col s2">
-            <div class="input-field col s12">
-                <select multiple>
-                    <option value="" disabled selected>Cliquez pour étendre</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
-                </select>
-                <label>Année</label>
-            </div>
-        </div>
-        <div class="col s2">
-            <div class="input-field col s12">
-                <select multiple>
-                    <option value="" disabled selected>Cliquez pour étendre</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
-                </select>
-                <label>Statut</label>
-            </div>
-        </div>
-        <div class="col s2">
-            <div class="input-field col s12">
-                <select multiple>
-                    <option value="" disabled selected>Cliquez pour étendre</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
-                </select>
-                <label>Criticité</label>
-            </div>
-        </div>
-        <div class="col s2">
-            <div class="input-field col s12">
-                <select multiple>
-                    <option value="" disabled selected>Cliquez pour étendre</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
-                </select>
-                <label>Type</label>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col s12 ; center-align">
-            <a class="waves-effect waves-light btn"><i class="material-icons right">check</i>Lancer les statistiques</a>
-        </div>
-    </div>
+                {{ form_start(mon_formulaire, {'attr': {'novalidate':'novalidate'}}) }}
+                <div class="input-field col s12">
+                    <label for="appbundle_criticite_chaine">Criticite</label>
+                    <br/>
+                    <br/>
+                    {{ form_widget(mon_formulaire.chaine, {'attr': {'class': 'validate'}}) }}
+                </div>
 
-    <div class="row">
-        <div class="col s1">
-            <div class="col s12"><font color="white">test</font></div>
+
+            </div>
+
+            <div class="col s2">
+                <div class="input-field col s12">
+                    <select multiple>
+                        <option value="" disabled selected>Cliquez pour étendre</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                    </select>
+                    <label>Type</label>
+                </div>
+            </div>
         </div>
-        <div id="container1"  class="col s2"></div>
-        <div id="container2"  class="col s2"></div>
-        <div id="container3"  class="col s2"></div>
-        <div id="container4"  class="col s2"></div>
-        <div id="container5"  class="col s2"></div>
+        <div class="row">
+            <div class="col s12 ; center-align">
+                <button class="waves-effect waves-light btn" type="submit"><i class="material-icons right">check</i>Lancer les statistiques</button>
+            </div>
+        </div>
+        {{ form_end(mon_formulaire) }}
+
+        <div class="row">
+            <div class="col s1">
+                <div class="col s12"><font color="white">test</font></div>
+            </div>
+            <div id="container1" class="col s2"></div>
+            <div id="container2" class="col s2"></div>
+            <div id="container3" class="col s2"></div>
+            <div id="container4" class="col s2"></div>
+            <div id="container5" class="col s2"></div>
+        </div>
+
     </div>
-</div>
-<!--yo-->
+    <!--Partie contenant les tickets-->
+    <div class="card-panel">
+        <table id="example" class="display dataTable" cellspacing="0" width="100%" role="grid"
+               aria-describedby="example_info" style="width: 100%">
+            <thead>
+            <tr role="row">
+                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
+                    aria-label="Nom du ticket: activate to sort colum ascending" style="width: 76px"
+                    aria-sort="descending">Nom du ticket
+                </th>
+                <th>Société</th>
+                <th>Client</th>
+                <th>Titre</th>
+                <th>Statut</th>
+                <th>Date de création</th>
+                <th>Consultant</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Essai 59</td>
+                <td>Essai 55</td>
+                <td>Essai 55</td>
+                <td>Essai 4</td>
+                <td>Essai 5</td>
+                <td>Essai 6</td>
+                <td>Essai 7</td>
+            </tr>
+            <tr>
+                <td>Essai 3</td>
+                <td>Essai 233</td>
+                <td>Essai 333</td>
+                <td>Essai 4</td>
+                <td>Essai 5</td>
+                <td>Essai 6</td>
+                <td>Essai 7</td>
+            </tr>
+            <tr>
+                <td>Essai 7</td>
+                <td>Essai 2</td>
+                <td>Essai 3</td>
+                <td>Essai 4</td>
+                <td>Essai 5</td>
+                <td>Essai 6</td>
+                <td>Essai 7</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
 
     {% block javascripts %}
         {{ parent() }}
         <script type="text/javascript">
-            $(document).ready(function() {
+            $(document).ready(function () {
                 $('select').material_select();
+                $(".dropdown-button").dropdown();
             });
 
 
@@ -136,7 +195,7 @@
                     data: [{
                         name: 'Limseo',
                         y: 2
-                    },{
+                    }, {
                         name: 'Marie',
                         y: 4
                     }, {
@@ -144,9 +203,9 @@
                         y: 2
                     },
                         {
-                        name: 'Datagid',
-                        y: 12
-                    }]
+                            name: 'Datagid',
+                            y: 12
+                        }]
                 }]
             });
 
@@ -257,13 +316,7 @@
                 series: [{
                     name: 'Pourcentage',
                     colorByPoint: true,
-                    data: [{
-                        name: 'Urgent',
-                        y: 50
-                    }, {
-                        name: 'Bloquant',
-                        y: 50
-                    }]
+                    data: {{(app.session.get('tableauCriticite')|json_encode|raw)}}
                 }]
             });
 

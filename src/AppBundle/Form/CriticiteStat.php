@@ -24,16 +24,6 @@ class CriticiteStat extends AbstractType
                 'multiple'=> true
             ));
     }
-    
-    /**
-     * {@inheritdoc}
-     */
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Criticite'
-        ));
-    }
 
     /**
      * {@inheritdoc}
