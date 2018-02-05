@@ -25,15 +25,16 @@ class UtilisateurRepository extends EntityRepository
 
     /**
      * @return array
+     * retourne un tableau
      */
 
     public function trouverUtilisateurLieOrganisation($organisation){
         $qb3=$this->createQueryBuilder('u')
-            ->select('u')
+            ->select('u.id')
             ->where('u.organisation =:orga')
             ->setParameter('orga', $organisation)
         ;
-        return $qb3->getQuery()->getResult();
+        return $qb3->getQuery()->getArrayResult();
     }
 
 }

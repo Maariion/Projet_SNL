@@ -29,9 +29,9 @@ class TicketStatistique extends AbstractType
                 'expanded' => false,
                 'multiple' => true
             ))
-            ->add('description', EntityType::class, array(
+            ->add('nom', EntityType::class, array(
                 'class' => 'AppBundle\Entity\Organisation',
-                'choice_label' => 'getDescription',
+                'choice_label' => 'getNom',
                 'expanded' => false,
                 'multiple' => true
             ));

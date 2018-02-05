@@ -11,6 +11,7 @@ namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use AppBundle\Repository\UtilisateurRepository;
+use Symfony\Component\HttpFoundation\Request;
 
 class TicketRepository extends EntityRepository
 {
@@ -44,11 +45,11 @@ class TicketRepository extends EntityRepository
      * @return un seul chiffre
      */
 
-    public function trouverNombreOrganisation($organisation){
+    public function trouverNombreOrganisation($clients){
         $qb3=$this->createQueryBuilder('t')
             ->select('Count(t)')
-            ->where("t.idutilClient IN(:organ)")
-            ->setParameter('organ', array_values(trouverUtilisateurLieOrganisation($organisation)))
+            ->where('t.idutilClient IN(:tousLesClientsConcernes)')
+            ->setParameter('tousLesClientsConcernes', array_values($clients))
         ;
         return $qb3->getQuery()->getSingleScalarResult();
     }
