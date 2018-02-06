@@ -12,6 +12,7 @@ namespace AppBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 
 class StatutRepository extends EntityRepository
+
 {
 
 
