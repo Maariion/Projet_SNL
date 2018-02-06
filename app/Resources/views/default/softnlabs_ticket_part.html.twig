@@ -36,7 +36,6 @@
                 <td>{{ ticket.tpsprisecompte | default("Ce ticket n'a pas encore été pris en compte") }}</td>
                 <td>{{ ticket.idutilConsultant.nomandprenom| default("Aucun consultant défini pour le moment")}}</td>
                 <td>
-
                     <a href="{{ path('ticketConsultSNL', {'id': ticket.id }) }}">Visualiser ticket</a>
                 </td>
             </tr>
@@ -46,5 +45,7 @@
 
 </div>
 {% endblock %}
+
+
 
 

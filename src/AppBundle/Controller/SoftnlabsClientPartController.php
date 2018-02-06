@@ -31,18 +31,20 @@ class SoftnlabsClientPartController extends Controller
         if(!$session->get('userID')){
             $session->set('userID',1);
             $session->set('NomAndPrenom', 'Morisset Clément');
+            $session->set('userStatut','Admin');
         }
 
-        $user_id = $session->get('userID');
-
-        $clients = $this->getDoctrine()
-            ->getRepository('AppBundle:Utilisateur')
-            ->findAll();
+        //On vérifie le statut de l'utilisateur, Consultant ou administrateur, la variable prend vrai si l'utilisateur est administrateur
+        if($session->get('userStatut')=="Admin"){
+            $isAdmin = true;
+        }else{
+            $isAdmin = false;
+        }
 
         $clients= $this->getDoctrine()->getRepository(Utilisateur::class)->findAllButSoftnlabs();
 
         // replace this example code with whatever you need
-        return $this->render('default/softnlabs_client_part.html.twig', array('clients'=>$clients));
+        return $this->render('default/softnlabs_client_part.html.twig', array('clients'=>$clients, 'isAdmin'=>$isAdmin));
     }
 
 }

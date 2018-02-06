@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -107,6 +108,31 @@ class Ticket
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+
+
+    /**
+     * @var datetime
+     *
+     * @ORM\Column(name="tpscreation", type="datetime")
+     */
+    private $tpscreation;
+
+    /**
+     * @return datetime
+     */
+    public function getTpscreation()
+    {
+        return $this->tpscreation;
+    }
+
+    /**
+     * @param datetime $tpscreation
+     */
+    public function setTpscreation($tpscreation)
+    {
+        $this->tpscreation = $tpscreation;
+    }
+
 
     /**
      * @return string

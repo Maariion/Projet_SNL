@@ -52,5 +52,5 @@ ticketConsultClient:
 
 ticketConsultSNL:
     path:    /ticketviewsnl/{id}
-    defaults: {_controller: AppBundle:TicketViewClient:index}
+    defaults: {_controller: AppBundle:TicketViewSNL:index}
 

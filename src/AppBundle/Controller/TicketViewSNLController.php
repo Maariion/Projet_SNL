@@ -12,7 +12,10 @@ use AppBundle\Entity\Statut;
 use AppBundle\Entity\Ticket;
 use AppBundle\Entity\Utilisateur;
 use AppBundle\Form\TicketAddType;
-use AppBundle\Form\TicketViewClient;
+use AppBundle\Form\TicketViewClientStat;
+use AppBundle\Form\TicketViewSNLCons;
+use AppBundle\Form\TicketViewSNLConsStatType;
+use AppBundle\Form\TicketViewSNLLocked;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,7 +24,7 @@ use Symfony\Component\HttpFoundation\Request;
 class TicketViewSNLController extends Controller
 {
     /**
-     * @Route("/", name="ticketViewClient")
+     * @Route("/", name="ticketViewSNL")
      */
     public function indexAction(Request $request,$id)
     {
@@ -32,17 +35,71 @@ class TicketViewSNLController extends Controller
 
         $ticket_status = $ticket->getidstatut()->getDefinition();
 
-        //On récupère le formulaire créé précédemment
-        $form = $this->createForm(TicketViewSNL::class,$ticket);
+        //Selon le statut du ticket (en cours/nouveau/etc...) et selon le statut de l'utilisateur (Admin/consultant)
+        //Un formulaire différent sera utilisé donnant accès à des champs différents
 
-        //Prise en charge de l'élément request, envoyé par le formulaire lors de sa soumission
-        $form->handleRequest($request);
+        //Si le ticket est nouveau
+        if($ticket->getidstatut()->getDefinition()=="Nouveau"){
 
-        //On génère le html du formulaire créé, il faudra ensuite injecter ce formulaire dans une vue
-        $formView = $form->createView();
+            //Si le ticket est en nouveau, les admins peuvent modifier le consultant du ticket
+            if($session->get('userStatut')=="Admin"){
 
-        return $this->render('default/visualisation_ticket_softnlabs.html.twig', array('ticket'=>$ticket,'form'=>$formView));
+                $form = $this->createForm(TicketViewSNLCons::class,$ticket);
+                $form->handleRequest($request);
+                $formView = $form->createView();
 
+            }else{
+                //Un ticket Nouveau n'est pas modifiable par les consultants, le formualire devra donc être bloqué
+                $form = $this->createForm(TicketViewSNLLocked::class,$ticket);
+                $form->handleRequest($request);
+                $formView = $form->createView();
+
+            }
+
+        } //si le ticket est en cours, tout le monde peut modifier le consultant et le statut
+
+        elseif ($ticket->getidstatut()->getDefinition()=="En cours"){
+
+            $form = $this->createForm(TicketViewSNLConsStatType::class,$ticket);
+            $form->handleRequest($request);
+            $formView = $form->createView();
+
+        }else{
+
+            //Sinon le ticket n'est modifiable en rien
+            $form = $this->createForm(TicketViewSNLLocked::class,$ticket);
+            $form->handleRequest($request);
+            $formView = $form->createView();
+
+        }
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            $session = $request->getSession();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($ticket);
+            $em->flush();
+
+            //On vérifie le statut de l'utilisateur, Consultant ou administrateur, la variable prend vrai si l'utilisateur est administrateur
+            if($session->get('userStatut')=="Admin"){
+                $isAdmin = true;
+            }else{
+                $isAdmin = false;
+            }
+
+            $tickets = $this->getDoctrine()
+                ->getRepository('AppBundle:Ticket')
+                ->findAll();
+
+            // replace this example code with whatever you need
+            return $this->render('default/softnlabs_ticket_part.html.twig', array('tickets'=>$tickets));
+        }
+
+        return $this->
+        render('default/visualisation_ticket_softnlabs.html.twig', array(
+            'ticket'=>$ticket,
+            'form'=>$formView
+        ));
 
     }
 }
