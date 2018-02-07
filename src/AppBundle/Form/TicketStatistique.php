@@ -34,7 +34,14 @@ class TicketStatistique extends AbstractType
                 'choice_label' => 'getNom',
                 'expanded' => false,
                 'multiple' => true
+            ))
+            ->add('categorie', EntityType::class, array(
+                'class' => 'AppBundle\Entity\Categorie',
+                'choice_label' => 'getNom',
+                'expanded' => false,
+                'multiple' => true
             ));
+
     }
 
     /**

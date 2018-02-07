@@ -23,21 +23,17 @@
     <div class="card-panel">
         <div class="row">
             <!-- début de l'entête permettant de sélectionner  les champs des statistiques-->
-            <div class="col s1">
-                <div class="col s12"><font color="white">test</font></div>
-            </div>
             {{ form_start(mon_formulaire, {'attr': {'novalidate':'novalidate'}}) }}
-            <div class="col s2">
-                <div class="input-field col s12">
+            <div class="col s12">
+                <div class="input-field col s2 m4 l1"></div>
+                <div class="input-field col s2">
                     <label for="appbundle_ticketStat_nom">Société</label>
                     <br/>
                     <br/>
                     {{ form_widget(mon_formulaire.nom, {'attr': {'class': 'validate'}}) }}
                 </div>
-            </div>
 
-            <div class="col s2">
-                <div class="input-field col s12">
+                <div class="input-field col s2">
                     <select multiple>
                         <option value="" disabled selected>Cliquez pour étendre</option>
                         <option value="1">Option 1</option>
@@ -46,34 +42,26 @@
                     </select>
                     <label>Année</label>
                 </div>
-            </div>
 
-            <div class="col s2">
-                <div class="input-field col s12">
+                <div class="input-field col s2">
                     <label for="appbundle_ticketStat_definition">Statut</label>
                     <br/>
                     <br/>
                     {{ form_widget(mon_formulaire.definition, {'attr': {'class': 'validate'}}) }}
                 </div>
-            </div>
-            <div class="col s2">
-                <div class="input-field col s12">
+
+                <div class="input-field col s2">
                     <label for="appbundle_ticketStat_chaine">Criticite</label>
                     <br/>
                     <br/>
                     {{ form_widget(mon_formulaire.chaine, {'attr': {'class': 'validate'}}) }}
                 </div>
-            </div>
 
-            <div class="col s2">
-                <div class="input-field col s12">
-                    <select multiple>
-                        <option value="" disabled selected>Cliquez pour étendre</option>
-                        <option value="1">Option 1</option>
-                        <option value="2">Option 2</option>
-                        <option value="3">Option 3</option>
-                    </select>
-                    <label>Type</label>
+                <div class="input-field col s2">
+                    <label for="appbundle_ticketStat_chaine">Type</label>
+                    <br/>
+                    <br/>
+                    {{ form_widget(mon_formulaire.categorie, {'attr': {'class': 'validate'}}) }}
                 </div>
             </div>
         </div>
@@ -85,9 +73,7 @@
         {{ form_end(mon_formulaire) }}
 
         <div class="row">
-            <div class="col s1">
-                <div class="col s12"><font color="white">test</font></div>
-            </div>
+            <div class="input-field col s2 m4 l1"></div>
             <div id="container1" class="col s2"></div>
             <div id="container2" class="col s2"></div>
             <div id="container3" class="col s2"></div>
@@ -98,51 +84,34 @@
     </div>
     <!--Partie contenant les tickets-->
     <div class="card-panel">
-        <table id="example" class="display dataTable" cellspacing="0" width="100%" role="grid"
-               aria-describedby="example_info" style="width: 100%">
+        <table id="example" class="display dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="example_info" style="width: 100%">
             <thead>
             <tr role="row">
-                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
-                    aria-label="Nom du ticket: activate to sort colum ascending" style="width: 76px"
-                    aria-sort="descending">Nom du ticket
-                </th>
-                <th>Société</th>
+                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Nom du ticket: activate to sort colum ascending" style="width: 76px" aria-sort="descending">Société</th>
                 <th>Client</th>
                 <th>Titre</th>
+                <th>Description</th>
                 <th>Statut</th>
                 <th>Date de création</th>
                 <th>Consultant</th>
             </tr>
             </thead>
-            <tbody>
-            <tr>
-                <td>Essai 59</td>
-                <td>Essai 55</td>
-                <td>Essai 55</td>
-                <td>Essai 4</td>
-                <td>Essai 5</td>
-                <td>Essai 6</td>
-                <td>Essai 7</td>
-            </tr>
-            <tr>
-                <td>Essai 3</td>
-                <td>Essai 233</td>
-                <td>Essai 333</td>
-                <td>Essai 4</td>
-                <td>Essai 5</td>
-                <td>Essai 6</td>
-                <td>Essai 7</td>
-            </tr>
-            <tr>
-                <td>Essai 7</td>
-                <td>Essai 2</td>
-                <td>Essai 3</td>
-                <td>Essai 4</td>
-                <td>Essai 5</td>
-                <td>Essai 6</td>
-                <td>Essai 7</td>
-            </tr>
-            </tbody>
+            {% for ticket in tickets %}
+                <tr>
+                    <td>{{ ticket.idutilClient.organisation.nom}}</td>
+                    <td>{{ ticket.idutilClient.nomAndPrenom }}</td>
+                    <td>{{ ticket.titre }}</td>
+                    <td>{{ ticket.description }}</td>
+                    <td>{{ ticket.idstatut.definition}}</td>
+                    <td>{{ ticket.tpsprisecompte | default("Ce ticket n'a pas encore été pris en compte") }}</td>
+                    <td>{{ ticket.idutilConsultant.nomandprenom| default("Aucun consultant défini pour le moment")}}</td>
+                    <td>
+
+                        <a href="{{ path('ticketConsultSNL', {'id': ticket.id }) }}">Visualiser ticket</a>
+                    </td>
+                </tr>
+                <br/>
+            {% endfor %}
         </table>
 
     </div>
@@ -323,13 +292,7 @@
                 series: [{
                     name: 'Pourcentage',
                     colorByPoint: true,
-                    data: [{
-                        name: 'Incident',
-                        y: 25
-                    }, {
-                        name: 'Développement',
-                        y: 75
-                    }]
+                    data: {{(app.session.get('tableauType')|json_encode|raw)}}
                 }]
             });
         </script>

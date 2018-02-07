@@ -53,4 +53,53 @@ class TicketRepository extends EntityRepository
         ;
         return $qb3->getQuery()->getSingleScalarResult();
     }
+
+    /**
+     * @return un seul chiffre
+     * attention dans la bdd categorie = type
+     */
+
+    public function trouverNombreType($type){
+        $qb4=$this->createQueryBuilder('t')
+            ->select('Count(t)')
+            ->where("t.idcategorie = :categorie")
+            ->setParameter('categorie', $type)
+        ;
+        return $qb4->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * @return un seul chiffre
+
+
+    public function trouverNombreAnnee($annee){
+        $qb5=$this->createQueryBuilder('t')
+            ->select('Count(t)')
+            ->where("t.tpscreation LIKE :annee")
+            ->setParameter('annee', '%'.$annee.'%')
+        ;
+        return $qb5->getQuery()->getSingleScalarResult();
+    }
+     * */
+
+    /**
+     * @return array de tous les tickets
+     */
+
+    public function trouverTousTicketsCorrespondant($criticite,$statut,$clients,$type){
+        $qb6=$this->createQueryBuilder('t')
+            ->select('t')
+            ->where("t.idcategorie IN(:categorie)")
+            ->andWhere('t.idutilClient IN(:tousLesClientsConcernes)')
+            ->andWhere("t.idstatut IN(:statu)")
+            ->andWhere("t.idcriticite IN(:crit)")
+            ->setParameter('categorie', $type)
+            ->setParameter('tousLesClientsConcernes', $clients)
+            ->setParameter('statu', $statut)
+            ->setParameter('crit', $criticite)
+        ;
+        return $qb6->getQuery()->getResult();
+    }
+
+
 }

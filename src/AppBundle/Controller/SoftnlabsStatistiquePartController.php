@@ -8,9 +8,12 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Categorie;
 use AppBundle\Entity\Organisation;
+use AppBundle\Entity\Statut;
 use AppBundle\Entity\Ticket;
 use AppBundle\Entity\Utilisateur;
+use AppBundle\Repository\StatutRepository;
 use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -104,6 +107,35 @@ class SoftnlabsStatistiquePartController extends Controller
             $session->set('tableauCriticite', $tableaucriticite);
         }
 
+        if (!is_null($StatistiqueForm["categorie"]->getData())) {
+            $em = $this->getDoctrine()->getManager();
+            //On récupère dans un tableau les types sélectionnés dans le formulaire
+            $tab = $StatistiqueForm["categorie"]->getData();
+
+            //On initialise le tableau
+            $tableaucategorie = array();
+
+            //On veut parcourir les différents types qui ont été sélectionnés dans le formulaire
+            foreach ($tab as $value4) {
+
+                //On a normalement en résultat 2 éléments : le nom du type et le nombre de ticket ayant ce type
+                $nombreCritique = $this->getDoctrine()->getRepository(Ticket::class)->trouverNombreType($value4);
+
+                $objectSelectionne = (object)[
+                    //Permet de transférer dans l'objet le nom du type
+                    'name' => $value4->getNom(),
+                    //Permet de transférer dans l'objet le nombre de ticket ayant ce type
+                    'y' => intval($nombreCritique),
+                ];
+                //On ajoute dans le tableau un objet contenant les statistiques
+                array_push($tableaucategorie, $objectSelectionne);
+            }
+
+            // On met en variable de session le tableau contenant les statistiques liés au type
+            $session = $request->getSession();
+            $session->set('tableauType', $tableaucategorie);
+        }
+
         if (!is_null($StatistiqueForm["nom"]->getData())) {
             $em = $this->getDoctrine()->getManager();
             //On récupère dans un tableau les organisations sélectionnées dans le formulaire
@@ -111,9 +143,6 @@ class SoftnlabsStatistiquePartController extends Controller
 
             //On initialise le tableau
             $tableauorganisation = array();
-
-            $session = $request->getSession();
-            $session->set('tableauOrga', $tab3);
 
             //On veut parcourir les différente organisations qui ont été sélectionnées dans le formulaire
             foreach ($tab3 as $value3) {
@@ -137,8 +166,61 @@ class SoftnlabsStatistiquePartController extends Controller
             $session->set('tableauOrganisation', $tableauorganisation);
         }
 
-        return $this->render('default/softnlabs_statistique_part.html.twig', array(
-            'mon_formulaire' => $formView
-        ));
+
+        // on récupère tous les tickets correspondants aux statistiques
+        $tabType=array();
+        $tabOrganisation=array();
+        $tabCriticite=array();
+        $tabStatut=array();
+        $tousLesClients=array();
+
+        //Gestion des cas
+        //1 : on prend ce qui a été sélectionner
+        //2 : on prend tout
+        if (!is_null($StatistiqueForm["nom"]->getData())){
+            $em = $this->getDoctrine()->getManager();
+            $tabOrganisation = $StatistiqueForm["nom"]->getData();
+            $tousLesClients = $this->getDoctrine()->getRepository(Utilisateur::class)->trouverTousUtilisateursLieOrganisation($tabOrganisation);
+        }
+        if (is_null($StatistiqueForm["nom"]->getData())){
+            $em = $this->getDoctrine()->getManager();
+            $tousLesClients = $this->getDoctrine()->getRepository(Utilisateur::class)->findAll();
+        }
+
+        if (!is_null($StatistiqueForm["categorie"]->getData())){
+            $em = $this->getDoctrine()->getManager();
+            $tabType = $StatistiqueForm["categorie"]->getData();
+        }
+        if (is_null($StatistiqueForm["categorie"]->getData())){
+            $em = $this->getDoctrine()->getManager();
+            $tabType = $this->getDoctrine()->getRepository(Categorie::class)->findAll();
+        }
+
+        if (!is_null($StatistiqueForm["chaine"]->getData())){
+            $em = $this->getDoctrine()->getManager();
+            $tabCriticite = $StatistiqueForm["chaine"]->getData();
+        }
+        if (is_null($StatistiqueForm["chaine"]->getData())){
+            $em = $this->getDoctrine()->getManager();
+            $tabCriticite = $this->getDoctrine()->getRepository(Criticite::class)->findAll();
+        }
+
+        if (!is_null($StatistiqueForm["definition"]->getData())){
+            $em = $this->getDoctrine()->getManager();
+            $tabStatut = $StatistiqueForm["definition"]->getData();
+        }
+        if (is_null($StatistiqueForm["definition"]->getData())){
+            $em = $this->getDoctrine()->getManager();
+            $tabStatut = $this->getDoctrine()->getRepository(Statut::class)->findAll();
+        }
+
+        $tousTicketsCorrespondant=$this->getDoctrine()->getRepository(Ticket::class)->trouverTousTicketsCorrespondant($tabCriticite,$tabStatut,$tousLesClients,$tabType);
+        $session = $request->getSession();
+        $session->set('tableauTicket', $tousTicketsCorrespondant);
+
+
+
+        return $this->render('default/softnlabs_statistique_part.html.twig', array('tickets'=>$tousTicketsCorrespondant,
+            'mon_formulaire' => $formView)  );
     }
 }
