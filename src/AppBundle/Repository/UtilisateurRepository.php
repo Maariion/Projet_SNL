@@ -25,7 +25,7 @@ class UtilisateurRepository extends EntityRepository
 
     /**
      * @return array
-     * retourne un tableau
+     * permet de récupérer tous les utilisateurs liés à une organisation
      */
 
     public function trouverUtilisateurLieOrganisation($organisation){
@@ -39,7 +39,7 @@ class UtilisateurRepository extends EntityRepository
 
     /**
      * @return array
-     * retourne un tableau
+     * permet de récupérer tous les utilisateurs liés à une liste d'organisations
      */
 
     public function trouverTousUtilisateursLieOrganisation($organisation){

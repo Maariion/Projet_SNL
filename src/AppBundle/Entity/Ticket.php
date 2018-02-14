@@ -127,6 +127,7 @@ class Ticket
 
     /**
      * @return datetime
+     * retourne uniquement la partie année au format YYYY de la date de création d'un ticket
      */
     public function getStringTpscreation()
     {

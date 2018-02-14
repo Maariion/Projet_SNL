@@ -17,6 +17,7 @@ class TicketRepository extends EntityRepository
 {
     /**
      * @return un seul chiffre
+     * permet de savoir combien il y a de tickets correspondant à une criticité sélectionnée
      */
 
     public function trouverNombreCriticite($criticite){
@@ -30,6 +31,7 @@ class TicketRepository extends EntityRepository
 
     /**
      * @return un seul chiffre
+     * permet de savoir combien il y a de tickets correspondant à un statut sélectionné
      */
 
     public function trouverNombreStatut($statut){
@@ -43,6 +45,7 @@ class TicketRepository extends EntityRepository
 
     /**
      * @return un seul chiffre
+     * permet de savoir combien il y a de tickets correspondant à une liste d'utilisateur
      */
 
     public function trouverNombreOrganisation($clients){
@@ -57,6 +60,7 @@ class TicketRepository extends EntityRepository
     /**
      * @return un seul chiffre
      * attention dans la bdd categorie = type
+     * permet de savoir combien il y a de tickets correspondant à une type sélectionné
      */
 
     public function trouverNombreType($type){
@@ -70,7 +74,8 @@ class TicketRepository extends EntityRepository
 
     /**
      * @return un seul chiffre
-     * * */
+     * permet de savoir combien il y a de tickets correspondant à un string (ici utilisé pour les années)
+     */
 
 
     public function trouverNombreAnnee($annee){
@@ -85,6 +90,7 @@ class TicketRepository extends EntityRepository
 
     /**
      * @return array => liste des années
+     * permet de récupérer les temps de création de chacun des ticket sans doublon
      */
 
     public function trouverLesAnnees() {
@@ -96,6 +102,7 @@ class TicketRepository extends EntityRepository
 
     /**
      * @return array des id tickets correspondant
+     * permet de récupérer les tickets correspondant à un string (ici utilisé pour les années)
      * * */
 
 
@@ -110,6 +117,7 @@ class TicketRepository extends EntityRepository
 
     /**
      * @return array de tous les id tickets
+     * permet de récupérer l'id de tous les tickets
      * * */
 
 
@@ -123,6 +131,8 @@ class TicketRepository extends EntityRepository
 
     /**
      * @return array de tous les tickets
+     * permet de récupérer tous tickets correspondant à une liste de clients, une liste de types, une liste d'id de ticket, une liste de statuts
+     * et une liste de criticités
      */
 
     public function trouverTousTicketsCorrespondant($criticite,$statut,$clients,$type,$ticketCorrespondantAnnnee){
