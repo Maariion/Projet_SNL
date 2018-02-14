@@ -32,7 +32,10 @@ class SoftnlabsStatistiquePartController extends Controller
     public function indexAction(Request $request)
     {
 
-        //on récupère les années de création de ticket sans doublon
+        /*
+         * on récupère les années de création de ticket sans doublon car on doit transformer les datetime de la BDD en string comprenant les années
+         * au format YYYY
+         */
         $differenteAnnee=array();
         $x=0;
         $differenteDate = $this->getDoctrine()->getRepository(Ticket::class)->trouverLesAnnees();
@@ -61,18 +64,24 @@ class SoftnlabsStatistiquePartController extends Controller
                 }
             }
         }
+
+        /*
+         * afin que les années se mettent bien dans le formulaire, il a été nécessaire que les clés des années soient égales aux années
+         */
         $differenteAnneef=array();
         foreach ($differenteAnnee as $parcours){
             $differenteAnneef[$parcours]=$parcours;
         }
 
-
+        /*
+         * On crée la vue avec le formulaire et on envoie avec les années au bon format afin de les avaoir dans le formulaire
+         */
         $StatistiqueForm = $this->createForm(TicketStatistique::class,null,array('annee'=>$differenteAnneef));
         $StatistiqueForm->handleRequest($request);
         $formView = $StatistiqueForm->createView();
 
 
-        /*// Permet de montrer le format nécessaire pour que les données soient intégrés aux graphes
+        /* Permet de montrer le format nécessaire pour que les données soient intégrés aux graphes camembert
         $session = $request->getSession();
         $object1 = (object) [
             'name'=>'Bloquant',
@@ -88,30 +97,30 @@ class SoftnlabsStatistiquePartController extends Controller
 
         if (!is_null($StatistiqueForm["annee"]->getData())) {
             $em = $this->getDoctrine()->getManager();
-            //On récupère dans un tableau les statuts sélectionnés dans le formulaire
+            //On récupère dans un tableau les années sélectionnées dans le formulaire
             $tab6 = $StatistiqueForm["annee"]->getData();
 
 
             //On initialise le tableau
             $tableauAnnee = array();
 
-            //On veut parcourir les différents statuts qui ont été sélectionnés dans le formulaire
+            //On veut parcourir les différentes années qui ont été sélectionnés dans le formulaire
             foreach ($tab6 as $value6) {
 
-                //On a normalement en résultat 2 éléments : le nom du statut et le nombre de ticket ayant ce statut
+                //On a normalement en résultat 2 éléments : le nom de l'année et le nombre de ticket de cette année
                 $nombreAnnee = $this->getDoctrine()->getRepository(Ticket::class)->trouverNombreAnnee($value6);
 
                 $objectSelectionne = (object)[
-                    //Permet de transférer dans l'objet le nom du statut
+                    //Permet de transférer dans l'objet l'année
                     'name' => $value6,
-                    //Permet de transférer dans l'objet le nombre de ticket ayant ce statut
+                    //Permet de transférer dans l'objet le nombre de ticket de cette année
                     'y' => intval($nombreAnnee),
                 ];
                 //On ajoute dans le tableau un objet contenant les statistiques
                 array_push($tableauAnnee, $objectSelectionne);
             }
 
-            // On met en variable de session le tableau contenant les statistiques liés au statut
+            // On met en variable de session le tableau contenant les statistiques liées à ces années
             $session = $request->getSession();
             $session->set('tableauAnnnee', $tableauAnnee);
         }
@@ -141,7 +150,7 @@ class SoftnlabsStatistiquePartController extends Controller
                 array_push($tableaustatut, $objectSelectionne);
             }
 
-            // On met en variable de session le tableau contenant les statistiques liés au statut
+            // On met en variable de session le tableau contenant les statistiques liées aux statuts
             $session = $request->getSession();
             $session->set('tableauStatut', $tableaustatut);
         }
@@ -170,7 +179,7 @@ class SoftnlabsStatistiquePartController extends Controller
                 array_push($tableaucriticite, $objectSelectionne);
             }
 
-            // On met en variable de session le tableau contenant les statistiques liés à la criticité
+            // On met en variable de session le tableau contenant les statistiques liées aux criticitéx
             $session = $request->getSession();
             $session->set('tableauCriticite', $tableaucriticite);
         }
@@ -199,7 +208,7 @@ class SoftnlabsStatistiquePartController extends Controller
                 array_push($tableaucategorie, $objectSelectionne);
             }
 
-            // On met en variable de session le tableau contenant les statistiques liés au type
+            // On met en variable de session le tableau contenant les statistiques liées aux types
             $session = $request->getSession();
             $session->set('tableauType', $tableaucategorie);
         }
@@ -208,6 +217,7 @@ class SoftnlabsStatistiquePartController extends Controller
             $em = $this->getDoctrine()->getManager();
             //On récupère dans un tableau les organisations sélectionnées dans le formulaire
             $tab3 = $StatistiqueForm["nom"]->getData();
+
 
             //On initialise le tableau
             $tableauorganisation = array();
@@ -229,35 +239,48 @@ class SoftnlabsStatistiquePartController extends Controller
                 array_push($tableauorganisation, $objectSelectionne);
             }
 
-            // On met en variable de session le tableau contenant les statistiques lié à l'organisation
+            // On met en variable de session le tableau contenant les statistiques liées aux organisations
             $session = $request->getSession();
             $session->set('tableauOrganisation', $tableauorganisation);
         }
 
 
         // on récupère tous les tickets correspondants aux statistiques
+        //on initialise tous les tableaux afin de pouvoir rentrer correctement dans les différents cas
         $tabType=new ArrayCollection();
         $tabCriticite=new ArrayCollection();
         $tabStatut=new ArrayCollection();
         $tousLesClients=array();
         $tabAnneeFinal=array();
+        $tabOrganisation=new ArrayCollection();
 
         //Gestion des cas
-        //1 : on prend ce qui a été sélectionner
-        //2 : on prend tout
-        $test1=new ArrayCollection(array($StatistiqueForm["nom"]->getData()));
+        /*1 : on prend ce qui a été sélectionner sachant qu'une fois que l'on a sélectionné une fois dans le formulaire,
+        * même si on a rien sélectionner le getData récupère des valeurs vides
+        */
+        /*2 : si le contenu du tableau est vide (car même si on a rien sélectionner le getData récupère des valeurs vides dans le cas)
+        * et si on a rien mis dans le formulaire (1ère ouverture) => on prends toutes les valeurs possibles
+        */
+        /*
+         * Particularité=> Les tickets étant lié aux utilisateurs on récupère tous les utilisateurs liés aux organisations sélectionnées
+         */
         if (!is_null($StatistiqueForm["nom"]->getData())){
             $em = $this->getDoctrine()->getManager();
             $tabOrganisation = $StatistiqueForm["nom"]->getData();
             $tousLesClients = $this->getDoctrine()->getRepository(Utilisateur::class)->trouverTousUtilisateursLieOrganisation($tabOrganisation);
         }
-        if($test1->isEmpty() or !($StatistiqueForm["nom"]->isSubmitted()&& $StatistiqueForm["nom"]->isValid())) {
+        if($tabOrganisation->isEmpty() or !($StatistiqueForm["nom"]->isSubmitted()&& $StatistiqueForm["nom"]->isValid())) {
             $em = $this->getDoctrine()->getManager();
             $tousLesClients = $this->getDoctrine()->getRepository(Utilisateur::class)->findAll();
         }
 
-
-
+        //Gestion des cas
+        /*1 : on prend ce qui a été sélectionner sachant qu'une fois que l'on a sélectionné une fois dans le formulaire,
+        * même si on a rien sélectionner le getData récupère des valeurs vides
+        */
+        /*2 : si le contenu du tableau est vide (car même si on a rien sélectionner le getData récupère des valeurs vides dans le cas)
+        * et si on a rien mis dans le formulaire (1ère ouverture) => on prends toutes les valeurs possibles
+        */
         if (!is_null($StatistiqueForm["categorie"]->getData())){
             $em = $this->getDoctrine()->getManager();
             $tabType = $StatistiqueForm["categorie"]->getData();
@@ -267,7 +290,13 @@ class SoftnlabsStatistiquePartController extends Controller
             $tabType = $this->getDoctrine()->getRepository(Categorie::class)->findAll();
         }
 
-
+        //Gestion des cas
+        /*1 : on prend ce qui a été sélectionner sachant qu'une fois que l'on a sélectionné une fois dans le formulaire,
+        * même si on a rien sélectionner le getData récupère des valeurs vides
+        */
+        /*2 : si le contenu du tableau est vide (car même si on a rien sélectionner le getData récupère des valeurs vides dans le cas)
+        * et si on a rien mis dans le formulaire (1ère ouverture) => on prends toutes les valeurs possibles
+        */
         if (!is_null($StatistiqueForm["chaine"]->getData())){
             $em = $this->getDoctrine()->getManager();
             $tabCriticite = $StatistiqueForm["chaine"]->getData();
@@ -277,7 +306,13 @@ class SoftnlabsStatistiquePartController extends Controller
             $tabCriticite = $this->getDoctrine()->getRepository(Criticite::class)->findAll();
         }
 
-
+        //Gestion des cas
+        /*1 : on prend ce qui a été sélectionner sachant qu'une fois que l'on a sélectionné une fois dans le formulaire,
+        * même si on a rien sélectionner le getData récupère des valeurs vides
+        */
+        /*2 : si le contenu du tableau est vide (car même si on a rien sélectionner le getData récupère des valeurs vides dans le cas)
+        * et si on a rien mis dans le formulaire (1ère ouverture) => on prends toutes les valeurs possibles
+        */
         if (!is_null($StatistiqueForm["definition"]->getData())){
             $em = $this->getDoctrine()->getManager();
             $tabStatut = $StatistiqueForm["definition"]->getData();
@@ -287,7 +322,17 @@ class SoftnlabsStatistiquePartController extends Controller
             $tabStatut = $this->getDoctrine()->getRepository(Statut::class)->findAll();
         }
 
-
+        //Gestion des cas
+        /*1 : on prend ce qui a été sélectionner sachant qu'une fois que l'on a sélectionné une fois dans le formulaire,
+        * même si on a rien sélectionner le getData récupère des valeurs vides
+        */
+        /*2 : si le contenu du tableau est vide (car même si on a rien sélectionner le getData récupère des valeurs vides dans le cas)
+        * et si on a rien mis dans le formulaire (1ère ouverture) => on prends toutes les valeurs possibles (ici ce sont tous les tickets)
+        */
+        /*
+         * Particularité=> Les données étant stockées sous forme de datetime on est obligé d'effectuer un traitement spécifique
+         * car on part de strings et on veut tous les tickets correspondants à ces strings
+         */
         $test5=($StatistiqueForm["annee"]->getData());
         if (!is_null($StatistiqueForm["annee"]->getData())){
             $em = $this->getDoctrine()->getManager();
@@ -305,25 +350,13 @@ class SoftnlabsStatistiquePartController extends Controller
             $tabAnneeFinal = $this->getDoctrine()->getRepository(Ticket::class)->trouverTousTickets();
         }
 
-
-        $session = $request->getSession();
-        $session->set('Annee', $tabAnneeFinal);
-        $session = $request->getSession();
-        $session->set('Criticite', $tabCriticite);
-        $session = $request->getSession();
-        $session->set('Statut', $tabStatut);
-        $session = $request->getSession();
-        $session->set('Societe', $tousLesClients);
-        $session = $request->getSession();
-        $session->set('Type', $tabType);
-
-
+        //On récupère tous les tickets correspondants aux critères sélectionné ou tous les tickets si aucun critère n'est sélectionné
         $tousTicketsCorrespondant=$this->getDoctrine()->getRepository(Ticket::class)->trouverTousTicketsCorrespondant($tabCriticite,$tabStatut,$tousLesClients,$tabType,$tabAnneeFinal);
         $session = $request->getSession();
         $session->set('tableauTicket', $tousTicketsCorrespondant);
 
 
-
+        //On renvoie à chaque fois le formulaire et un array contenant tous les tickets dans la page
         return $this->render('default/softnlabs_statistique_part.html.twig', array('tickets'=>$tousTicketsCorrespondant,
             'mon_formulaire' => $formView)  );
     }
