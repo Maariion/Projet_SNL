@@ -70,6 +70,7 @@ class TicketRepository extends EntityRepository
 
     /**
      * @return un seul chiffre
+     * * */
 
 
     public function trouverNombreAnnee($annee){
@@ -80,25 +81,65 @@ class TicketRepository extends EntityRepository
         ;
         return $qb5->getQuery()->getSingleScalarResult();
     }
-     * */
+
+
+    /**
+     * @return array => liste des années
+     */
+
+    public function trouverLesAnnees() {
+        $qb6=$this->createQueryBuilder('t')
+            ->select('t.tpscreation')->distinct(true)
+        ;
+        return $qb6->getQuery()->getResult();
+    }
+
+    /**
+     * @return array des id tickets correspondant
+     * * */
+
+
+    public function trouverTicketsLieAnnee($annee){
+        $qb5=$this->createQueryBuilder('t')
+            ->select('t.id')
+            ->where("t.tpscreation LIKE :annee")
+            ->setParameter('annee', '%'.$annee.'%')
+        ;
+        return $qb5->getQuery()->getArrayResult();
+    }
+
+    /**
+     * @return array de tous les id tickets
+     * * */
+
+
+    public function trouverTousTickets(){
+        $qb9=$this->createQueryBuilder('t')
+            ->select('t.id')
+        ;
+        return $qb9->getQuery()->getArrayResult();
+    }
+
 
     /**
      * @return array de tous les tickets
      */
 
-    public function trouverTousTicketsCorrespondant($criticite,$statut,$clients,$type){
-        $qb6=$this->createQueryBuilder('t')
+    public function trouverTousTicketsCorrespondant($criticite,$statut,$clients,$type,$ticketCorrespondantAnnnee){
+        $qb7=$this->createQueryBuilder('t')
             ->select('t')
             ->where("t.idcategorie IN(:categorie)")
             ->andWhere('t.idutilClient IN(:tousLesClientsConcernes)')
             ->andWhere("t.idstatut IN(:statu)")
             ->andWhere("t.idcriticite IN(:crit)")
+            ->andWhere("t.id IN (:ticketAnnee)")
             ->setParameter('categorie', $type)
             ->setParameter('tousLesClientsConcernes', $clients)
             ->setParameter('statu', $statut)
             ->setParameter('crit', $criticite)
+            ->setParameter('ticketAnnee', $ticketCorrespondantAnnnee)
         ;
-        return $qb6->getQuery()->getResult();
+        return $qb7->getQuery()->getResult();
     }
 
 

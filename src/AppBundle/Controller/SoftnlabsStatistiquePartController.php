@@ -22,6 +22,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use AppBundle\Entity\Criticite;
 use AppBundle\Form\TicketStatistique;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class SoftnlabsStatistiquePartController extends Controller
 {
@@ -30,7 +31,43 @@ class SoftnlabsStatistiquePartController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $StatistiqueForm = $this->createForm(TicketStatistique::class);
+
+        //on récupère les années de création de ticket sans doublon
+        $differenteAnnee=array();
+        $x=0;
+        $differenteDate = $this->getDoctrine()->getRepository(Ticket::class)->trouverLesAnnees();
+        foreach ($differenteDate as $val){
+            foreach ($val as $value) {
+                foreach ($value as $v) {
+                    if (($x%3)==0){
+                        if($differenteAnnee==array()){
+                            $date=substr($v,0,4);
+                            array_push($differenteAnnee, $date);
+                        }
+                        if($differenteAnnee<>array()){
+                            $date=substr($v,0,4);
+                            $w=0;
+                            foreach ($differenteAnnee as $df){
+                                if ($date==$df){
+                                    $w=$w+1;
+                                }
+                            }
+                            if($w==0){
+                                array_push($differenteAnnee, $date);
+                            }
+                        }
+                    }
+                    $x = $x+ 1;
+                }
+            }
+        }
+        $differenteAnneef=array();
+        foreach ($differenteAnnee as $parcours){
+            $differenteAnneef[$parcours]=$parcours;
+        }
+
+
+        $StatistiqueForm = $this->createForm(TicketStatistique::class,null,array('annee'=>$differenteAnneef));
         $StatistiqueForm->handleRequest($request);
         $formView = $StatistiqueForm->createView();
 
@@ -48,6 +85,37 @@ class SoftnlabsStatistiquePartController extends Controller
         $tabex= array($object1);
         array_push($tabex,$object2);
         $session->set('tableauCriticite', $tabex);*/
+
+        if (!is_null($StatistiqueForm["annee"]->getData())) {
+            $em = $this->getDoctrine()->getManager();
+            //On récupère dans un tableau les statuts sélectionnés dans le formulaire
+            $tab6 = $StatistiqueForm["annee"]->getData();
+
+
+            //On initialise le tableau
+            $tableauAnnee = array();
+
+            //On veut parcourir les différents statuts qui ont été sélectionnés dans le formulaire
+            foreach ($tab6 as $value6) {
+
+                //On a normalement en résultat 2 éléments : le nom du statut et le nombre de ticket ayant ce statut
+                $nombreAnnee = $this->getDoctrine()->getRepository(Ticket::class)->trouverNombreAnnee($value6);
+
+                $objectSelectionne = (object)[
+                    //Permet de transférer dans l'objet le nom du statut
+                    'name' => $value6,
+                    //Permet de transférer dans l'objet le nombre de ticket ayant ce statut
+                    'y' => intval($nombreAnnee),
+                ];
+                //On ajoute dans le tableau un objet contenant les statistiques
+                array_push($tableauAnnee, $objectSelectionne);
+            }
+
+            // On met en variable de session le tableau contenant les statistiques liés au statut
+            $session = $request->getSession();
+            $session->set('tableauAnnnee', $tableauAnnee);
+        }
+
 
         if (!is_null($StatistiqueForm["definition"]->getData())) {
             $em = $this->getDoctrine()->getManager();
@@ -168,53 +236,89 @@ class SoftnlabsStatistiquePartController extends Controller
 
 
         // on récupère tous les tickets correspondants aux statistiques
-        $tabType=array();
-        $tabOrganisation=array();
-        $tabCriticite=array();
-        $tabStatut=array();
+        $tabType=new ArrayCollection();
+        $tabCriticite=new ArrayCollection();
+        $tabStatut=new ArrayCollection();
         $tousLesClients=array();
+        $tabAnneeFinal=array();
 
         //Gestion des cas
         //1 : on prend ce qui a été sélectionner
         //2 : on prend tout
+        $test1=new ArrayCollection(array($StatistiqueForm["nom"]->getData()));
         if (!is_null($StatistiqueForm["nom"]->getData())){
             $em = $this->getDoctrine()->getManager();
             $tabOrganisation = $StatistiqueForm["nom"]->getData();
             $tousLesClients = $this->getDoctrine()->getRepository(Utilisateur::class)->trouverTousUtilisateursLieOrganisation($tabOrganisation);
         }
-        if (is_null($StatistiqueForm["nom"]->getData())){
+        if($test1->isEmpty() or !($StatistiqueForm["nom"]->isSubmitted()&& $StatistiqueForm["nom"]->isValid())) {
             $em = $this->getDoctrine()->getManager();
             $tousLesClients = $this->getDoctrine()->getRepository(Utilisateur::class)->findAll();
         }
+
+
 
         if (!is_null($StatistiqueForm["categorie"]->getData())){
             $em = $this->getDoctrine()->getManager();
             $tabType = $StatistiqueForm["categorie"]->getData();
         }
-        if (is_null($StatistiqueForm["categorie"]->getData())){
+        if($tabType->isEmpty() or !($StatistiqueForm["categorie"]->isSubmitted()&& $StatistiqueForm["categorie"]->isValid())) {
             $em = $this->getDoctrine()->getManager();
             $tabType = $this->getDoctrine()->getRepository(Categorie::class)->findAll();
         }
+
 
         if (!is_null($StatistiqueForm["chaine"]->getData())){
             $em = $this->getDoctrine()->getManager();
             $tabCriticite = $StatistiqueForm["chaine"]->getData();
         }
-        if (is_null($StatistiqueForm["chaine"]->getData())){
+        if($tabCriticite->isEmpty() or !($StatistiqueForm["chaine"]->isSubmitted()&& $StatistiqueForm["chaine"]->isValid())) {
             $em = $this->getDoctrine()->getManager();
             $tabCriticite = $this->getDoctrine()->getRepository(Criticite::class)->findAll();
         }
+
 
         if (!is_null($StatistiqueForm["definition"]->getData())){
             $em = $this->getDoctrine()->getManager();
             $tabStatut = $StatistiqueForm["definition"]->getData();
         }
-        if (is_null($StatistiqueForm["definition"]->getData())){
+        if($tabStatut->isEmpty() or !($StatistiqueForm["definition"]->isSubmitted()&& $StatistiqueForm["definition"]->isValid())) {
             $em = $this->getDoctrine()->getManager();
             $tabStatut = $this->getDoctrine()->getRepository(Statut::class)->findAll();
         }
 
-        $tousTicketsCorrespondant=$this->getDoctrine()->getRepository(Ticket::class)->trouverTousTicketsCorrespondant($tabCriticite,$tabStatut,$tousLesClients,$tabType);
+
+        $test5=($StatistiqueForm["annee"]->getData());
+        if (!is_null($StatistiqueForm["annee"]->getData())){
+            $em = $this->getDoctrine()->getManager();
+            $tabAnnnee = $StatistiqueForm["annee"]->getData();
+            foreach ($tabAnnnee as $ta){
+                $tabAnnneebis = $this->getDoctrine()->getRepository(Ticket::class)->trouverTicketsLieAnnee($ta);
+                foreach ($tabAnnneebis as $tabis){
+                    array_push($tabAnneeFinal, $tabis);
+                }
+            }
+        }
+
+        if($test5==null or !($StatistiqueForm["annee"]->isSubmitted()&& $StatistiqueForm["annee"]->isValid())) {
+            $em = $this->getDoctrine()->getManager();
+            $tabAnneeFinal = $this->getDoctrine()->getRepository(Ticket::class)->trouverTousTickets();
+        }
+
+
+        $session = $request->getSession();
+        $session->set('Annee', $tabAnneeFinal);
+        $session = $request->getSession();
+        $session->set('Criticite', $tabCriticite);
+        $session = $request->getSession();
+        $session->set('Statut', $tabStatut);
+        $session = $request->getSession();
+        $session->set('Societe', $tousLesClients);
+        $session = $request->getSession();
+        $session->set('Type', $tabType);
+
+
+        $tousTicketsCorrespondant=$this->getDoctrine()->getRepository(Ticket::class)->trouverTousTicketsCorrespondant($tabCriticite,$tabStatut,$tousLesClients,$tabType,$tabAnneeFinal);
         $session = $request->getSession();
         $session->set('tableauTicket', $tousTicketsCorrespondant);
 

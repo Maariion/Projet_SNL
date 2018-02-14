@@ -5,9 +5,13 @@ namespace AppBundle\Form;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Doctrine\ORM\EntityRepository;
+use AppBundle\Repository\TicketRepository;
+
 
 class TicketStatistique extends AbstractType
 {
@@ -40,9 +44,14 @@ class TicketStatistique extends AbstractType
                 'choice_label' => 'getNom',
                 'expanded' => false,
                 'multiple' => true
+            ))
+            ->add('annee', ChoiceType::class, array(
+                'choices' => $options['annee'],
+                'expanded' => false,
+                'multiple' => true
             ));
-
     }
+
 
     /**
      * {@inheritdoc}
@@ -50,6 +59,14 @@ class TicketStatistique extends AbstractType
     public function getBlockPrefix()
     {
         return 'appbundle_ticketStat';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setRequired('annee');
     }
 
 

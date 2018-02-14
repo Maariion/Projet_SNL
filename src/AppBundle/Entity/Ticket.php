@@ -126,6 +126,16 @@ class Ticket
     }
 
     /**
+     * @return datetime
+     */
+    public function getStringTpscreation()
+    {
+        $result = date_format($this->tpscreation, 'Y');
+        return $result;
+    }
+
+
+    /**
      * @param datetime $tpscreation
      */
     public function setTpscreation($tpscreation)

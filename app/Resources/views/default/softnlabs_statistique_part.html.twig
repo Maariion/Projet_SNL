@@ -34,13 +34,10 @@
                 </div>
 
                 <div class="input-field col s2">
-                    <select multiple>
-                        <option value="" disabled selected>Cliquez pour étendre</option>
-                        <option value="1">Option 1</option>
-                        <option value="2">Option 2</option>
-                        <option value="3">Option 3</option>
-                    </select>
-                    <label>Année</label>
+                    <label for="appbundle_ticketStat_definition">Année</label>
+                    <br/>
+                    <br/>
+                    {{ form_widget(mon_formulaire.annee, {'attr': {'class': 'validate'}}) }}
                 </div>
 
                 <div class="input-field col s2">
@@ -92,7 +89,7 @@
                 <th>Titre</th>
                 <th>Description</th>
                 <th>Statut</th>
-                <th>Date de création</th>
+                <th>Date de prise en compte</th>
                 <th>Consultant</th>
             </tr>
             </thead>
@@ -187,13 +184,7 @@
                 series: [{
                     name: 'Pourcentage',
                     colorByPoint: true,
-                    data: [{
-                        name: '2017',
-                        y: 25
-                    }, {
-                        name: '2018',
-                        y: 75
-                    }]
+                    data: {{(app.session.get('tableauAnnnee')|json_encode|raw)}}
                 }]
             });
 
