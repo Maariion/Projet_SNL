@@ -63,9 +63,9 @@ class NouveauClientController extends Controller
 
         }
 
-
+        $clients= $this->getDoctrine()->getRepository(Utilisateur::class)->findAllButNoConsultant();
 
         // renvoie la page avec son formulaire
-        return $this->render('default/creation_nouveau_client.html.twig', array('form'=>$formView));
+        return $this->render('default/creation_nouveau_client.html.twig', array('form'=>$formView,'client'=>$clients));
     }
 }

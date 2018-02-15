@@ -25,6 +25,18 @@ class UtilisateurRepository extends EntityRepository
 
     /**
      * @return array
+     *
+     * Retourne tous les utilisateurs sauf le 'Aucun consultant'
+     */
+    public function findAllButNoConsultant(){
+        return $this->getEntityManager()->createQuery(
+            "SELECT u FROM AppBundle:Utilisateur u WHERE u.id != '-1'"
+        )
+            ->getResult();
+    }
+
+    /**
+     * @return array
      * permet de récupérer tous les utilisateurs liés à une organisation
      */
 

@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Organisation;
+use AppBundle\Entity\Utilisateur;
 use AppBundle\Form\OrganisationAddType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -52,6 +53,8 @@ class NouvelleSocieteController extends Controller
 
         }
 
-        return $this->render('default/creation_nouvelle_societe.html.twig', array('form'=>$formView));
+        $clients= $this->getDoctrine()->getRepository(Utilisateur::class)->findAllButNoConsultant();
+
+        return $this->render('default/creation_nouvelle_societe.html.twig', array('form'=>$formView, 'clients'=>$clients));
     }
 }
