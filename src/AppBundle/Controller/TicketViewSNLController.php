@@ -77,6 +77,15 @@ class TicketViewSNLController extends Controller
 
             $session = $request->getSession();
             $em = $this->getDoctrine()->getManager();
+
+            //si le ticket est en nouveau et que l'utilisateur "Aucun user a été changé, on passe le statut à "encours"
+            if($ticket->getIDStatut()==$em->find(Statut::class,1) && $ticket->getIdutilConsultant()!='-1'){
+                $ticket->setIdStatut($em->find(Statut::class,2));
+            }
+
+
+
+
             $em->persist($ticket);
             $em->flush();
 
