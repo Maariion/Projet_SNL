@@ -56,16 +56,24 @@ class ConnexionController extends Controller
                 $session = $request->getSession();
                 $session->set('userID', $user->getId());
                 $session->set('NomAndPrenom', $user->getNomAndPrenom());
-                $session->set('userStatut',$user->getidstatut);
+                $session->set('userStatut',$user->getRole());
 
                 if (strpos($userMail, 'softnlabs') != true) {
-                    return $this->render('default/client.html.twig');
+                    $user = $em->getRepository(Utilisateur::class)->find($session->get('userID'));
+
+                    //On récupère les tickets du client qui se connecte afin de les afficher dans le tableau de tickets
+                    $tickets = $this
+                        ->getDoctrine()
+                        ->getRepository('AppBundle:Ticket')->findBy(array("idutilClient"=>$user));
+
+                    //On renvoie la page avec le tableau de tickets du client
+                    return $this->render('default/client.html.twig', array('tickets'=>$tickets));
                 } else {
-                    return $this->render('default/softnlabs_client_part.html.twig');
+                    $clients= $this->getDoctrine()->getRepository(Utilisateur::class)->findAllButNoConsultant();
+                    return $this->render('default/softnlabs_client_part.html.twig', array('clients'=>$clients));
                 }
             }
         }
-
 
 
         //On rend la vue, on passe en paramètre le html généré au dessus. Le mot 'form' est utilisé dans le html pour retrouver les bonnes data dans le tableau
