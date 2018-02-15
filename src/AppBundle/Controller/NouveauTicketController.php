@@ -49,6 +49,7 @@ class NouveauTicketController extends Controller
             $user = $em->getRepository(Utilisateur::class)->find($session->get('userID'));
             $ticket->setIdstatut($statut);
             $ticket->setIdutilClient($user);
+            $ticket->setTpscreation(new \DateTime());
 
             $em->persist($ticket);
 

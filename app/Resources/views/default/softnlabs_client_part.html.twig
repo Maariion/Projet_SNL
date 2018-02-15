@@ -16,7 +16,7 @@
 
 <div class = "card-panel">
 
-    {% if (isAdmin) %}
+    {% if (app.session.get('userStatut') =="Admin") %}
     <div class="row; center" style="padding: 0.4%">
         <a class="waves-effect waves-light btn-large" style="padding-right:100px; padding-left: 100px; font-size: x-large" href="{{ path('nouveauClient')}}"><i class="material-icons left">add_circle_outline</i>Nouveau Client</a>
         <a class="waves-effect waves-light btn-large" style="padding-right:100px; padding-left: 100px; font-size: x-large" href="{{ path('nouvelleSociete')}}"><i class="material-icons left">add_circle_outline</i>Nouvelle société</a>
