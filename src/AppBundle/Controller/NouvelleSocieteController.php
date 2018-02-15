@@ -49,12 +49,13 @@ class NouvelleSocieteController extends Controller
 
             $em->flush();
 
-            return $this->render('default/softnlabs_client_part.html.twig');
+            $clients= $this->getDoctrine()->getRepository(Utilisateur::class)->findAllButNoConsultant();
+            return $this->render('default/softnlabs_client_part.html.twig',array('clients'=>$clients));
 
         }
 
-        $clients= $this->getDoctrine()->getRepository(Utilisateur::class)->findAllButNoConsultant();
 
-        return $this->render('default/creation_nouvelle_societe.html.twig', array('form'=>$formView, 'clients'=>$clients));
+
+        return $this->render('default/creation_nouvelle_societe.html.twig', array('form'=>$formView));
     }
 }
