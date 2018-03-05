@@ -81,170 +81,6 @@ class SoftnlabsStatistiquePartController extends Controller
         $formView = $StatistiqueForm->createView();
 
 
-        /* Permet de montrer le format nécessaire pour que les données soient intégrés aux graphes camembert
-        $session = $request->getSession();
-        $object1 = (object) [
-            'name'=>'Bloquant',
-            'y' => 1,
-        ];
-        $object2 = (object) [
-            'name'=>'Urgent',
-            'y' => 2,
-        ];
-        $tabex= array($object1);
-        array_push($tabex,$object2);
-        $session->set('tableauCriticite', $tabex);*/
-
-        if (!is_null($StatistiqueForm["annee"]->getData())) {
-            $em = $this->getDoctrine()->getManager();
-            //On récupère dans un tableau les années sélectionnées dans le formulaire
-            $tab6 = $StatistiqueForm["annee"]->getData();
-
-
-            //On initialise le tableau
-            $tableauAnnee = array();
-
-            //On veut parcourir les différentes années qui ont été sélectionnés dans le formulaire
-            foreach ($tab6 as $value6) {
-
-                //On a normalement en résultat 2 éléments : le nom de l'année et le nombre de ticket de cette année
-                $nombreAnnee = $this->getDoctrine()->getRepository(Ticket::class)->trouverNombreAnnee($value6);
-
-                $objectSelectionne = (object)[
-                    //Permet de transférer dans l'objet l'année
-                    'name' => $value6,
-                    //Permet de transférer dans l'objet le nombre de ticket de cette année
-                    'y' => intval($nombreAnnee),
-                ];
-                //On ajoute dans le tableau un objet contenant les statistiques
-                array_push($tableauAnnee, $objectSelectionne);
-            }
-
-            // On met en variable de session le tableau contenant les statistiques liées à ces années
-            $session = $request->getSession();
-            $session->set('tableauAnnnee', $tableauAnnee);
-        }
-
-
-        if (!is_null($StatistiqueForm["definition"]->getData())) {
-            $em = $this->getDoctrine()->getManager();
-            //On récupère dans un tableau les statuts sélectionnés dans le formulaire
-            $tab1 = $StatistiqueForm["definition"]->getData();
-
-            //On initialise le tableau
-            $tableaustatut = array();
-
-            //On veut parcourir les différents statuts qui ont été sélectionnés dans le formulaire
-            foreach ($tab1 as $value1) {
-
-                //On a normalement en résultat 2 éléments : le nom du statut et le nombre de ticket ayant ce statut
-                $nombreStatut = $this->getDoctrine()->getRepository(Ticket::class)->trouverNombreStatut($value1);
-
-                $objectSelectionne = (object)[
-                    //Permet de transférer dans l'objet le nom du statut
-                    'name' => $value1->getDefinition(),
-                    //Permet de transférer dans l'objet le nombre de ticket ayant ce statut
-                    'y' => intval($nombreStatut),
-                ];
-                //On ajoute dans le tableau un objet contenant les statistiques
-                array_push($tableaustatut, $objectSelectionne);
-            }
-
-            // On met en variable de session le tableau contenant les statistiques liées aux statuts
-            $session = $request->getSession();
-            $session->set('tableauStatut', $tableaustatut);
-        }
-
-        if (!is_null($StatistiqueForm["chaine"]->getData())) {
-            $em = $this->getDoctrine()->getManager();
-            //On récupère dans un tableau les criticités sélectionnées dans le formulaire
-            $tab = $StatistiqueForm["chaine"]->getData();
-
-            //On initialise le tableau
-            $tableaucriticite = array();
-
-            //On veut parcourir les différentes criticités qui ont été sélectionnées dans le formulaire
-            foreach ($tab as $value) {
-
-                //On a normalement en résultat 2 éléments : le nom de la criticité et le nombre de ticket ayant cette criticité
-                $nombreCritique = $this->getDoctrine()->getRepository(Ticket::class)->trouverNombreCriticite($value);
-
-                $objectSelectionne = (object)[
-                    //Permet de transférer dans l'objet le nom de la criticité
-                    'name' => $value->getChaine(),
-                    //Permet de transférer dans l'objet le nombre de ticket ayant cette criticité
-                    'y' => intval($nombreCritique),
-                ];
-                //On ajoute dans le tableau un objet contenant les statistiques
-                array_push($tableaucriticite, $objectSelectionne);
-            }
-
-            // On met en variable de session le tableau contenant les statistiques liées aux criticitéx
-            $session = $request->getSession();
-            $session->set('tableauCriticite', $tableaucriticite);
-        }
-
-        if (!is_null($StatistiqueForm["categorie"]->getData())) {
-            $em = $this->getDoctrine()->getManager();
-            //On récupère dans un tableau les types sélectionnés dans le formulaire
-            $tab = $StatistiqueForm["categorie"]->getData();
-
-            //On initialise le tableau
-            $tableaucategorie = array();
-
-            //On veut parcourir les différents types qui ont été sélectionnés dans le formulaire
-            foreach ($tab as $value4) {
-
-                //On a normalement en résultat 2 éléments : le nom du type et le nombre de ticket ayant ce type
-                $nombreCritique = $this->getDoctrine()->getRepository(Ticket::class)->trouverNombreType($value4);
-
-                $objectSelectionne = (object)[
-                    //Permet de transférer dans l'objet le nom du type
-                    'name' => $value4->getNom(),
-                    //Permet de transférer dans l'objet le nombre de ticket ayant ce type
-                    'y' => intval($nombreCritique),
-                ];
-                //On ajoute dans le tableau un objet contenant les statistiques
-                array_push($tableaucategorie, $objectSelectionne);
-            }
-
-            // On met en variable de session le tableau contenant les statistiques liées aux types
-            $session = $request->getSession();
-            $session->set('tableauType', $tableaucategorie);
-        }
-
-        if (!is_null($StatistiqueForm["nom"]->getData())) {
-            $em = $this->getDoctrine()->getManager();
-            //On récupère dans un tableau les organisations sélectionnées dans le formulaire
-            $tab3 = $StatistiqueForm["nom"]->getData();
-
-
-            //On initialise le tableau
-            $tableauorganisation = array();
-
-            //On veut parcourir les différente organisations qui ont été sélectionnées dans le formulaire
-            foreach ($tab3 as $value3) {
-
-                //On a normalement en résultat 2 éléments : le nom de l'organisation et le nombre de ticket ayant cette organisation
-                $tousLesClients = $this->getDoctrine()->getRepository(Utilisateur::class)->trouverUtilisateurLieOrganisation($value3);
-                $nombreCritique = $this->getDoctrine()->getRepository(Ticket::class)->trouverNombreOrganisation($tousLesClients);
-
-                $objectSelectionne = (object)[
-                    //Permet de transférer dans l'objet le nom de l'organisation
-                    'name' => $value3->getNom(),
-                    //Permet de transférer dans l'objet le nombre de ticket ayant cette organisation
-                    'y' => intval($nombreCritique),
-                ];
-                //On ajoute dans le tableau un objet contenant les statistiques
-                array_push($tableauorganisation, $objectSelectionne);
-            }
-
-            // On met en variable de session le tableau contenant les statistiques liées aux organisations
-            $session = $request->getSession();
-            $session->set('tableauOrganisation', $tableauorganisation);
-        }
-
-
         // on récupère tous les tickets correspondants aux statistiques
         //on initialise tous les tableaux afin de pouvoir rentrer correctement dans les différents cas
         $tabType=new ArrayCollection();
@@ -352,8 +188,173 @@ class SoftnlabsStatistiquePartController extends Controller
 
         //On récupère tous les tickets correspondants aux critères sélectionné ou tous les tickets si aucun critère n'est sélectionné
         $tousTicketsCorrespondant=$this->getDoctrine()->getRepository(Ticket::class)->trouverTousTicketsCorrespondant($tabCriticite,$tabStatut,$tousLesClients,$tabType,$tabAnneeFinal);
+
         $session = $request->getSession();
-        $session->set('tableauTicket', $tousTicketsCorrespondant);
+        $session->set('tab1', $tousTicketsCorrespondant);
+
+        /* Permet de montrer le format nécessaire pour que les données soient intégrés aux graphes camembert
+        $session = $request->getSession();
+        $object1 = (object) [
+            'name'=>'Bloquant',
+            'y' => 1,
+        ];
+        $object2 = (object) [
+            'name'=>'Urgent',
+            'y' => 2,
+        ];
+        $tabex= array($object1);
+        array_push($tabex,$object2);
+        $session->set('tableauCriticite', $tabex);*/
+
+        if (!is_null($StatistiqueForm["annee"]->getData())) {
+
+            $em = $this->getDoctrine()->getManager();
+            //On récupère dans un tableau les années sélectionnées dans le formulaire
+            $tab6 = $StatistiqueForm["annee"]->getData();
+
+
+            //On initialise le tableau
+            $tableauAnnee = array();
+
+            //On veut parcourir les différentes années qui ont été sélectionnés dans le formulaire
+            foreach ($tab6 as $value6) {
+
+                //On a normalement en résultat 2 éléments : le nom de l'année et le nombre de ticket de cette année
+                $nombreAnnee = $this->getDoctrine()->getRepository(Ticket::class)->trouverNombreAnnee($value6,$tousTicketsCorrespondant);
+
+                $objectSelectionne = (object)[
+                    //Permet de transférer dans l'objet l'année
+                    'name' => $value6,
+                    //Permet de transférer dans l'objet le nombre de ticket de cette année
+                    'y' => intval($nombreAnnee),
+                ];
+                //On ajoute dans le tableau un objet contenant les statistiques
+                array_push($tableauAnnee, $objectSelectionne);
+            }
+
+            // On met en variable de session le tableau contenant les statistiques liées à ces années
+            $session = $request->getSession();
+            $session->set('tableauAnnnee', $tableauAnnee);
+        }
+
+
+        if (!is_null($StatistiqueForm["definition"]->getData())) {
+            $em = $this->getDoctrine()->getManager();
+            //On récupère dans un tableau les statuts sélectionnés dans le formulaire
+            $tab1 = $StatistiqueForm["definition"]->getData();
+
+            //On initialise le tableau
+            $tableaustatut = array();
+
+            //On veut parcourir les différents statuts qui ont été sélectionnés dans le formulaire
+            foreach ($tab1 as $value1) {
+
+                //On a normalement en résultat 2 éléments : le nom du statut et le nombre de ticket ayant ce statut
+                $nombreStatut = $this->getDoctrine()->getRepository(Ticket::class)->trouverNombreStatut($value1,$tousTicketsCorrespondant);
+
+                $objectSelectionne = (object)[
+                    //Permet de transférer dans l'objet le nom du statut
+                    'name' => $value1->getDefinition(),
+                    //Permet de transférer dans l'objet le nombre de ticket ayant ce statut
+                    'y' => intval($nombreStatut),
+                ];
+                //On ajoute dans le tableau un objet contenant les statistiques
+                array_push($tableaustatut, $objectSelectionne);
+            }
+
+            // On met en variable de session le tableau contenant les statistiques liées aux statuts
+            $session = $request->getSession();
+            $session->set('tableauStatut', $tableaustatut);
+        }
+
+        if (!is_null($StatistiqueForm["chaine"]->getData())) {
+            $em = $this->getDoctrine()->getManager();
+            //On récupère dans un tableau les criticités sélectionnées dans le formulaire
+            $tab = $StatistiqueForm["chaine"]->getData();
+
+            //On initialise le tableau
+            $tableaucriticite = array();
+
+            //On veut parcourir les différentes criticités qui ont été sélectionnées dans le formulaire
+            foreach ($tab as $value) {
+
+                //On a normalement en résultat 2 éléments : le nom de la criticité et le nombre de ticket ayant cette criticité
+                $nombreCritique = $this->getDoctrine()->getRepository(Ticket::class)->trouverNombreCriticite($value,$tousTicketsCorrespondant);
+
+                $objectSelectionne = (object)[
+                    //Permet de transférer dans l'objet le nom de la criticité
+                    'name' => $value->getChaine(),
+                    //Permet de transférer dans l'objet le nombre de ticket ayant cette criticité
+                    'y' => intval($nombreCritique),
+                ];
+                //On ajoute dans le tableau un objet contenant les statistiques
+                array_push($tableaucriticite, $objectSelectionne);
+            }
+
+            // On met en variable de session le tableau contenant les statistiques liées aux criticitéx
+            $session = $request->getSession();
+            $session->set('tableauCriticite', $tableaucriticite);
+        }
+
+        if (!is_null($StatistiqueForm["categorie"]->getData())) {
+            $em = $this->getDoctrine()->getManager();
+            //On récupère dans un tableau les types sélectionnés dans le formulaire
+            $tab = $StatistiqueForm["categorie"]->getData();
+
+            //On initialise le tableau
+            $tableaucategorie = array();
+
+            //On veut parcourir les différents types qui ont été sélectionnés dans le formulaire
+            foreach ($tab as $value4) {
+
+                //On a normalement en résultat 2 éléments : le nom du type et le nombre de ticket ayant ce type
+                $nombreCritique = $this->getDoctrine()->getRepository(Ticket::class)->trouverNombreType($value4,$tousTicketsCorrespondant);
+
+                $objectSelectionne = (object)[
+                    //Permet de transférer dans l'objet le nom du type
+                    'name' => $value4->getNom(),
+                    //Permet de transférer dans l'objet le nombre de ticket ayant ce type
+                    'y' => intval($nombreCritique),
+                ];
+                //On ajoute dans le tableau un objet contenant les statistiques
+                array_push($tableaucategorie, $objectSelectionne);
+            }
+
+            // On met en variable de session le tableau contenant les statistiques liées aux types
+            $session = $request->getSession();
+            $session->set('tableauType', $tableaucategorie);
+        }
+
+        if (!is_null($StatistiqueForm["nom"]->getData())) {
+            $em = $this->getDoctrine()->getManager();
+            //On récupère dans un tableau les organisations sélectionnées dans le formulaire
+            $tab3 = $StatistiqueForm["nom"]->getData();
+
+
+            //On initialise le tableau
+            $tableauorganisation = array();
+
+            //On veut parcourir les différente organisations qui ont été sélectionnées dans le formulaire
+            foreach ($tab3 as $value3) {
+
+                //On a normalement en résultat 2 éléments : le nom de l'organisation et le nombre de ticket ayant cette organisation
+                $tousLesClients = $this->getDoctrine()->getRepository(Utilisateur::class)->trouverUtilisateurLieOrganisation($value3);
+                $nombreCritique = $this->getDoctrine()->getRepository(Ticket::class)->trouverNombreOrganisation($tousLesClients,$tousTicketsCorrespondant);
+
+                $objectSelectionne = (object)[
+                    //Permet de transférer dans l'objet le nom de l'organisation
+                    'name' => $value3->getNom(),
+                    //Permet de transférer dans l'objet le nombre de ticket ayant cette organisation
+                    'y' => intval($nombreCritique),
+                ];
+                //On ajoute dans le tableau un objet contenant les statistiques
+                array_push($tableauorganisation, $objectSelectionne);
+            }
+
+            // On met en variable de session le tableau contenant les statistiques liées aux organisations
+            $session = $request->getSession();
+            $session->set('tableauOrganisation', $tableauorganisation);
+        }
 
 
         //On renvoie à chaque fois le formulaire et un array contenant tous les tickets dans la page

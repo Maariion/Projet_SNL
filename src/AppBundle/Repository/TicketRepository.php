@@ -20,10 +20,12 @@ class TicketRepository extends EntityRepository
      * permet de savoir combien il y a de tickets correspondant à une criticité sélectionnée
      */
 
-    public function trouverNombreCriticite($criticite){
+    public function trouverNombreCriticite($criticite,$tabid){
         $qb1=$this->createQueryBuilder('t')
             ->select('Count(t)')
             ->where("t.idcriticite = :crit")
+            ->andWhere("t.id IN (:tabid)")
+            ->setParameter('tabid', $tabid)
             ->setParameter('crit', $criticite)
         ;
         return $qb1->getQuery()->getSingleScalarResult();
@@ -34,10 +36,12 @@ class TicketRepository extends EntityRepository
      * permet de savoir combien il y a de tickets correspondant à un statut sélectionné
      */
 
-    public function trouverNombreStatut($statut){
+    public function trouverNombreStatut($statut,$tabid){
         $qb2=$this->createQueryBuilder('t')
             ->select('Count(t)')
             ->where("t.idstatut = :statu")
+            ->andWhere("t.id IN (:tabid)")
+            ->setParameter('tabid', $tabid)
             ->setParameter('statu', $statut)
         ;
         return $qb2->getQuery()->getSingleScalarResult();
@@ -48,10 +52,12 @@ class TicketRepository extends EntityRepository
      * permet de savoir combien il y a de tickets correspondant à une liste d'utilisateur
      */
 
-    public function trouverNombreOrganisation($clients){
+    public function trouverNombreOrganisation($clients,$tabid){
         $qb3=$this->createQueryBuilder('t')
             ->select('Count(t)')
             ->where('t.idutilClient IN(:tousLesClientsConcernes)')
+            ->andWhere("t.id IN (:tabid)")
+            ->setParameter('tabid', $tabid)
             ->setParameter('tousLesClientsConcernes', array_values($clients))
         ;
         return $qb3->getQuery()->getSingleScalarResult();
@@ -63,10 +69,12 @@ class TicketRepository extends EntityRepository
      * permet de savoir combien il y a de tickets correspondant à une type sélectionné
      */
 
-    public function trouverNombreType($type){
+    public function trouverNombreType($type,$tabid){
         $qb4=$this->createQueryBuilder('t')
             ->select('Count(t)')
             ->where("t.idcategorie = :categorie")
+            ->andWhere("t.id IN (:tabid)")
+            ->setParameter('tabid', $tabid)
             ->setParameter('categorie', $type)
         ;
         return $qb4->getQuery()->getSingleScalarResult();
@@ -78,10 +86,12 @@ class TicketRepository extends EntityRepository
      */
 
 
-    public function trouverNombreAnnee($annee){
+    public function trouverNombreAnnee($annee,$tabid){
         $qb5=$this->createQueryBuilder('t')
             ->select('Count(t)')
             ->where("t.tpscreation LIKE :annee")
+            ->andWhere("t.id IN (:tabid)")
+            ->setParameter('tabid', $tabid)
             ->setParameter('annee', '%'.$annee.'%')
         ;
         return $qb5->getQuery()->getSingleScalarResult();
