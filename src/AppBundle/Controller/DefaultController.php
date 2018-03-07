@@ -52,7 +52,6 @@ class DefaultController extends Controller
                 $session->set('userID', $user->getId());
                 $session->set('user', $user);
                 $session->set('NomAndPrenom', $user->getNomAndPrenom());
-                $session->set('userStatut',$user->getidstatut);
 
                 if (strpos($userMail, 'softnlabs') != true) {
                     return $this->render('default/client.html.twig');
