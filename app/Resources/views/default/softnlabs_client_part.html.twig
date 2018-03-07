@@ -24,6 +24,10 @@
     </div>
     {% endif %}
 
+    {% if clients is null %}
+        <h2>Aucun client n'est actuellement dans la base</h2>
+    {% endif %}
+
     <div style="padding: 2%">
         <table id="example" class="display dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="example_info" style="width: 100%">
             <thead>

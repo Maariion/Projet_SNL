@@ -35,7 +35,7 @@ class SoftnlabsClientPartController extends Controller
             $isAdmin = false;
         }
 
-        $clients= $this->getDoctrine()->getRepository(Utilisateur::class)->findAllButNoConsultant();
+        $clients= $this->getDoctrine()->getRepository(Utilisateur::class)->findAll();
 
         // replace this example code with whatever you need
         return $this->render('default/softnlabs_client_part.html.twig', array('clients'=>$clients, 'isAdmin'=>$isAdmin));

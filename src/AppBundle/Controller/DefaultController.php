@@ -47,16 +47,40 @@ class DefaultController extends Controller
             if(is_null($user)){
                 return $this->render('default/index.html.twig', array('form'=>$formView));
             }
+            else
             {
                 $session = $request->getSession();
                 $session->set('userID', $user->getId());
-                $session->set('user', $user);
                 $session->set('NomAndPrenom', $user->getNomAndPrenom());
+                $session->set('userStatut',$user->getRole());
+                $session->set('user', $user);
 
                 if (strpos($userMail, 'softnlabs') != true) {
-                    return $this->render('default/client.html.twig');
+                    $user = $em->getRepository(Utilisateur::class)->find($session->get('userID'));
+
+                    //On récupère les tickets du client qui se connecte afin de les afficher dans le tableau de tickets
+                    $tickets = $this
+                        ->getDoctrine()
+                        ->getRepository('AppBundle:Ticket')->findBy(array("idutilClient"=>$user));
+
+                    //On renvoie la page avec le tableau de tickets du client
+                    return $this->render('default/client.html.twig', array('tickets'=>$tickets));
                 } else {
-                    return $this->render('default/softnlabs_client_part.html.twig');
+
+                    $em = $this->getDoctrine()->getManager();
+
+                    $session = $request->getSession();
+
+                    //On vérifie le statut de l'utilisateur, Consultant ou administrateur, la variable prend vrai si l'utilisateur est administrateur
+                    if($session->get('userStatut')=="Admin"){
+                        $isAdmin = true;
+                    }else{
+                        $isAdmin = false;
+                    }
+
+                    $clients= $this->getDoctrine()->getRepository(Utilisateur::class)->findAllButNoConsultant();
+
+                    return $this->render('default/softnlabs_client_part.html.twig', array('clients'=>$clients, 'isAdmin'=>$isAdmin));
                 }
             }
         }
