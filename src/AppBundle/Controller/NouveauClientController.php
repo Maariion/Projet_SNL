@@ -43,6 +43,9 @@ class NouveauClientController extends Controller
 
             $user->setActif(1);
 
+            //a supprimer
+            $session->set('userID', 1);
+
             //Hachage du mlot de passe du nouvel utilisateur en sha1
             $user->setMotpasse(sha1($user->getMotpasse()));
 

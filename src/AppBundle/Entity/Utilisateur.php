@@ -66,11 +66,11 @@ class Utilisateur
     private $organisation;
 
     /**
-     * @var Integer
+     * @var int
      *
      * @ORM\Column(name="Id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
