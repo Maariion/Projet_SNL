@@ -50,6 +50,7 @@ class NouveauTicketController extends Controller
             $ticket->setIdstatut($statut);
             $ticket->setIdutilClient($user);
             $ticket->setTpscreation(new \DateTime());
+            $ticket->setIdutilConsultant(-1);
 
             $em->persist($ticket);
 

@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Time;
 
 /**
  * Ticket
@@ -28,6 +29,13 @@ class Ticket
     private $description;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="Justification", type="text", length=65535, nullable=true)
+     */
+    private $justification;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="TpsPriseCompte", type="datetime", nullable=true)
@@ -35,14 +43,14 @@ class Ticket
     private $tpsprisecompte;
 
     /**
-     * @var \DateTime
+     * @var Time
      *
      * @ORM\Column(name="TpsResolution", type="datetime", nullable=true)
      */
     private $tpsresolution;
 
     /**
-     * @var Integer
+     * @var Int
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Categorie")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="categorie", referencedColumnName="Id")

@@ -5,10 +5,15 @@ namespace AppBundle\Form;
 
 use AppBundle\Repository\StatutRepository;
 use AppBundle\Repository\UtilisateurRepository;
+
+
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TicketViewSNLConsStatType extends AbstractType
@@ -23,7 +28,7 @@ class TicketViewSNLConsStatType extends AbstractType
             ->add('titre',TextType::class, array('disabled'=>true))
             ->add('description',TextType::class, array('disabled'=>true))
             //->add('tpsprisecompte')
-            //->add('tpsresolution')
+            ->add('tpsresolution')
             ->add('idcategorie',  EntityType::class, array(
                 'class'=>'AppBundle\Entity\Categorie',
                 'choice_label'=> 'getNom',
@@ -63,12 +68,9 @@ class TicketViewSNLConsStatType extends AbstractType
                 'multiple'=> false,
                 'query_builder' => function(UtilisateurRepository $repo){
                     return $repo->createQueryBuilder('u')
-
                         ->select('u')
-                            /*
-                        ->from('AppBundle:Utilisateur')
-                        */
-                        ->where('u.organisation = 1');
+                        ->where('u.organisation = :organisation')
+                        ->setParameter('organisation',"1");
                 }
             ))
             ->add('idsysteme',  EntityType::class, array(
@@ -78,6 +80,22 @@ class TicketViewSNLConsStatType extends AbstractType
                 'multiple'=> false,
                 'disabled'=>true
             ));
+
+
+        $builder->addEventListener(
+            FormEvents::PRE_SUBMIT,
+            function (FormEvent $event) {
+                $form = $event->getForm();
+
+                $data = $event->getData();
+
+                $statut = $data->getidstatut();
+
+                if($statut->getid() == 3 or $statut->getid() == 4){
+                    $form->add('tpsprisecompte', TimeType::class);
+                }
+            }
+        );
     }
     
     /**

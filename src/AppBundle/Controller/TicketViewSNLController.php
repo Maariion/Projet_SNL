@@ -49,7 +49,8 @@ class TicketViewSNLController extends Controller
                 $formView = $form->createView();
 
             }else{
-                //Un ticket Nouveau n'est pas modifiable par les consultants, le formualire devra donc être bloqué
+
+                //Un ticket Nouveau n'est pas modifiable par les consultants, le formulaire devra donc être bloqué
                 $form = $this->createForm(TicketViewSNLLocked::class,$ticket);
                 $form->handleRequest($request);
                 $formView = $form->createView();
@@ -79,10 +80,13 @@ class TicketViewSNLController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             //si le ticket est en nouveau et que l'utilisateur "Aucun user a été changé, on passe le statut à "encours"
+            //on met également à jour le temps de prise en compte dans la base
             if($ticket->getIDStatut()==$em->find(Statut::class,1) && $ticket->getIdutilConsultant()!='-1'){
                 $ticket->setIdStatut($em->find(Statut::class,2));
+                $ticket->setTpsPriseCompte(new \DateTime());
             }
 
+            //si le ticket est annulé
 
 
 

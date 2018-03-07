@@ -73,17 +73,12 @@
             <div class="input-field col s3">
             </div>
             <div class="input-field col s3">
-                <label for="appbundle_utilisateur_nom">Statut actuel</label><br/><br/>
-                {{ form_widget(form.idstatut,{'attr':{'class':'validate'}}) }}
+                <label for="appbundle_statut_definition">Statut actuel</label><br/><br/>
+                {{ form_widget(form.idstatut,{'attr':{'class':'validate'}, 'id':'statut'}) }}
             </div>
             <div class="input-field col s3">
                 <label for="appbundle_utilisateur_nom">Consultant affecté</label><br/><br/>
-                {% if ticket.idutilConsultant != ""%}
-                    {{ form_widget(form.idutilConsultant,{value: "Personne"})}}
-                    {% else %}
-                        <select disabled><option>Aucun consultant pout le moment</option></select>
-                {% endif %}
-
+                    {{ form_widget(form.idutilConsultant)}}
             </div>
             <div class="input-field col s3">
             </div>
@@ -96,6 +91,20 @@
                 </button>
             </div>
         </div>
+        <!-- Modal Trigger -->
+        <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <h4>Modal Header</h4>
+                <p>A bunch of text</p>
+                {{ form_widget(form.tpsresolution)}}
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+            </div>
+        </div>
     </div>
 
     {{ form_end(form) }}
@@ -106,7 +115,22 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('select').material_select();
+            $('.modal').modal();
+            //$('#modal1').modal('open');
+
+            $("appbundle_ticket[idstatut]").change(function(){
+                // Check if current value is "audi"
+                window.alert("LOOOOL");
+                if($(this).text() === "Cloturé"){
+                    // Show input field
+                    $("#modal1").modal('open');   //This changes display to block
+                }else{
+                    // Hide input field
+                    $("#modal1").hide();
+                }
+            });
         });
+
     </script>
 {% endblock %}
 

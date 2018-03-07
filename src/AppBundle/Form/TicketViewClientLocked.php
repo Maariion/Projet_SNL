@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Repository\UtilisateurRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -45,7 +46,13 @@ class TicketViewClientLocked extends AbstractType
                 'choice_label'=> 'getNomAndPrenom',
                 'expanded'=> false,
                 'multiple'=> false,
-                'disabled'=>true
+                'disabled'=>false,
+                'query_builder' => function(UtilisateurRepository $repo){
+                    return $repo->createQueryBuilder('u')
+                        ->select('u')
+                        ->where('u.organisation = :organisation')
+                        ->setParameter('organisation',"1");
+                }
             ))
             ->add('idsysteme', EntityType::class, array(
                 'class'=>'AppBundle\Entity\Systeme',

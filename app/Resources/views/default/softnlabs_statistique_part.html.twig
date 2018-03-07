@@ -100,7 +100,7 @@
                     <td>{{ ticket.titre }}</td>
                     <td>{{ ticket.description }}</td>
                     <td>{{ ticket.idstatut.definition}}</td>
-                    <td>{{ ticket.tpsprisecompte | default("Ce ticket n'a pas encore été pris en compte") }}</td>
+                    <td>{{ ticket.tpsprisecompte | date("d/m/Y")  }}</td>
                     <td>{{ ticket.idutilConsultant.nomandprenom| default("Aucun consultant défini pour le moment")}}</td>
                     <td>
 

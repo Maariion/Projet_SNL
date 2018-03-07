@@ -23,6 +23,7 @@
             <th>Description</th>
             <th>Statut</th>
             <th>Date de création</th>
+            <th>Date de prise en compte</th>
             <th>Consultant</th>
         </tr>
         </thead>
@@ -33,13 +34,17 @@
                 <td>{{ ticket.titre }}</td>
                 <td>{{ ticket.description }}</td>
                 <td>{{ ticket.idstatut.definition}}</td>
-                <td>{{ ticket.tpsprisecompte | default("Ce ticket n'a pas encore été pris en compte") }}</td>
-                <td>{{ ticket.idutilConsultant.nomandprenom| default("Aucun consultant défini pour le moment")}}</td>
+                <td>{{ ticket.tpscreation | date("d/m/Y") }}</td>
+                {% if ticket.tpsprisecompte is null  %}
+                <td>Ce ticket n'a pas encore été pris en compte</td>
+                {% else %}
+                <td>{{ ticket.tpsprisecompte | date("d/m/Y") |default("Ce ticket n'a pas encore été pris en compte") }}</td>
+                {% endif %}
+                <td>{{ ticket.idutilConsultant.nomandprenom|default("Aucun consultant défini pour le moment")}}</td>
                 <td>
                     <a href="{{ path('ticketConsultSNL', {'id': ticket.id }) }}">Visualiser ticket</a>
                 </td>
             </tr>
-            <br/>
         {% endfor %}
     </table>
 
