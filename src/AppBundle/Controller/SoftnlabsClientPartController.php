@@ -28,12 +28,6 @@ class SoftnlabsClientPartController extends Controller
 
         $session = $request->getSession();
 
-        if(!$session->get('userID')){
-            $session->set('userID',1);
-            $session->set('NomAndPrenom', 'Morisset Clément');
-            $session->set('userStatut','Admin');
-        }
-
         //On vérifie le statut de l'utilisateur, Consultant ou administrateur, la variable prend vrai si l'utilisateur est administrateur
         if($session->get('userStatut')=="Admin"){
             $isAdmin = true;

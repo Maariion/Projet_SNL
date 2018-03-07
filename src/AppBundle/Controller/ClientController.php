@@ -31,10 +31,6 @@ class ClientController extends Controller
         $user=$em->getRepository(Utilisateur::class)->find(2);
 
         $session = $request->getSession();
-        if(!$session->get('userID')){
-            $session->set('userID',2);
-            $session->set('NomAndPrenom', 'Sérazin Marion');
-        }
 
         //On récupère le numéro d'identifiant de l'utilisateur en cours d'utilisation
         $user_id = $session->get('userID');
