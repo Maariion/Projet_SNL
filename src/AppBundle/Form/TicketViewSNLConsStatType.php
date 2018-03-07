@@ -79,23 +79,11 @@ class TicketViewSNLConsStatType extends AbstractType
                 'expanded'=> false,
                 'multiple'=> false,
                 'disabled'=>true
-            ));
+            ))
+            ->add('tpsresolution',TimeType::class, array('disabled'=>false))
+            ->add('justification',TextType::class, array('disabled'=>false))
+        ;
 
-
-        $builder->addEventListener(
-            FormEvents::PRE_SUBMIT,
-            function (FormEvent $event) {
-                $form = $event->getForm();
-
-                $data = $event->getData();
-
-                $statut = $data->getidstatut();
-
-                if($statut->getid() == 3 or $statut->getid() == 4){
-                    $form->add('tpsprisecompte', TimeType::class);
-                }
-            }
-        );
     }
     
     /**

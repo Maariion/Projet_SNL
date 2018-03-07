@@ -79,7 +79,7 @@ class TicketViewClientController extends Controller
 
         }
 
-        return $this->render('default/visualisation_ticket_softnlabs.html.twig', array('ticket'=>$ticket,'form'=>$formView));
+        return $this->render(':default:visualisation_ticket_client.html.twig', array('ticket'=>$ticket,'form'=>$formView));
 
 
     }

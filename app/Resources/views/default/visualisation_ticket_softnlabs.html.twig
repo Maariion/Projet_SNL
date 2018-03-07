@@ -72,9 +72,9 @@
         <div class="row">
             <div class="input-field col s3">
             </div>
-            <div class="input-field col s3">
+            <div class="input-field col s3" id="madiv">
                 <label for="appbundle_statut_definition">Statut actuel</label><br/><br/>
-                {{ form_widget(form.idstatut,{'attr':{'class':'validate'}, 'id':'statut'}) }}
+                {{ form_widget(form.idstatut)}}
             </div>
             <div class="input-field col s3">
                 <label for="appbundle_utilisateur_nom">Consultant affecté</label><br/><br/>
@@ -91,20 +91,33 @@
                 </button>
             </div>
         </div>
+
+        {% if canBeCancelled %}
         <!-- Modal Trigger -->
-        <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+
+
 
         <!-- Modal Structure -->
-        <div id="modal1" class="modal">
+        <div id="modal1" class="modal bottom-sheet">
             <div class="modal-content">
-                <h4>Modal Header</h4>
-                <p>A bunch of text</p>
+                <h4>Clôture ou annulation de ticket</h4>
+                <p>Une justification et un temps de travail sont nécessaires pour toute clôture ou annulation de ticket</p>
                 {{ form_widget(form.tpsresolution)}}
+                {{ form_widget(form.justification)}}
             </div>
-            <div class="modal-footer">
-                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+            <div class="row">
+                <div class="center-align">
+                    <button class="btn waves-effect waves-light" type="button" name="annuler" id="Cancel">Annuler
+                        <i class="material-icons left">keyboard_arrow_left</i>
+                    </button>
+                    <button class="btn waves-effect waves-light" type="submit" name="enregistrer" >Envoyer
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
             </div>
         </div>
+        {% endif %}
+
     </div>
 
     {{ form_end(form) }}
@@ -118,17 +131,36 @@
             $('.modal').modal();
             //$('#modal1').modal('open');
 
-            $("appbundle_ticket[idstatut]").change(function(){
-                // Check if current value is "audi"
-                window.alert("LOOOOL");
-                if($(this).text() === "Cloturé"){
+            //$("#madiv").on('change',function(){
+            //alert ("tito");
+            //});
+
+            $("#Cancel").click(function(){
+                $("#appbundle_ticket_idstatut").val("2");
+                // re-initialize material-select
+                $("#appbundle_ticket_idstatut").material_select();
+                //$("#appbundle_ticket_idstatut").val("2");
+                //$('#madiv ul[value=2]').attr('selected','selected');
+                $("#modal1").modal('close');
+            });
+
+            $("#appbundle_ticket_idstatut").on('change','',function(){
+                if($("#appbundle_ticket_idstatut option:selected").text() ===  "Cloturé"){
                     // Show input field
                     $("#modal1").modal('open');   //This changes display to block
-                }else{
+
+                }else if($("#appbundle_ticket_idstatut option:selected").text() ===  "Annulé"){
                     // Hide input field
-                    $("#modal1").hide();
+                    $("#modal1").modal('open');
+                }else{
+                    $("#modal1").modal('close');
                 }
             });
+
+            $("#modal1").on('change','',function(){
+                alert("plop");
+            });
+
         });
 
     </script>

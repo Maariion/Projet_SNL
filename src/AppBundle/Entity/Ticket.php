@@ -36,6 +36,22 @@ class Ticket
     private $justification;
 
     /**
+     * @return string
+     */
+    public function getJustification()
+    {
+        return $this->justification;
+    }
+
+    /**
+     * @param string $justification
+     */
+    public function setJustification($justification)
+    {
+        $this->justification = $justification;
+    }
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="TpsPriseCompte", type="datetime", nullable=true)

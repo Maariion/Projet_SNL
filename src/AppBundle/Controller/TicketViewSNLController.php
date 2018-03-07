@@ -31,6 +31,9 @@ class TicketViewSNLController extends Controller
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
 
+        //indique si le ticket visualisé pourra ou non être annulé. Est utilisé dans la gestion des formulaires
+        $canBeCancelled = false;
+
         $ticket = $em->getRepository(Ticket::class)->find($id);
 
         $ticket_status = $ticket->getidstatut()->getDefinition();
@@ -48,12 +51,14 @@ class TicketViewSNLController extends Controller
                 $form->handleRequest($request);
                 $formView = $form->createView();
 
+
             }else{
 
                 //Un ticket Nouveau n'est pas modifiable par les consultants, le formulaire devra donc être bloqué
                 $form = $this->createForm(TicketViewSNLLocked::class,$ticket);
                 $form->handleRequest($request);
                 $formView = $form->createView();
+
 
             }
 
@@ -64,6 +69,8 @@ class TicketViewSNLController extends Controller
             $form = $this->createForm(TicketViewSNLConsStatType::class,$ticket);
             $form->handleRequest($request);
             $formView = $form->createView();
+
+            $canBeCancelled = true;
 
         }else{
 
@@ -111,7 +118,8 @@ class TicketViewSNLController extends Controller
         return $this->
         render('default/visualisation_ticket_softnlabs.html.twig', array(
             'ticket'=>$ticket,
-            'form'=>$formView
+            'form'=>$formView,
+            'canBeCancelled'=>$canBeCancelled
         ));
 
     }

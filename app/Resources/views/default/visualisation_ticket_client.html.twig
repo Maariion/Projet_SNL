@@ -54,15 +54,10 @@
                 <label for="appbundle_utilisateur_nom">Statut actuel</label><br/><br/>
                 {{ form_widget(form.idstatut,{'attr':{'class':'validate'}}) }}
             </div>
-            <div class="input-field col s3">
-                <label for="appbundle_utilisateur_nom">Statut actuel</label><br/><br/>
-                {% if ticket.idutilConsultant != ""%}
-                    {{ form_widget(form.idutilConsultant,{value: "Personne"})}}
-                {% else %}
-                    <select disabled><option>Aucun consultant pout le moment</option></select>
-                {% endif %}
-
-            </div>
+                <div class="input-field col s3">
+                    <label for="appbundle_utilisateur_nom">Consultant affecté</label><br/><br/>
+                    {{ form_widget(form.idutilConsultant)}}
+                </div>
             <div class="input-field col s3">
             </div>
         </div>

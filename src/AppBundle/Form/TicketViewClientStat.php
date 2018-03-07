@@ -34,13 +34,6 @@ class TicketViewClientStat extends AbstractType
                 'multiple'=> false,
                 'disabled'=>true
             ))
-            ->add('idutilClient', EntityType::class, array(
-                'class'=>'AppBundle\Entity\Utilisateur',
-                'choice_label'=> 'getNomAndPrenom',
-                'expanded'=> false,
-                'multiple'=> false,
-                'disabled'=>true
-            ))
             ->add('idutilConsultant', EntityType::class, array(
                 'class'=>'AppBundle\Entity\Utilisateur',
                 'choice_label'=> 'getNomAndPrenom',
