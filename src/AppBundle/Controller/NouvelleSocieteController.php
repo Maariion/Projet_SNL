@@ -54,8 +54,6 @@ class NouvelleSocieteController extends Controller
 
         }
 
-
-
         return $this->render('default/creation_nouvelle_societe.html.twig', array('form'=>$formView));
     }
 }

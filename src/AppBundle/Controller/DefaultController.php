@@ -41,7 +41,7 @@ class DefaultController extends Controller
             $userMail = $form -> getData()-> getMail();
             $userPwd = $form -> getData() -> getMotpasse();
 
-            $user=$em->getRepository(Utilisateur::class)->findOneBy(array('mail'=>$userMail,'motpasse'=>$userPwd));
+            $user=$em->getRepository(Utilisateur::class)->findOneBy(array('mail'=>$userMail,'motpasse'=>sha1($userPwd)));
 
             //Rajouter un message d'erreur si la connexion n'a pas pu être effectuée
             if(is_null($user)){

@@ -42,7 +42,12 @@ class NouveauClientController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             $user->setActif(1);
+
+            //Hachage du mlot de passe du nouvel utilisateur en sha1
+            $user->setMotpasse(sha1($user->getMotpasse()));
+
             $this->addFlash("error","Impossible de rajouter un client chez SoftNLabs.");
+
             if($user->getOrganisation()->getNom()=="SoftNLabs" && $user->getRole()=="Client"){
                 return $this->render('default/creation_nouveau_client.html.twig', array('form'=>$formView));
             }
