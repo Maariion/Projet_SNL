@@ -74,6 +74,29 @@
     </div>
 
 
+    {% if isModalNecessary %}
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal bottom-sheet">
+            <div class="modal-content">
+                <h4>Clôture ou annulation de ticket</h4>
+                <p>Une justification est nécessaire pour toute annulation de ticket</p>
+                {{ form_widget(form.justification)}}
+            </div>
+            <div class="row">
+                <div class="center-align">
+                    <button class="btn waves-effect waves-light" type="button" name="annuler" id="Cancel">Annuler
+                        <i class="material-icons left">keyboard_arrow_left</i>
+                    </button>
+                    <button class="btn waves-effect waves-light" type="submit" name="enregistrer" >Envoyer
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+
+
     {{ form_end(form) }}
 {% endblock %}
 
@@ -82,7 +105,36 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('select').material_select();
+
+            {% if isModalNecessary %}
+
+            $('.modal').modal();
+
+            $("#Cancel").click(function(){
+                $("#appbundle_ticket_idstatut").val("2");
+                // re-initialize material-select
+                $("#appbundle_ticket_idstatut").material_select();
+                //$("#appbundle_ticket_idstatut").val("2");
+                //$('#madiv ul[value=2]').attr('selected','selected');
+                $("#modal1").modal('close');
+            });
+
+            $("#appbundle_ticket_idstatut").on('change','',function(){
+                if($("#appbundle_ticket_idstatut option:selected").text() ===  "Cloturé"){
+                    // Show input field
+                    $("#modal1").modal('open');   //This changes display to block
+
+                }else if($("#appbundle_ticket_idstatut option:selected").text() ===  "Annulé"){
+                    // Hide input field
+                    $("#modal1").modal('open');
+                }else{
+                    $("#modal1").modal('close');
+                }
+            });
+
+            {% endif %}
         });
+
     </script>
 {% endblock %}
 

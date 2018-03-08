@@ -28,9 +28,10 @@ class TicketViewClientController extends Controller
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
 
+        $isModalNecessary = false;
+
         $ticket = $em->getRepository(Ticket::class)->find($id);
 
-        $ticket_status = $ticket->getidstatut()->getDefinition();
 
         //Le client ne peut modifier le statut du ticket que si celui ci est à nouveau
         if($ticket->getidstatut()->getDefinition()=="Nouveau"){
@@ -43,6 +44,9 @@ class TicketViewClientController extends Controller
 
             //On génère le html du formulaire créé, il faudra ensuite injecter ce formulaire dans une vue
             $formView = $form->createView();
+
+            $isModalNecessary = true;
+
 
         }else{
 
@@ -79,7 +83,7 @@ class TicketViewClientController extends Controller
 
         }
 
-        return $this->render(':default:visualisation_ticket_client.html.twig', array('ticket'=>$ticket,'form'=>$formView));
+        return $this->render(':default:visualisation_ticket_client.html.twig', array('ticket'=>$ticket,'form'=>$formView,'isModalNecessary'=>$isModalNecessary));
 
 
     }

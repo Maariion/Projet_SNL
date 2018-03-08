@@ -70,8 +70,6 @@ class TicketViewSNLController extends Controller
             $form->handleRequest($request);
             $formView = $form->createView();
 
-            $canBeCancelled = true;
-
         }else{
 
             //Sinon le ticket n'est modifiable en rien
@@ -119,7 +117,6 @@ class TicketViewSNLController extends Controller
         render('default/visualisation_ticket_softnlabs.html.twig', array(
             'ticket'=>$ticket,
             'form'=>$formView,
-            'canBeCancelled'=>$canBeCancelled
         ));
 
     }
