@@ -31,6 +31,8 @@ class TicketViewSNLController extends Controller
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
 
+        $isModalNecessary = false;
+
         //indique si le ticket visualisé pourra ou non être annulé. Est utilisé dans la gestion des formulaires
         $canBeCancelled = false;
 
@@ -69,6 +71,8 @@ class TicketViewSNLController extends Controller
             $form = $this->createForm(TicketViewSNLConsStatType::class,$ticket);
             $form->handleRequest($request);
             $formView = $form->createView();
+
+            $isModalNecessary = true;
 
         }else{
 
@@ -117,6 +121,7 @@ class TicketViewSNLController extends Controller
         render('default/visualisation_ticket_softnlabs.html.twig', array(
             'ticket'=>$ticket,
             'form'=>$formView,
+            'isModalNecessary'=>$isModalNecessary
         ));
 
     }

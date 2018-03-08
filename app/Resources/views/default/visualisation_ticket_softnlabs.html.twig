@@ -92,11 +92,7 @@
             </div>
         </div>
 
-
-        <!-- Modal Trigger -->
-
-
-
+{% if isModalNecessary %}
         <!-- Modal Structure -->
         <div id="modal1" class="modal bottom-sheet">
             <div class="modal-content">
@@ -116,7 +112,7 @@
                 </div>
             </div>
         </div>
-
+{% endif %}
 
     </div>
 
@@ -128,6 +124,7 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('select').material_select();
+            {% if isModalNecessary %}
             $('.modal').modal();
             //$('#modal1').modal('open');
 
@@ -156,6 +153,7 @@
                     $("#modal1").modal('close');
                 }
             });
+            {% endif %}
 
         });
 
