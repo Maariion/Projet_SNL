@@ -59,7 +59,6 @@ class NouveauTicketController extends Controller
             $em->flush();
 
             //On récupère le numéro d'identifiant de l'utilisateur en cours d'utilisation
-            $user_id = $session->get('userID');
             $user = $em->getRepository(Utilisateur::class)->find($session->get('userID'));
 
             //On récupère les tickets du client qui se connecte afin de les afficher dans le tableau de tickets
