@@ -15,6 +15,7 @@ use AppBundle\Repository\UtilisateurRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 
 class SoftnlabsClientPartController extends Controller
@@ -26,7 +27,7 @@ class SoftnlabsClientPartController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $session = $request->getSession();
+        $session = new Session();
 
         //On vérifie le statut de l'utilisateur, Consultant ou administrateur, la variable prend vrai si l'utilisateur est administrateur
         if($session->get('userStatut')=="Admin"){

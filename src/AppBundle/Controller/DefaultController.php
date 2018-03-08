@@ -50,7 +50,9 @@ class DefaultController extends Controller
             }
             else
             {
-                $session = $request->getSession();
+                //$session = $request->getSession();
+                $session = new Session();
+
                 $session->set('userID', $user->getId());
                 $session->set('NomAndPrenom', $user->getNomAndPrenom());
                 $session->set('userStatut',$user->getRole());
@@ -70,7 +72,7 @@ class DefaultController extends Controller
 
                     $em = $this->getDoctrine()->getManager();
 
-                    $session = $request->getSession();
+                    $session = new Session();
 
                     //On vérifie le statut de l'utilisateur, Consultant ou administrateur, la variable prend vrai si l'utilisateur est administrateur
                     if($session->get('userStatut')=="Admin"){

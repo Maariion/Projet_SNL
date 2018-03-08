@@ -189,7 +189,7 @@ class SoftnlabsStatistiquePartController extends Controller
         //On récupère tous les tickets correspondants aux critères sélectionné ou tous les tickets si aucun critère n'est sélectionné
         $tousTicketsCorrespondant=$this->getDoctrine()->getRepository(Ticket::class)->trouverTousTicketsCorrespondant($tabCriticite,$tabStatut,$tousLesClients,$tabType,$tabAnneeFinal);
 
-        $session = $request->getSession();
+        $session = new Session();
         $session->set('tab1', $tousTicketsCorrespondant);
 
         /* Permet de montrer le format nécessaire pour que les données soient intégrés aux graphes camembert
@@ -233,7 +233,7 @@ class SoftnlabsStatistiquePartController extends Controller
             }
 
             // On met en variable de session le tableau contenant les statistiques liées à ces années
-            $session = $request->getSession();
+            $session = new Session();
             $session->set('tableauAnnnee', $tableauAnnee);
         }
 
@@ -263,7 +263,7 @@ class SoftnlabsStatistiquePartController extends Controller
             }
 
             // On met en variable de session le tableau contenant les statistiques liées aux statuts
-            $session = $request->getSession();
+            $session = new Session();
             $session->set('tableauStatut', $tableaustatut);
         }
 
@@ -292,7 +292,7 @@ class SoftnlabsStatistiquePartController extends Controller
             }
 
             // On met en variable de session le tableau contenant les statistiques liées aux criticitéx
-            $session = $request->getSession();
+            $session = new Session();
             $session->set('tableauCriticite', $tableaucriticite);
         }
 
@@ -321,7 +321,7 @@ class SoftnlabsStatistiquePartController extends Controller
             }
 
             // On met en variable de session le tableau contenant les statistiques liées aux types
-            $session = $request->getSession();
+            $session = new Session();
             $session->set('tableauType', $tableaucategorie);
         }
 

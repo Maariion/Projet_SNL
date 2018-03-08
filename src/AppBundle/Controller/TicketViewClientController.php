@@ -17,6 +17,7 @@ use AppBundle\Form\TicketViewClientStat;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class TicketViewClientController extends Controller
 {
@@ -26,7 +27,7 @@ class TicketViewClientController extends Controller
     public function indexAction(Request $request,$id)
     {
         $em = $this->getDoctrine()->getManager();
-        $session = $request->getSession();
+        $session = new Session();
 
         $isModalNecessary = false;
 
@@ -63,7 +64,7 @@ class TicketViewClientController extends Controller
 
         if($form->isSubmitted() && $form->isValid()){
 
-            $session = $request->getSession();
+            $session = new Session();
             $em = $this->getDoctrine()->getManager();
 
             $em->persist($ticket);

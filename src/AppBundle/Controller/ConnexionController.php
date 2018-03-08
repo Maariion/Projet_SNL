@@ -53,7 +53,7 @@ class ConnexionController extends Controller
                 return $this->render('default/index.html.twig', array('form'=>$formView));
             }
             {
-                $session = $request->getSession();
+                $session = new Session();
                 $session->set('userID', $user->getId());
                 $session->set('NomAndPrenom', $user->getNomAndPrenom());
                 $session->set('userStatut',$user->getRole());

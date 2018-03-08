@@ -13,6 +13,7 @@ use AppBundle\Form\UtilisateurAddType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class NouveauClientController extends Controller
 {
@@ -21,7 +22,7 @@ class NouveauClientController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $session = $request->getSession();
+        $session = new Session();
 
 
         //On crée un nouvel utilisateur

@@ -15,6 +15,7 @@ use AppBundle\Entity\Utilisateur;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class ClientController extends Controller
 {
@@ -30,7 +31,7 @@ class ClientController extends Controller
 
         $user=$em->getRepository(Utilisateur::class)->find(2);
 
-        $session = $request->getSession();
+        $session = new Session();
 
         //On récupère le numéro d'identifiant de l'utilisateur en cours d'utilisation
         $user_id = $session->get('userID');

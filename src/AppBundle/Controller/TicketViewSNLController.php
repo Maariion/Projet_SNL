@@ -19,6 +19,7 @@ use AppBundle\Form\TicketViewSNLLocked;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 
 class TicketViewSNLController extends Controller
@@ -29,7 +30,7 @@ class TicketViewSNLController extends Controller
     public function indexAction(Request $request,$id)
     {
         $em = $this->getDoctrine()->getManager();
-        $session = $request->getSession();
+        $session = new Session();
 
         $isModalNecessary = false;
 
@@ -85,7 +86,7 @@ class TicketViewSNLController extends Controller
 
         if($form->isSubmitted() && $form->isValid()){
 
-            $session = $request->getSession();
+            $session = new Session();
             $em = $this->getDoctrine()->getManager();
 
             //si le ticket est en nouveau et que l'utilisateur "Aucun user a été changé, on passe le statut à "encours"

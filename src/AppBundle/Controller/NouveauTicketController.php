@@ -15,6 +15,7 @@ use AppBundle\Form\TicketAddType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class NouveauTicketController extends Controller
 {
@@ -39,7 +40,7 @@ class NouveauTicketController extends Controller
         //Si le formulaire a été soumis
         if($form->isSubmitted() && $form->isValid()){
 
-            $session = $request->getSession();
+            $session = new Session();
             $ticket->setIdutilClient($session->get('user'));
 
 
