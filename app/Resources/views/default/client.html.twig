@@ -1,11 +1,7 @@
 {% extends 'base.html.twig' %}
-
 {% block body %}
-
 <div class="card-panel">
-
     <div class="row"  style="padding: 2%">
-
         <nav class="left-align-align" style="background-color: #039be5">
             <a class="center">
                 <ul class="waves-effect">
@@ -15,18 +11,17 @@
                 </ul>
             </a>
         </nav>
-
     </div>
 
-    <div class="row">
+    <div style="padding: 2%">
         <header style="font-size: x-large" class="centered">
             Tableau de vos tickets
         </header>
 
-        <table>
+        <table id="example" class="display dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="example_info" style="width: 100%">
             <thead>
             <tr style="font-size: larger" class="centered">
-                <th>Numéro du ticket</th>
+                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Numéro du ticket: activate to sort colum ascending" aria-sort="descending">Numéro du ticket</th>
                 <th>Titre du ticket</th>
                 <th>Statut</th>
                 <th>Consultant</th>
