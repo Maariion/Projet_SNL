@@ -14,6 +14,18 @@ use Doctrine\ORM\EntityRepository;
 class UtilisateurRepository extends EntityRepository
 {
     /**
+     * @return  array
+     */
+    public function findConsultantByWorkAmount(){
+        return $this->getEntityManager()->createQuery(
+            "SELECT u FROM (SELECT u, COUNT(*) AS NB_TICKETS FROM AppBundle:Utilisateur JOIN AppBundle:Ticket t ON t.consultant = u.id
+                  WHERE t.statut = 2 GROUP BY t.consultant ORDER BY NB_TICKETS)"
+        )
+            ->getResult();
+    }
+
+
+    /**
      * @return array
      */
     public function findAllButSoftnlabs(){
