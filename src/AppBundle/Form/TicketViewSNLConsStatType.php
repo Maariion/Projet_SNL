@@ -9,6 +9,7 @@ use AppBundle\Repository\UtilisateurRepository;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -80,7 +81,7 @@ class TicketViewSNLConsStatType extends AbstractType
                 'multiple'=> false,
                 'disabled'=>true
             ))
-            ->add('tpsresolution',TimeType::class, array('disabled'=>false))
+            ->add('tpsresolution',IntegerType::class, array('disabled'=>false))
             ->add('justification',TextType::class, array('disabled'=>false))
         ;
 

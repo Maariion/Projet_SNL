@@ -59,9 +59,9 @@ class Ticket
     private $tpsprisecompte;
 
     /**
-     * @var Time
+     * @var int
      *
-     * @ORM\Column(name="TpsResolution", type="datetime", nullable=true)
+     * @ORM\Column(name="TpsResolution", type="integer", nullable=true)
      */
     private $tpsresolution;
 

@@ -60,7 +60,10 @@ class TicketViewSNLCons extends AbstractType
                 'expanded'=> false,
                 'multiple'=> false,
                 'query_builder' => function(UtilisateurRepository $repo){
-                    return $repo->findConsultantByWorkAmount();
+                    return $repo->createQueryBuilder('u')
+                        ->select('u')
+                        ->where('u.organisation = :organisation')
+                        ->setParameter('organisation',"1");
                 }
             ))
             ->add('idsysteme',  EntityType::class, array(
