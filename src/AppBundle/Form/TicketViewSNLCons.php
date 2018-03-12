@@ -45,7 +45,7 @@ class TicketViewSNLCons extends AbstractType
                 'choice_label'=> 'getChaine',
                 'expanded'=> false,
                 'multiple'=> false,
-                'disabled'=>true
+                'disabled'=> false
             ))
             ->add('idutilClient',  EntityType::class, array(
                 'class'=>'AppBundle\Entity\Utilisateur',
