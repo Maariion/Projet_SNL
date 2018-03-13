@@ -2,18 +2,26 @@
 
 
 {% block body %}
+    <!--Implémentation de la barre de navigation permettant d'aller dans la partie Utilisateurs, Tickets, Statistiques
+    (avec une couleur différente pour cette partie car on y ait) -->
     <div class="row" style="padding: 2%">
         <nav class="center-align" style="background-color: #039be5">
             <a class="center">
                 <ul class="waves-effect">
-                    <li class="Clients" style="padding-right:100px; padding-left:100px"><a style="font-size: x-large"
-                                                                                           href="{{ path('softnlabs_client_part') }}">Utilisateurs</a>
+                    <li class="Clients" style="padding-right:100px; padding-left:100px">
+                        <a style="font-size: x-large" href="{{ path('softnlabs_client_part') }}">
+                            Utilisateurs
+                        </a>
                     </li>
-                    <li class="Tickets" style="padding-right:100px; padding-left:100px"><a style="font-size: x-large"
-                                                                                           href="{{ path('softnlabs_ticket_part') }}">Tickets</a>
+                    <li class="Tickets" style="padding-right:100px; padding-left:100px">
+                        <a style="font-size: x-large" href="{{ path('softnlabs_ticket_part') }}">
+                            Tickets
+                        </a>
                     </li>
                     <li class="Statistiques" style="padding-right:100px; padding-left:100px; background-color: #2ab7a9">
-                        <a style="font-size: x-large" href="{{ path('softnlabs_statistique_part') }}">Statistiques</a>
+                        <a style="font-size: x-large" href="{{ path('softnlabs_statistique_part') }}">
+                            Statistiques
+                        </a>
                     </li>
                 </ul>
             </a>
@@ -22,7 +30,8 @@
 
     <div class="card-panel">
         <div class="row">
-            <!-- début de l'entête permettant de sélectionner  les champs des statistiques-->
+            <!-- début de l'entête permettant de sélectionner  les champs des statistiques
+            avec à chaque fois des listes déroulantes à choix multiples-->
             {{ form_start(mon_formulaire, {'attr': {'novalidate':'novalidate'}}) }}
             <div class="col s12">
                 <div class="input-field col s2 m4 l1"></div>
@@ -62,13 +71,18 @@
                 </div>
             </div>
         </div>
+        <!--Bouton permettant de lancer les statistiques (ça prend en compte les listes déroulantes)-->
         <div class="row">
             <div class="col s12 ; center-align">
-                <button class="waves-effect waves-light btn" type="submit"><i class="material-icons right">check</i>Lancer les statistiques</button>
+                <button class="waves-effect waves-light btn" type="submit"><i class="material-icons right">check</i>Lancer
+                    les statistiques
+                </button>
             </div>
         </div>
         {{ form_end(mon_formulaire) }}
 
+        <!--Affichage des diagrammes circulaires liés aux listes ci-dessus
+         Elles sont dirigées par la partie JS-->
         <div class="row">
             <div class="input-field col s2 m4 l1"></div>
             <div id="container1" class="col s2"></div>
@@ -79,12 +93,16 @@
         </div>
 
     </div>
-    <!--Partie contenant les tickets-->
+    <!--Partie contenant les tickets liés aux statistiques-->
     <div class="card-panel">
-        <table id="example" class="display dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="example_info" style="width: 100%">
+        <table id="example" class="display dataTable" cellspacing="0" width="100%" role="grid"
+               aria-describedby="example_info" style="width: 100%">
             <thead>
             <tr role="row">
-                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Nom du ticket: activate to sort colum ascending" style="width: 76px" aria-sort="descending">Société</th>
+                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
+                    aria-label="Nom du ticket: activate to sort colum ascending" style="width: 76px"
+                    aria-sort="descending">Société
+                </th>
                 <th>Client</th>
                 <th>Titre</th>
                 <th>Description</th>
@@ -96,15 +114,15 @@
             </thead>
             {% for ticket in tickets %}
                 <tr>
-                    <td>{{ ticket.idutilClient.organisation.nom}}</td>
+                    <td>{{ ticket.idutilClient.organisation.nom }}</td>
                     <td>{{ ticket.idutilClient.nomAndPrenom }}</td>
                     <td>{{ ticket.titre }}</td>
                     <td>{{ ticket.description }}</td>
-                    <td>{{ ticket.idstatut.definition}}</td>
-                    <td>{{ ticket.tpsprisecompte | date("d/m/Y")  }}</td>
-                    <td>{{ ticket.idutilConsultant.nomandprenom| default("Aucun consultant défini pour le moment")}}</td>
+                    <td>{{ ticket.idstatut.definition }}</td>
+                    <td>{{ ticket.tpsprisecompte | date("d/m/Y") }}</td>
+                    <td>{{ ticket.idutilConsultant.nomandprenom| default("Aucun consultant défini pour le moment") }}</td>
                     <td>
-
+                        <!--Permet de visualiser les tickets -->
                         <a href="{{ path('ticketConsultSNL', {'id': ticket.id }) }}">Visualiser ticket</a>
                     </td>
                 </tr>
@@ -121,7 +139,7 @@
                 $(".dropdown-button").dropdown();
             });
 
-
+            //Permet de faire les graphes à partir de ce qui est renvoyé par le controleur en variable de session
             Highcharts.chart('container1', {
                 chart: {
                     plotBackgroundColor: null,
@@ -151,10 +169,12 @@
                 series: [{
                     name: 'Pourcentage',
                     colorByPoint: true,
-                    data: {{(app.session.get('tableauOrganisation')|json_encode|raw)}}
+                    //Transforme les variables de sessions en tableau JSON
+                    data: {{ (app.session.get('tableauOrganisation')|json_encode|raw) }}
                 }]
             });
 
+            //Permet de faire les graphes à partir de ce qui est renvoyé par le controleur en variable de session
             Highcharts.chart('container2', {
                 chart: {
                     plotBackgroundColor: null,
@@ -184,10 +204,12 @@
                 series: [{
                     name: 'Pourcentage',
                     colorByPoint: true,
-                    data: {{(app.session.get('tableauAnnnee')|json_encode|raw)}}
+                    //Transforme les variables de sessions en tableau JSON
+                    data: {{ (app.session.get('tableauAnnnee')|json_encode|raw) }}
                 }]
             });
 
+            //Permet de faire les graphes à partir de ce qui est renvoyé par le controleur en variable de session
             Highcharts.chart('container3', {
                 chart: {
                     plotBackgroundColor: null,
@@ -217,10 +239,12 @@
                 series: [{
                     name: 'Pourcentage',
                     colorByPoint: true,
-                    data: {{(app.session.get('tableauStatut')|json_encode|raw)}}
+                    //Transforme les variables de sessions en tableau JSON
+                    data: {{ (app.session.get('tableauStatut')|json_encode|raw) }}
                 }]
             });
 
+            //Permet de faire les graphes à partir de ce qui est renvoyé par le controleur en variable de session
             Highcharts.chart('container4', {
                 chart: {
                     plotBackgroundColor: null,
@@ -250,10 +274,12 @@
                 series: [{
                     name: 'Pourcentage',
                     colorByPoint: true,
-                    data: {{(app.session.get('tableauCriticite')|json_encode|raw)}}
+                    //Transforme les variables de sessions en tableau JSON
+                    data: {{ (app.session.get('tableauCriticite')|json_encode|raw) }}
                 }]
             });
 
+            //Permet de faire les graphes à partir de ce qui est renvoyé par le controleur en variable de session
             Highcharts.chart('container5', {
                 chart: {
                     plotBackgroundColor: null,
@@ -283,7 +309,8 @@
                 series: [{
                     name: 'Pourcentage',
                     colorByPoint: true,
-                    data: {{(app.session.get('tableauType')|json_encode|raw)}}
+                    //Transforme les variables de sessions en tableau JSON
+                    data: {{ (app.session.get('tableauType')|json_encode|raw) }}
                 }]
             });
         </script>
