@@ -8,6 +8,8 @@
 
 namespace AppBundle\Controller;
 
+//Controller de la page de création de nouvel utilisateur
+
 use AppBundle\Entity\Utilisateur;
 use AppBundle\Form\UtilisateurAddType;
 use Symfony\Component\Routing\Annotation\Route;

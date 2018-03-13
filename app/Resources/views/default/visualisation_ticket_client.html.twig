@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 
+    {#formulaire de visualisation du ticket#}
     <div class="card-panel">
         <h2>
             Ticket
@@ -73,7 +74,7 @@
 
     </div>
 
-
+    {#modal permettant d'afficher le champ de justification d'annulation si le statut est changé de Nouveau à Annulé#}
     {% if isModalNecessary %}
         <!-- Modal Structure -->
         <div id="modal1" class="modal bottom-sheet">
@@ -108,15 +109,13 @@
             $('select').material_select();
 
             {% if isModalNecessary %}
-
+            {# On initialise le modal #}
             $('.modal').modal();
 
+            {# Si le bouton annuler du modal est cliqué on remet le statut  #}
             $("#Cancel").click(function(){
-                $("#appbundle_ticket_idstatut").val("2");
-                // re-initialize material-select
+                $("#appbundle_ticket_idstatut").val("1");
                 $("#appbundle_ticket_idstatut").material_select();
-                //$("#appbundle_ticket_idstatut").val("2");
-                //$('#madiv ul[value=2]').attr('selected','selected');
                 $("#modal1").modal('close');
             });
 

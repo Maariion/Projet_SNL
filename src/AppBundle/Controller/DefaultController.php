@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+//Controller de la page de connexion
+
 use AppBundle\Entity\Utilisateur;
 use AppBundle\Form\UtilisateurAddType;
 use AppBundle\Form\UtilisateurType;

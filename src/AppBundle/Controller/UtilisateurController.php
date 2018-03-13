@@ -8,6 +8,7 @@
 
 namespace AppBundle\Controller;
 
+//Controller de la page d'ajout d'un utilisateur
 
 use AppBundle\Entity\Utilisateur;
 use AppBundle\Form\UtilisateurType;

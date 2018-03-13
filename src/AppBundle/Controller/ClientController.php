@@ -8,6 +8,7 @@
 
 namespace AppBundle\Controller;
 
+//Controller de l'écran post-connexion côté client
 
 use AppBundle\AppBundle;
 use AppBundle\Entity\Ticket;

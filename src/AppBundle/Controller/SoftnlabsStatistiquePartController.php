@@ -8,6 +8,8 @@
 
 namespace AppBundle\Controller;
 
+//Controller de la partie de statistiques côté SNL
+
 use AppBundle\Entity\Categorie;
 use AppBundle\Entity\Organisation;
 use AppBundle\Entity\Statut;

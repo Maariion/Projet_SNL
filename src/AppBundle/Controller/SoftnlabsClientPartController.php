@@ -25,17 +25,20 @@ class SoftnlabsClientPartController extends Controller
      */
     public function indexAction(Request $request)
     {
+        //Récupération de l'entity manager et de la session
         $em = $this->getDoctrine()->getManager();
-
         $session = new Session();
 
-        //On vérifie le statut de l'utilisateur, Consultant ou administrateur, la variable prend vrai si l'utilisateur est administrateur
+        //On vérifie le statut de l'utilisateur, Consultant ou administrateur, la variable prend vrai
+        // si l'utilisateur est administrateur. Le booléen est enquite utilisé dans le .twig pour savoir si
+        //
         if($session->get('userStatut')=="Admin"){
             $isAdmin = true;
         }else{
             $isAdmin = false;
         }
 
+        //Récupération de tous les clients
         $clients= $this->getDoctrine()->getRepository(Utilisateur::class)->findAll();
 
         // replace this example code with whatever you need

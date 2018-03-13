@@ -23,10 +23,10 @@ class NouvelleSocieteController extends Controller
     public function indexAction(Request $request)
     {
 
-        //On crée un nouvel utilisateur
+        //Création de la variable qui stockera l'organisation
         $societe = new Organisation();
 
-        //On récupère le formulaire créé précédemment
+        //Création du formulaire
         $form = $this->createForm(OrganisationAddType::class,$societe);
 
         //Prise en charge de l'élément request, envoyé par le formulaire lors de sa soumission
@@ -38,18 +38,23 @@ class NouvelleSocieteController extends Controller
         //Si le formulaire a été soumis
         if($form->isSubmitted() && $form->isValid()){
 
+            //Récupération de l'entity manager
             $em = $this->getDoctrine()->getManager();
 
+            //CRéation de l'élément société récupérant les données du formulaire
             $societe = new Organisation();
             $societe->setNom($form->getData()->getNom());
             $societe->setDescription($form->getData()->getDescription());
             $societe->setActif(1);
 
+            //Mise à jour de la BDD
             $em->persist($societe);
-
             $em->flush();
 
+            //récupération des utilisateurs à afficher dans la page de redirection
             $clients= $this->getDoctrine()->getRepository(Utilisateur::class)->findAllButNoConsultant();
+
+            //on retourne la page des utilisateurs
             return $this->render('default/softnlabs_client_part.html.twig',array('clients'=>$clients));
 
         }

@@ -8,6 +8,7 @@
 
 namespace AppBundle\Controller;
 
+//Controller de la partie de modification des sociétés (pas encore utilisé)
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;

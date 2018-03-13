@@ -25,10 +25,10 @@ class NouveauTicketController extends Controller
     public function indexAction(Request $request)
     {
 
-        //On crée un nouvel utilisateur
+        //On crée un nouveau ticket
         $ticket = new Ticket();
 
-        //On récupère le formulaire créé précédemment
+        //On récupère le formulaire de création de ticket
         $form = $this->createForm(TicketAddType::class,$ticket);
 
         //Prise en charge de l'élément request, envoyé par le formulaire lors de sa soumission
@@ -40,14 +40,19 @@ class NouveauTicketController extends Controller
         //Si le formulaire a été soumis
         if($form->isSubmitted() && $form->isValid()){
 
+            //On récupère la session et l'entity manager
             $session = new Session();
-            $ticket->setIdutilClient($session->get('user'));
-
-
             $em = $this->getDoctrine()->getManager();
 
+            //On instaure le client comme propriétaire du client
+            $ticket->setIdutilClient($session->get('user'));
+
+            //On affect le statut Nouveau au ticket
             $statut = $em->getRepository(Statut::class)->find(1);
+
+
             $user = $em->getRepository(Utilisateur::class)->find($session->get('userID'));
+
             $ticket->setIdstatut($statut);
             $ticket->setIdutilClient($user);
 
@@ -55,6 +60,8 @@ class NouveauTicketController extends Controller
             $user = $em->getRepository(Utilisateur::class)->find(-1);
             $ticket->setIdutilConsultant($user);
 
+
+            //On met à jour la BDD
             $em->persist($ticket);
 
             $em->flush();

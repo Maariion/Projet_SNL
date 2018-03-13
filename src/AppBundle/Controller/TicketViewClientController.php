@@ -8,6 +8,8 @@
 
 namespace AppBundle\Controller;
 
+//Controller
+
 use AppBundle\Entity\Statut;
 use AppBundle\Entity\Ticket;
 use AppBundle\Entity\Utilisateur;
@@ -26,11 +28,15 @@ class TicketViewClientController extends Controller
      */
     public function indexAction(Request $request,$id)
     {
+        //On récupère l'entity manager et la session
         $em = $this->getDoctrine()->getManager();
         $session = new Session();
 
+        //création et initialisation du booléen isModalNeccesary - il définit dans le twig si on aura besoin
+        //du Modal permettant d'ajouter Une justification et/ou le nombre de demi journées effectuées sur le ticket
         $isModalNecessary = false;
 
+        //Récupération deu ticket à afficher grâce à son identifiant
         $ticket = $em->getRepository(Ticket::class)->find($id);
 
 
@@ -64,9 +70,11 @@ class TicketViewClientController extends Controller
 
         if($form->isSubmitted() && $form->isValid()){
 
+            //Récupération de la session et de l'entity manager
             $session = new Session();
             $em = $this->getDoctrine()->getManager();
 
+            //On met à jour la BDD
             $em->persist($ticket);
 
             $em->flush();
@@ -84,8 +92,7 @@ class TicketViewClientController extends Controller
 
         }
 
+        //On renvoie la visualisation du ticket par le client
         return $this->render(':default:visualisation_ticket_client.html.twig', array('ticket'=>$ticket,'form'=>$formView,'isModalNecessary'=>$isModalNecessary));
-
-
     }
 }

@@ -18,6 +18,7 @@ class SoftnlabsTicketPartController extends Controller
      */
     public function indexAction(Request $request)
     {
+        //Récupération des tickets
         $tickets = $this->getDoctrine()
             ->getRepository('AppBundle:Ticket')
             ->findAll();
